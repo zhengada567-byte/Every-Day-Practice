@@ -27,7 +27,7 @@
     getScoreSummary,
   } = WPStorage;
   const { emojiFor, shuffle } = WPGame;
-  const { MIN_WORDS, validateSentence } = WPSentence;
+  const { MIN_WORDS, validateSentence, checkerStatusMessage } = WPSentence;
 
   const screen = document.getElementById("screen");
   const playerLabel = document.getElementById("playerLabel");
@@ -1530,7 +1530,7 @@
               result.issuesDetail && result.issuesDetail.length
                 ? result.issuesDetail
                 : result.issues,
-              result.fallback || null
+              checkerStatusMessage(result)
             );
             return;
           }
@@ -1549,10 +1549,8 @@
             pointsFeedback(award) +
             " Great sentence! (" +
             result.wordCount +
-            " words)";
-          if (result.offline) {
-            okMsg += " · Grammar checked with basic rules (offline).";
-          }
+            " words) · " +
+            checkerStatusMessage(result);
           fb.textContent = okMsg;
 
           setTimeout(function () {

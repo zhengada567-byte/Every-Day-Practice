@@ -1581,10 +1581,18 @@
     });
   }
 
+  function checkerStatusMessage(result) {
+    if (result.fallback) return result.fallback;
+    if (result.ai) return "Checked with Kimi AI.";
+    if (result.offline) return "Grammar checked with basic rules only (offline).";
+    return "Checked with grammar checker.";
+  }
+
   global.WPSentence = {
     MIN_WORDS: MIN_WORDS,
     countWords: countWords,
     containsTargetWord: containsTargetWord,
     validateSentence: validateSentence,
+    checkerStatusMessage: checkerStatusMessage,
   };
 })(window);

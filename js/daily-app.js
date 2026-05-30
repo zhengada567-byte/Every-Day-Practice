@@ -3,7 +3,7 @@
 
   const API = window.EWPApi;
   const { shuffle } = window.WPGame;
-  const { MIN_WORDS, validateSentence } = window.WPSentence;
+  const { MIN_WORDS, validateSentence, checkerStatusMessage } = window.WPSentence;
 
   const screen = document.getElementById("screen");
   const playerLabel = document.getElementById("playerLabel");
@@ -300,7 +300,7 @@
       checkBtn.textContent = "Checking…";
     }
     fb.className = "feedback";
-    fb.textContent = "Checking grammar…";
+    fb.textContent = API.getToken() ? "Checking with Kimi AI…" : "Checking grammar…";
 
     validateSentence(text, targetWord)
       .then(function (result) {
@@ -314,17 +314,13 @@
             result.issuesDetail && result.issuesDetail.length
               ? result.issuesDetail
               : result.issues || ["Check your sentence."],
-            result.fallback || null
+            checkerStatusMessage(result)
           );
           return;
         }
         fb.className = "feedback ok";
         let okMsg = "Great sentence! (" + result.wordCount + " words)";
-        if (result.offline) {
-          okMsg += " · Grammar checked with basic rules only (offline).";
-        } else if (result.ai) {
-          okMsg += " · Checked with Kimi AI.";
-        }
+        okMsg += " · " + checkerStatusMessage(result);
         fb.textContent = okMsg;
         if (onSuccess) onSuccess(result);
       })
