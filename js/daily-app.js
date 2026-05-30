@@ -436,16 +436,56 @@
     if (onPlan) onPlan(res.plan, "");
   }
 
-  function renderPetScene(background, outfitEmoji, sceneLabel) {
+  function petWearClass(slot, itemKey) {
+    let cls = "pet-wear pet-wear--" + slot;
+    if (itemKey) cls += " pet-wear--" + itemKey.replace(/_/g, "-");
+    return cls;
+  }
+
+  function renderPetWearContent(itemKey, slotEmoji) {
+    if (itemKey && itemKey.indexOf("skirt_") === 0) {
+      return '<span class="pet-skirt-shape" aria-hidden="true"></span>';
+    }
+    return slotEmoji || "";
+  }
+
+  function shopOutfitIconHtml(item) {
+    const cls = "shop-emoji shop-emoji--" + item.key.replace(/_/g, "-");
+    if (item.key.indexOf("skirt_") === 0) {
+      const skirtCls = item.key.replace("skirt_", "");
+      return '<span class="shop-skirt-preview shop-skirt-preview--' + skirtCls + '"></span>';
+    }
+    return '<span class="' + cls + '">' + item.emoji + "</span>";
+  }
+
+  function renderPetAvatar(outfitEmojis, outfits) {
+    const em = outfitEmojis || {};
+    const keys = outfits || {};
+    function wear(slot) {
+      const key = keys[slot];
+      if (!key) return "";
+      return (
+        '<span class="' +
+        petWearClass(slot, key) +
+        '" aria-hidden="true">' +
+        renderPetWearContent(key, em[slot]) +
+        "</span>"
+      );
+    }
+    return (
+      '<div class="pet-avatar" aria-hidden="true">' +
+      wear("body") +
+      '<span class="pet-sprite">🐥</span>' +
+      wear("head") +
+      "</div>"
+    );
+  }
+
+  function renderPetScene(background, outfitEmojis, outfits) {
     const bg = background || "grass";
-    const labelHtml =
-      '<div class="pet-scene-label" aria-hidden="false"><span>' +
-      escapeHtml(sceneLabel || bi("草地", "Grassland")) +
-      "</span></div>";
     const room =
       '<div class="pet-room">' +
-      (outfitEmoji ? '<span class="pet-outfit">' + outfitEmoji + "</span>" : "") +
-      '<span class="pet-sprite" aria-hidden="true">🐥</span>' +
+      renderPetAvatar(outfitEmojis, outfits) +
       '<p class="pet-name">' +
       bi("小精灵", "Little buddy") +
       "</p></div>";
@@ -547,7 +587,6 @@
       '<div class="pet-scene pet-scene--' +
       escapeHtml(bg) +
       '" aria-hidden="false">' +
-      labelHtml +
       (layers[bg] || layers.grass) +
       room +
       "</div>"
@@ -590,33 +629,28 @@
                 "1 toy (3 coins) keeps your pet happy for 24 hours"
               );
 
-        const outfit = state.outfit || "";
-        const outfitEmoji =
-          outfit === "cap"
-            ? "🧢"
-            : outfit === "scarf"
-              ? "🧣"
-              : outfit === "bow"
-                ? "🎀"
-                : "";
+        const outfitEmojis = state.outfitEmojis || {};
 
         const shopItems = (state.shop || [])
           .map(function (item) {
             if (item.kind === "outfit") {
+              const name =
+                escapeHtml(item.label) + (item.labelEn ? " · " + escapeHtml(item.labelEn) : "");
+              const priceHtml = item.equipped
+                ? '<span class="shop-price shop-price--active">' + bi("脱下", "Remove") + "</span>"
+                : '<span class="shop-price">🪙 ' + item.cost + "</span>";
               return (
-                '<button type="button" class="shop-item" data-buy="' +
+                '<button type="button" class="shop-item shop-item--outfit' +
+                (item.equipped ? " shop-item--equipped" : "") +
+                '" data-buy="' +
                 escapeHtml(item.key) +
                 '">' +
-                '<span class="shop-emoji">' +
-                item.emoji +
+                shopOutfitIconHtml(item) +
+                '<span class="shop-item-name">' +
+                name +
                 "</span>" +
-                "<span>" +
-                escapeHtml(item.label) +
-                (item.labelEn ? " · " + escapeHtml(item.labelEn) : "") +
-                "</span>" +
-                '<span class="shop-price">🪙 ' +
-                item.cost +
-                "</span></button>"
+                priceHtml +
+                "</button>"
               );
             }
             return "";
@@ -631,7 +665,7 @@
               priceHtml =
                 '<span class="shop-price shop-price--active">' + bi("使用中", "In use") + "</span>";
             } else if (bg.owned) {
-              priceHtml = '<span class="shop-price">' + bi("切换", "Switch") + "</span>";
+              priceHtml = "";
             } else {
               priceHtml = '<span class="shop-price">🪙 ' + bg.cost + "</span>";
             }
@@ -644,7 +678,7 @@
               '<span class="shop-emoji">' +
               bg.emoji +
               "</span>" +
-              "<span>" +
+              '<span class="shop-item-name">' +
               label +
               "</span>" +
               priceHtml +
@@ -660,15 +694,7 @@
             bi("用练习赚来的金币照顾你的小伙伴！", "Use coins from practice to care for your pet!") +
             "</p>" +
             '<div class="pet-house">' +
-            (function () {
-              const activeBg = (state.backgrounds || []).find(function (b) {
-                return b.active;
-              });
-              const sceneLabel = activeBg
-                ? bi(activeBg.label, activeBg.labelEn || activeBg.label)
-                : bi("草地", "Grassland");
-              return renderPetScene(state.background || "grass", outfitEmoji, sceneLabel);
-            })() +
+            renderPetScene(state.background || "grass", outfitEmojis, state.outfits) +
             '<div class="pet-status-grid">' +
             '<div class="pet-status-card">' +
             "<h3>" + bi("肚子", "Tummy") + "</h3>" +
@@ -708,7 +734,10 @@
             "</button>" +
             "</div>" +
             '<p class="shop-note">' +
-            bi("衣服会穿在小精灵身上：", "Outfits appear on your pet:") +
+            bi(
+              "点一下穿上（花金币），再点同一件会脱下。下半身：半身裙或短裤，每种两款：",
+              "Tap to wear (costs coins); tap again to remove. Lower body: two skirts or two shorts:"
+            ) +
             "</p>" +
             '<div class="shop-grid">' +
             shopItems +

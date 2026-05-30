@@ -2019,11 +2019,27 @@ p.lead strong {
   border: none;
 }
 
-.pet-sprite {
-  font-size: 4.5rem;
+.pet-avatar {
+  --pet-size: 4.5rem;
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  font-size: var(--pet-size);
   line-height: 1;
+  margin-bottom: 0.2rem;
   animation: pet-bounce 2s ease-in-out infinite;
+}
+
+.pet-sprite {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1em;
+  line-height: 1;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+  z-index: 2;
 }
 
 @keyframes pet-bounce {
@@ -2036,12 +2052,135 @@ p.lead strong {
   }
 }
 
-.pet-outfit {
+.pet-wear {
   position: absolute;
-  top: 38%;
-  right: calc(50% - 3.2rem);
-  font-size: 2rem;
-  z-index: 4;
+  left: 50%;
+  line-height: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+  font-size: calc(var(--pet-size) * var(--wear-scale, 0.35));
+  transform: translate(-50%, var(--wear-y, 0));
+}
+
+.pet-wear--head {
+  top: 6%;
+  --wear-scale: 0.34;
+  --wear-y: -92%;
+  z-index: 5;
+}
+
+.pet-wear--head.pet-wear--hat-a,
+.pet-wear--head.pet-wear--hat-b {
+  top: 4%;
+  --wear-scale: 0.36;
+  --wear-y: -100%;
+}
+
+.pet-wear--head.pet-wear--hat-b {
+  --wear-scale: 0.32;
+}
+
+.pet-wear--head.pet-wear--bow-a,
+.pet-wear--head.pet-wear--bow-b {
+  top: 14%;
+  --wear-scale: 0.22;
+  --wear-y: -20%;
+  z-index: 6;
+}
+
+.pet-wear--head.pet-wear--bow-a {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)) hue-rotate(-18deg) saturate(1.45);
+}
+
+.pet-wear--head.pet-wear--bow-b {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2))
+    brightness(0) saturate(100%) invert(86%) sepia(72%) saturate(800%) hue-rotate(359deg)
+    brightness(108%) contrast(102%);
+}
+
+.pet-wear--body {
+  top: 68%;
+  --wear-scale: 0.48;
+  --wear-y: -8%;
+  z-index: 3;
+}
+
+.pet-wear--body.pet-wear--skirt-a,
+.pet-wear--body.pet-wear--skirt-b {
+  top: 71%;
+  --wear-scale: 1;
+  --wear-y: 0;
+  width: auto;
+  height: auto;
+  font-size: calc(var(--pet-size) * 0.52);
+  transform: translate(-50%, 0);
+  filter: none;
+}
+
+.pet-skirt-shape {
+  display: block;
+  width: 1.35em;
+  height: 0.48em;
+  border-radius: 12% 12% 58% 58%;
+  box-shadow:
+    inset 0 -3px 0 rgba(0, 0, 0, 0.06),
+    0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.pet-wear--skirt-a .pet-skirt-shape {
+  background: linear-gradient(180deg, #f8bbd9 0%, #f06292 50%, #e91e63 100%);
+}
+
+.pet-wear--skirt-b .pet-skirt-shape {
+  background: linear-gradient(180deg, #bbdefb 0%, #42a5f5 50%, #1e88e5 100%);
+}
+
+.pet-wear--body.pet-wear--shorts-a,
+.pet-wear--body.pet-wear--shorts-b {
+  top: 70%;
+  --wear-scale: 0.44;
+  --wear-y: -5%;
+}
+
+.pet-wear--body.pet-wear--shorts-a {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)) hue-rotate(200deg) saturate(1.4) brightness(1.05);
+}
+
+.pet-wear--body.pet-wear--shorts-b {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)) hue-rotate(38deg) saturate(1.25) brightness(1.05);
+}
+
+.shop-emoji--bow-a {
+  filter: hue-rotate(-18deg) saturate(1.45);
+}
+
+.shop-emoji--bow-b {
+  filter: brightness(0) saturate(100%) invert(86%) sepia(72%) saturate(800%) hue-rotate(359deg)
+    brightness(108%) contrast(102%);
+}
+
+.shop-emoji--shorts-a {
+  filter: hue-rotate(200deg) saturate(1.4) brightness(1.05);
+}
+
+.shop-emoji--shorts-b {
+  filter: hue-rotate(38deg) saturate(1.25) brightness(1.05);
+}
+
+.shop-skirt-preview {
+  display: block;
+  width: 2.35rem;
+  height: 1.05rem;
+  border-radius: 12% 12% 58% 58%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shop-skirt-preview--a {
+  background: linear-gradient(180deg, #f8bbd9 0%, #f06292 50%, #e91e63 100%);
+}
+
+.shop-skirt-preview--b {
+  background: linear-gradient(180deg, #bbdefb 0%, #42a5f5 50%, #1e88e5 100%);
 }
 
 .pet-name {
@@ -2160,6 +2299,28 @@ p.lead strong {
 
 .shop-emoji {
   font-size: 1.75rem;
+  line-height: 1;
+}
+
+.shop-item-name {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  color: #4a3f6b;
+  max-width: 100%;
+}
+
+.shop-item--bg .shop-item-name,
+.shop-item--outfit .shop-item-name {
+  min-height: 2.4em;
+}
+
+.shop-item--outfit.shop-item--equipped,
+.shop-item--bg.shop-item--active {
+  border-color: var(--green);
+  background: #f0fff4;
 }
 
 .shop-price {
@@ -2176,50 +2337,7 @@ p.lead strong {
   grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
 }
 
-.shop-item--bg.shop-item--active {
-  border-color: var(--green);
-  background: #f0fff4;
-}
-
 /* —— Pet backgrounds —— */
-.pet-scene-label {
-  position: absolute;
-  top: 0.45rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 6;
-  pointer-events: none;
-}
-
-.pet-scene-label span {
-  display: inline-block;
-  padding: 0.2rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: #2d5016;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-}
-
-.pet-scene--stars .pet-scene-label span,
-.pet-scene--forest .pet-scene-label span {
-  color: #fff;
-  background: rgba(20, 40, 60, 0.55);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-.pet-scene--ocean .pet-scene-label span {
-  color: #01579b;
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.pet-scene--snow .pet-scene-label span {
-  color: #37474f;
-}
-
 .pet-scene--stars {
   border-color: #5c6bc0;
 }
@@ -3040,10 +3158,6 @@ p.lead strong {
 
 .pet-ground--school {
   background: linear-gradient(180deg, #d7ccc8 0%, #bcaaa4 35%, #a1887f 100%);
-}
-
-.pet-scene--school .pet-scene-label span {
-  color: #0d47a1;
 }
 
 .pet-scene--school .pet-name {

@@ -25,31 +25,157 @@ export const SHOP_ITEMS = {
     cost: 3,
     kind: "consumable",
   },
-  cap: {
-    key: "cap",
-    label: "小帽子",
-    labelEn: "Cap",
+  hat_a: {
+    key: "hat_a",
+    label: "棒球帽",
+    labelEn: "Baseball cap",
     emoji: "🧢",
     cost: 5,
     kind: "outfit",
+    slot: "head",
   },
-  scarf: {
-    key: "scarf",
-    label: "围巾",
-    labelEn: "Scarf",
-    emoji: "🧣",
+  hat_b: {
+    key: "hat_b",
+    label: "礼帽",
+    labelEn: "Top hat",
+    emoji: "🎩",
     cost: 5,
     kind: "outfit",
+    slot: "head",
   },
-  bow: {
-    key: "bow",
-    label: "蝴蝶结",
-    labelEn: "Bow",
+  bow_a: {
+    key: "bow_a",
+    label: "粉蝴蝶结",
+    labelEn: "Pink bow",
     emoji: "🎀",
     cost: 5,
     kind: "outfit",
+    slot: "head",
+  },
+  bow_b: {
+    key: "bow_b",
+    label: "黄蝴蝶结",
+    labelEn: "Yellow bow",
+    emoji: "🎀",
+    cost: 5,
+    kind: "outfit",
+    slot: "head",
+  },
+  skirt_a: {
+    key: "skirt_a",
+    label: "粉色半身裙",
+    labelEn: "Pink skirt",
+    emoji: "🩷",
+    cost: 5,
+    kind: "outfit",
+    slot: "body",
+  },
+  skirt_b: {
+    key: "skirt_b",
+    label: "蓝色半身裙",
+    labelEn: "Blue skirt",
+    emoji: "💙",
+    cost: 5,
+    kind: "outfit",
+    slot: "body",
+  },
+  shorts_a: {
+    key: "shorts_a",
+    label: "运动短裤",
+    labelEn: "Sport shorts",
+    emoji: "🩳",
+    cost: 5,
+    kind: "outfit",
+    slot: "body",
+  },
+  shorts_b: {
+    key: "shorts_b",
+    label: "卡其短裤",
+    labelEn: "Khaki shorts",
+    emoji: "🩳",
+    cost: 5,
+    kind: "outfit",
+    slot: "body",
   },
 };
+
+export const OUTFIT_SLOTS = ["head", "body"];
+
+const LEGACY_OUTFIT_MAP = {
+  cap: { head: "hat_a" },
+  scarf: {},
+  bow: { head: "bow_a" },
+  dress_a: { body: "skirt_a" },
+  dress_b: { body: "skirt_b" },
+};
+
+const LEGACY_OUTFIT_KEY = {
+  dress_a: "skirt_a",
+  dress_b: "skirt_b",
+};
+
+function resolveOutfitKey(key) {
+  if (!key) return null;
+  const mapped = LEGACY_OUTFIT_KEY[key] || key;
+  if (SHOP_ITEMS[mapped] && SHOP_ITEMS[mapped].kind === "outfit") return mapped;
+  return null;
+}
+
+export function normalizeOutfits(raw) {
+  const slots = { head: null, body: null };
+  if (!raw) return slots;
+
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!trimmed) return slots;
+    if (trimmed.startsWith("{")) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (parsed && typeof parsed === "object") {
+          for (const slot of OUTFIT_SLOTS) {
+            const resolved = resolveOutfitKey(parsed[slot]);
+            if (resolved) slots[slot] = resolved;
+          }
+        }
+        return slots;
+      } catch {
+        return slots;
+      }
+    }
+    const legacy = LEGACY_OUTFIT_MAP[trimmed];
+    if (legacy) {
+      for (const [slot, key] of Object.entries(legacy)) {
+        slots[slot] = key;
+      }
+    }
+    return slots;
+  }
+
+  if (typeof raw === "object") {
+    for (const slot of OUTFIT_SLOTS) {
+      const resolved = resolveOutfitKey(raw[slot]);
+      if (resolved) slots[slot] = resolved;
+    }
+  }
+  return slots;
+}
+
+function serializeOutfits(slots) {
+  const out = {};
+  for (const slot of OUTFIT_SLOTS) {
+    if (slots[slot]) out[slot] = slots[slot];
+  }
+  return Object.keys(out).length ? JSON.stringify(out) : null;
+}
+
+function outfitEmojisForSlots(slots) {
+  const emojis = {};
+  for (const slot of OUTFIT_SLOTS) {
+    const key = slots[slot];
+    if (key && SHOP_ITEMS[key]) emojis[slot] = SHOP_ITEMS[key].emoji;
+  }
+  return emojis;
+}
 
 /** Scene backgrounds (grass is free default). */
 export const PET_BACKGROUNDS = {
@@ -274,6 +400,8 @@ export function mapPetPayload(coins, pet) {
     happyRemainingMs = Math.max(0, new Date(pet.happy_until).getTime() - now.getTime());
   }
 
+  const outfits = normalizeOutfits(pet.outfit);
+
   return {
     coins,
     hunger,
@@ -281,11 +409,19 @@ export function mapPetPayload(coins, pet) {
     foodProgress: pet.food_progress,
     foodNeeded: 10,
     outfit: pet.outfit,
+    outfits,
+    outfitEmojis: outfitEmojisForSlots(outfits),
     background: pet.background,
     ownedBackgrounds: pet.owned_backgrounds,
     fullRemainingMs,
     happyRemainingMs,
-    shop: Object.values(SHOP_ITEMS),
+    shop: Object.values(SHOP_ITEMS).map(function (item) {
+      if (item.kind !== "outfit") return item;
+      return {
+        ...item,
+        equipped: outfits[item.slot] === item.key,
+      };
+    }),
     backgrounds: Object.values(PET_BACKGROUNDS).map(function (bg) {
       return {
         key: bg.key,
@@ -445,10 +581,25 @@ export async function buyOutfit(childId, itemKey, query) {
     err.status = 400;
     throw err;
   }
+  await applyPetDecay(childId, query);
+  const { pet } = await loadPetRow(childId, query);
+  const slots = normalizeOutfits(pet.outfit);
+
+  if (slots[item.slot] === itemKey) {
+    slots[item.slot] = null;
+    await query(
+      `UPDATE child_pet SET outfit = $2, updated_at = now() WHERE child_id = $1`,
+      [childId, serializeOutfits(slots)]
+    );
+    const state = await getPetState(childId, query);
+    return { action: "outfit_remove", item: itemKey, state };
+  }
+
   await spendCoins(childId, item.cost, query);
+  slots[item.slot] = itemKey;
   await query(
     `UPDATE child_pet SET outfit = $2, updated_at = now() WHERE child_id = $1`,
-    [childId, itemKey]
+    [childId, serializeOutfits(slots)]
   );
   const state = await getPetState(childId, query);
   return { action: "outfit", item: itemKey, state };
