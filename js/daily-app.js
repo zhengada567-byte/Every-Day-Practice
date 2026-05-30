@@ -313,7 +313,8 @@
             fb,
             result.issuesDetail && result.issuesDetail.length
               ? result.issuesDetail
-              : result.issues || ["Check your sentence."]
+              : result.issues || ["Check your sentence."],
+            result.fallback || null
           );
           return;
         }

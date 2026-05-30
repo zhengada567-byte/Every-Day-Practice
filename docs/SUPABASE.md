@@ -21,13 +21,15 @@ The **publishable key** you see in the Supabase dashboard is **not** the databas
 4. Pick **Transaction pooler** (recommended for Netlify serverless) or **Session pooler**.
 5. Copy the URI and replace `[YOUR-PASSWORD]` with your **database password** (the one you set when creating the project, or reset under **Database password**).
 
-Example shape (yours will include your password and region):
+Example shape (yours will include your password and region — **copy from dashboard**, do not guess region):
 
 ```text
-postgresql://postgres.eozsksefdjdcjqgboxcw:YOUR_PASSWORD@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require
+postgresql://postgres.eozsksefdjdcjqgboxcw:YOUR_PASSWORD@aws-0-ap-east-1.pooler.supabase.com:6543/postgres?sslmode=require
 ```
 
-Direct connection (migrations / local scripts sometimes easier on port 5432):
+**Important:** The direct host `db.*.supabase.co` is **IPv6-only**. Netlify and many Windows networks cannot reach it (`ENOTFOUND`). Always use the **pooler** URI for Netlify and local Node scripts.
+
+Direct connection (IPv6 — local `psql` on some networks only; **not for Netlify**):
 
 ```text
 postgresql://postgres:YOUR_PASSWORD@db.eozsksefdjdcjqgboxcw.supabase.co:5432/postgres?sslmode=require
@@ -36,7 +38,7 @@ postgresql://postgres:YOUR_PASSWORD@db.eozsksefdjdcjqgboxcw.supabase.co:5432/pos
 ## 2. Local `env.txt`
 
 ```env
-DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@db.eozsksefdjdcjqgboxcw.supabase.co:5432/postgres?sslmode=require
+DATABASE_URL=postgresql://postgres.eozsksefdjdcjqgboxcw:YOUR_PASSWORD@aws-0-ap-east-1.pooler.supabase.com:6543/postgres?sslmode=require
 
 JWT_SECRET=your-long-secret
 ADMIN_API_KEY=your-admin-key
@@ -104,7 +106,8 @@ If Supabase is **new and empty**, skip this — run `py scripts/setup_db.py` onl
 | Problem | Fix |
 |---------|-----|
 | `databaseUrl: false` on health | `DATABASE_URL` missing or wrong in Netlify / `env.txt` |
+| `ENOTFOUND db.*.supabase.co` | **Do not use direct host on Netlify** — it is IPv6-only. Use **Transaction pooler** URI (port 6543) from Dashboard → Connect |
+| `Tenant or user not found` | Wrong password or wrong pooler URI — **reset database password** in Supabase, copy fresh pooler URI |
 | `password authentication failed` | Wrong DB password in URI |
-| `Tenant or user not found` | Use connection string from **your** project; check pooler vs direct host |
-| SSL errors | Keep `?sslmode=require` on the URI |
-| Pet / backgrounds 500 | Run migrations through `006_pet_backgrounds.sql` (`py scripts/run_migration.py`) |
+| SSL / certificate errors | Use pooler URI; app strips strict `sslmode` for Supabase TLS |
+| Pet / backgrounds 500 | Run `01_schema.sql` in Supabase SQL Editor (includes pet tables) |

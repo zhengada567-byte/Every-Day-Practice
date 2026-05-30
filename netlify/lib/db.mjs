@@ -4,6 +4,23 @@ const { Pool } = pg;
 
 let pool;
 
+function isLocalDatabaseUrl(url) {
+  return url.includes("localhost") || url.includes("127.0.0.1");
+}
+
+/** pg v8+ treats sslmode=require in the URL as verify-full; Supabase pooler needs relaxed TLS. */
+function poolConnectionString(url) {
+  if (isLocalDatabaseUrl(url)) return url;
+  try {
+    const normalized = url.replace(/^postgres(ql)?:/, "https:");
+    const parsed = new URL(normalized);
+    parsed.searchParams.delete("sslmode");
+    return `postgresql://${parsed.username}:${parsed.password}@${parsed.hostname}${parsed.port ? `:${parsed.port}` : ""}${parsed.pathname}${parsed.search}`;
+  } catch {
+    return url.replace(/([?&])sslmode=[^&]*&?/g, "$1").replace(/[?&]$/, "");
+  }
+}
+
 export function getPool() {
   if (!pool) {
     const url = process.env.DATABASE_URL;
@@ -14,12 +31,10 @@ export function getPool() {
       err.status = 503;
       throw err;
     }
+    const local = isLocalDatabaseUrl(url);
     pool = new Pool({
-      connectionString: url,
-      ssl:
-        url.includes("localhost") || url.includes("127.0.0.1")
-          ? false
-          : { rejectUnauthorized: false },
+      connectionString: poolConnectionString(url),
+      ssl: local ? false : { rejectUnauthorized: false },
       max: 4,
     });
   }

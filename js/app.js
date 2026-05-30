@@ -1529,7 +1529,8 @@
             showIssues(
               result.issuesDetail && result.issuesDetail.length
                 ? result.issuesDetail
-                : result.issues
+                : result.issues,
+              result.fallback || null
             );
             return;
           }

@@ -301,10 +301,12 @@
     if (!conj || !conj.base) return false;
     const base = conj.base;
     if (IRREGULAR_VERBS[base] || COMMON_BASE_VERBS.indexOf(base) !== -1) return true;
-    if (isLikelyAdjectiveLemma(base) || isLikelyNounOrPlaceLemma(base)) return false;
-    if (base.length < 3) return false;
-    return !!(conj.third && conj.third !== base && conj.past && conj.past !== base);
+    return false;
   }
+
+  /** Words that must never be treated as verbs by local agreement rules. */
+  const NON_VERB_WORDS =
+    /^(quite|rather|really|very|just|even|still|already|almost|enough|and|or|but|so|because|if|when|while|though|although|than|then|not|no|yes|also|too|as|at|in|on|of|for|with|by|from|into|through|during|about|over|under|between|after|before|up|down|out|off|hot|cold|warm|cool|harmful|natural|quite|own|ours|mine|yours|theirs|his|hers|its|our|your|their|my|your|his|her|this|that|these|those|every|each|both|all|some|any|many|much|more|most|less|few|several|other|another|such|same|own|own|gas|earth|greenhouse)$/i;
 
   /** First noun subject in "The/A/An X …" for shared-subject checks. */
   function inferLeadingSingularSubject(text) {
@@ -810,6 +812,7 @@
 
       if (SUBJECT_STOP_WORDS.test(subjLower)) continue;
       if (isVerbLikeWord(subjLower)) continue;
+      if (NON_VERB_WORDS.test(verb)) continue;
       if (!looksSingularSubject(subjLower)) continue;
 
       if (STATUS_PARTICIPLES[verb]) {
@@ -1280,7 +1283,7 @@
     return issues;
   }
 
-  function validateLocal(text, targetWord) {
+  function validateStructuralLocal(text, targetWord) {
     const issues = [];
     const wc = countWords(text);
     if (wc < MIN_WORDS) {
@@ -1297,6 +1300,19 @@
         topic: "word",
       });
     }
+    basicGrammarIssues(text).forEach(function (item) {
+      issues.push(item);
+    });
+    return {
+      ok: issues.length === 0,
+      issues: issues,
+      wordCount: wc,
+    };
+  }
+
+  function validateLocal(text, targetWord) {
+    const base = validateStructuralLocal(text, targetWord);
+    const issues = base.issues.slice();
     localTenseAndAgreementIssues(text, targetWord).forEach(function (item) {
       issues.push(item);
     });
@@ -1309,11 +1325,10 @@
     localArticleIssues(text).forEach(function (item) {
       issues.push(item);
     });
-    const grammar = basicGrammarIssues(text);
     return {
-      ok: issues.length === 0 && grammar.length === 0,
-      issues: issues.concat(grammar),
-      wordCount: wc,
+      ok: issues.length === 0,
+      issues: issues,
+      wordCount: base.wordCount,
     };
   }
 
@@ -1460,8 +1475,8 @@
       }),
       credentials: "include",
     }).then(function (res) {
-      if (res.status === 503) {
-        return { ok: null, issues: [], unavailable: true };
+      if (res.status === 503 || res.status === 429 || res.status === 502) {
+        return { ok: null, issues: [], unavailable: true, status: res.status };
       }
       if (!res.ok) throw new Error("kimi proxy");
       return res.json().then(function (data) {
@@ -1497,10 +1512,14 @@
   }
 
   function checkLanguageTool(text, targetWord) {
+    let kimiFallback = null;
     return checkKimiProxy(text, targetWord)
       .then(function (kimi) {
         if (!kimi.unavailable && kimi.ok !== null) {
           return kimi;
+        }
+        if (kimi.unavailable) {
+          kimiFallback = kimi;
         }
         return checkLanguageToolProxy(text, targetWord);
       })
@@ -1512,6 +1531,13 @@
       })
       .catch(function () {
         return { ok: null, issues: [], offline: true };
+      })
+      .then(function (result) {
+        if (kimiFallback && !result.ai) {
+          result.unavailable = true;
+          result.status = kimiFallback.status;
+        }
+        return result;
       });
   }
 
@@ -1521,19 +1547,36 @@
     });
   }
 
-  /** Returns Promise<{ ok, issues, issuesDetail, wordCount, offline? }> */
+  /** Returns Promise<{ ok, issues, issuesDetail, wordCount, offline?, ai?, fallback? }> */
   function validateSentence(text, targetWord) {
-    const local = validateLocal(text, targetWord);
-    return checkLanguageTool(text, targetWord).then(function (lt) {
-      const ltIssues = lt.offline ? [] : lt.issues;
-      const all = mergeIssues(local.issues, ltIssues);
+    const structural = validateStructuralLocal(text, targetWord);
+    return checkLanguageTool(text, targetWord).then(function (remote) {
+      let remoteIssues = [];
+      let fallback = null;
+
+      if (remote.offline) {
+        remoteIssues = validateLocal(text, targetWord).issues;
+      } else if (remote.ai) {
+        remoteIssues = remote.issues || [];
+      } else {
+        remoteIssues = remote.issues || [];
+        if (remote.unavailable) {
+          fallback =
+            remote.status === 429
+              ? "Kimi AI quota exceeded — using grammar checker instead."
+              : "Kimi AI unavailable — using grammar checker instead.";
+        }
+      }
+
+      const all = mergeIssues(structural.issues, remoteIssues);
       return {
         ok: all.length === 0,
         issues: issuesToMessages(all),
         issuesDetail: all,
-        wordCount: local.wordCount,
-        offline: !!lt.offline,
-        ai: !!lt.ai,
+        wordCount: structural.wordCount,
+        offline: !!remote.offline,
+        ai: !!remote.ai,
+        fallback: fallback,
       };
     });
   }
