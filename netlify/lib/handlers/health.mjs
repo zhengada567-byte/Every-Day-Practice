@@ -6,6 +6,7 @@ function configStatus() {
     databaseUrl: !!process.env.DATABASE_URL,
     jwtSecret: !!process.env.JWT_SECRET,
     adminApiKey: !!process.env.ADMIN_API_KEY,
+    moonshotApiKey: !!process.env.MOONSHOT_API_KEY,
   };
 }
 

@@ -14,6 +14,7 @@ import * as childHandlers from "../lib/handlers/child.mjs";
 import * as dailyHandlers from "../lib/handlers/daily.mjs";
 
 import * as grammarHandlers from "../lib/handlers/grammar.mjs";
+import * as sentenceHandlers from "../lib/handlers/sentence.mjs";
 import * as healthHandlers from "../lib/handlers/health.mjs";
 
 import * as parentHandlers from "../lib/handlers/parent.mjs";
@@ -62,6 +63,11 @@ export async function handler(event) {
     if (method === "POST" && path === "/grammar/check") {
       requireAuth(event);
       return await grammarHandlers.checkGrammar(event, parseBody(event));
+    }
+
+    if (method === "POST" && path === "/sentences/validate") {
+      requireAuth(event);
+      return await sentenceHandlers.validateSentence(event, parseBody(event));
     }
 
 

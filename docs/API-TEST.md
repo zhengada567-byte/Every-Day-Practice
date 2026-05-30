@@ -153,6 +153,12 @@ Set environment variables in Netlify dashboard:
 - `DATABASE_URL`
 - `JWT_SECRET`
 - `ADMIN_API_KEY`
+- `MOONSHOT_API_KEY` (Kimi / Moonshot — Level 3 sentence AI check)
 - `CORS_ORIGIN` (your site URL, e.g. `https://your-app.netlify.app`)
+
+Optional Kimi settings:
+
+- `MOONSHOT_API_BASE_URL` — default `https://api.moonshot.ai/v1` (China: `https://api.moonshot.cn/v1`)
+- `MOONSHOT_MODEL` — default `moonshot-v1-8k` (e.g. `kimi-k2-turbo`, `kimi-k2.6`)
 
 Push the repo and connect to Netlify; `netlify.toml` routes `/api/v1/*` to the function.

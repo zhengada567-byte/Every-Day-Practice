@@ -1444,6 +1444,37 @@
       });
   }
 
+  function checkKimiProxy(text, targetWord) {
+    const headers = { "Content-Type": "application/json" };
+    const api = global.EWPApi;
+    if (api && typeof api.getToken === "function" && api.getToken()) {
+      headers.Authorization = "Bearer " + api.getToken();
+    }
+    return fetch("/api/v1/sentences/validate", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        text: text,
+        targetWord: targetWord,
+        minWords: MIN_WORDS,
+      }),
+      credentials: "include",
+    }).then(function (res) {
+      if (res.status === 503) {
+        return { ok: null, issues: [], unavailable: true };
+      }
+      if (!res.ok) throw new Error("kimi proxy");
+      return res.json().then(function (data) {
+        return {
+          ok: data.ok,
+          issues: data.issues || [],
+          offline: false,
+          ai: true,
+        };
+      });
+    });
+  }
+
   function checkLanguageToolProxy(text, targetWord) {
     const headers = { "Content-Type": "application/json" };
     const api = global.EWPApi;
@@ -1466,7 +1497,16 @@
   }
 
   function checkLanguageTool(text, targetWord) {
-    return checkLanguageToolProxy(text, targetWord)
+    return checkKimiProxy(text, targetWord)
+      .then(function (kimi) {
+        if (!kimi.unavailable && kimi.ok !== null) {
+          return kimi;
+        }
+        return checkLanguageToolProxy(text, targetWord);
+      })
+      .catch(function () {
+        return checkLanguageToolProxy(text, targetWord);
+      })
       .catch(function () {
         return checkLanguageToolDirect(text, targetWord);
       })
@@ -1493,6 +1533,7 @@
         issuesDetail: all,
         wordCount: local.wordCount,
         offline: !!lt.offline,
+        ai: !!lt.ai,
       };
     });
   }

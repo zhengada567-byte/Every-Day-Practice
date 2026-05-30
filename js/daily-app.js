@@ -321,6 +321,8 @@
         let okMsg = "Great sentence! (" + result.wordCount + " words)";
         if (result.offline) {
           okMsg += " · Grammar checked with basic rules only (offline).";
+        } else if (result.ai) {
+          okMsg += " · Checked with Kimi AI.";
         }
         fb.textContent = okMsg;
         if (onSuccess) onSuccess(result);
