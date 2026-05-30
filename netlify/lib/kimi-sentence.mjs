@@ -34,6 +34,38 @@ function parseJsonFromContent(content) {
   }
 }
 
+function countWords(text) {
+  return String(text)
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
+function isWordCountIssue(issue) {
+  if (!issue) return false;
+  if (issue.type === "length") return true;
+  const msg = String(issue.message || "").toLowerCase();
+  return (
+    /word count|only \d+ word|at least \d+ word|needs at least \d+ word|too short|not enough words/.test(
+      msg
+    )
+  );
+}
+
+function applyWordCountRules(issues, wordCount, minWords) {
+  const filtered = (issues || []).filter(function (issue) {
+    return !isWordCountIssue(issue);
+  });
+  if (wordCount < minWords) {
+    filtered.unshift({
+      type: "length",
+      message: "Use at least " + minWords + " words (you have " + wordCount + ").",
+      topic: "length",
+    });
+  }
+  return filtered;
+}
+
 function normalizeIssues(rawIssues) {
   if (!Array.isArray(rawIssues)) return [];
   return rawIssues
@@ -54,22 +86,24 @@ function normalizeIssues(rawIssues) {
     .filter(Boolean);
 }
 
-function buildPrompt(text, targetWord, minWords) {
+function buildPrompt(text, targetWord, minWords, wordCount) {
   return (
     "Grade this English sentence for a child (ages 8–12).\n\n" +
     "Requirements:\n" +
-    "- At least " +
-    minWords +
-    " words (count by spaces).\n" +
-    '- Must use the vocabulary word "' +
+    "- Must use the vocabulary word \"" +
     targetWord +
     '" (same word or clear inflection/plural is OK).\n' +
     "- Check: capitalization, ending punctuation (. ! ?), grammar, spelling, natural English.\n" +
     "- Be fair: accept creative but correct sentences.\n" +
     "- Reject only clear mistakes.\n" +
-    "- Give short, kid-friendly feedback (one sentence per issue).\n\n" +
+    "- Give short, kid-friendly feedback (one sentence per issue).\n" +
+    "- Do NOT report word count or length — the server already verified " +
+    wordCount +
+    " words (minimum " +
+    minWords +
+    ").\n\n" +
     'Return ONLY JSON, no markdown:\n' +
-    '{"ok":true|false,"issues":[{"type":"grammar|spelling|word|length","message":"..."}]}\n\n' +
+    '{"ok":true|false,"issues":[{"type":"grammar|spelling|word|tense","message":"..."}]}\n\n' +
     "Sentence:\n" +
     text
   );
@@ -93,6 +127,8 @@ export async function gradeSentenceWithKimi({ text, targetWord, minWords = 10 })
   }
 
   const { apiKey, baseUrl, model } = kimiConfig();
+  const trimmed = text.trim();
+  const wordCount = countWords(trimmed);
   const res = await fetch(baseUrl + "/chat/completions", {
     method: "POST",
     headers: {
@@ -109,7 +145,7 @@ export async function gradeSentenceWithKimi({ text, targetWord, minWords = 10 })
         },
         {
           role: "user",
-          content: buildPrompt(text.trim(), String(targetWord).trim(), minWords),
+          content: buildPrompt(trimmed, String(targetWord).trim(), minWords, wordCount),
         },
       ],
       temperature: 0.2,
@@ -132,11 +168,10 @@ export async function gradeSentenceWithKimi({ text, targetWord, minWords = 10 })
     ? data.choices[0].message.content
     : "";
   const parsed = parseJsonFromContent(content);
-  const issues = normalizeIssues(parsed.issues);
-  const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+  const issues = applyWordCountRules(normalizeIssues(parsed.issues), wordCount, minWords);
 
   return {
-    ok: !!parsed.ok && issues.length === 0,
+    ok: issues.length === 0,
     issues: issues,
     wordCount: wordCount,
     ai: true,
