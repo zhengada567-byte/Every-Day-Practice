@@ -1,15 +1,20 @@
 # Database setup (Step 1)
 
+Works with **Supabase** or any PostgreSQL host. See [SUPABASE.md](./SUPABASE.md) for Supabase-specific steps.
+
 ## Prerequisites
 
-1. Neon project with PostgreSQL.
-2. Full **pooled** connection string in `.env` or `env.txt`:
+1. A PostgreSQL database (e.g. [Supabase](https://supabase.com/dashboard)).
+2. Full connection string in `.env` or `env.txt`:
 
    ```env
-   DATABASE_URL=postgresql://USER:PASSWORD@HOST/neondb?sslmode=require
+   DATABASE_URL=postgresql://postgres:PASSWORD@db.YOUR_PROJECT.supabase.co:5432/postgres?sslmode=require
    ```
 
-   `PGUSER` / `PGPASSWORD` alone are not enough — `DATABASE_URL` must include the host.
+   Get this from Supabase → **Project Settings → Database → Connection string (URI)**.  
+   The **publishable/anon API key is not** the database password.
+
+   `PGUSER` / `PGPASSWORD` alone are not enough unless you also set `PGHOST`.
 
 ## One-command setup
 
@@ -45,7 +50,7 @@ py scripts/verify_db.py
 
 Expect: 91 words, 91 examples, 364 blanks, 34 holidays, 1 migration.
 
-**Option B — Neon SQL editor**
+**Option B — Supabase SQL editor**
 
 ```sql
 SELECT COUNT(*) FROM words;          -- expect 91

@@ -529,7 +529,7 @@ Netlify scheduled functions or external cron → `CRON_SECRET`.
 
 | Name | Purpose |
 |------|---------|
-| `DATABASE_URL` | Neon pooled connection (server only) |
+| `DATABASE_URL` | Supabase/Postgres connection string (server only) |
 | `JWT_SECRET` | sign tokens |
 | `CRON_SECRET` | cron endpoints |
 | `ADMIN_SECRET` | seed endpoint |

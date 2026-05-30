@@ -32,7 +32,7 @@ def get_database_url() -> str:
     host = os.environ.get("PGHOST")
     user = os.environ.get("PGUSER")
     password = os.environ.get("PGPASSWORD")
-    database = os.environ.get("PGDATABASE", "neondb")
+    database = os.environ.get("PGDATABASE", "postgres")
     if host and user and password:
         port = os.environ.get("PGPORT", "5432")
         ssl = os.environ.get("PGSSLMODE", "require")

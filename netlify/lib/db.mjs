@@ -16,7 +16,10 @@ export function getPool() {
     }
     pool = new Pool({
       connectionString: url,
-      ssl: url.includes("localhost") ? false : { rejectUnauthorized: false },
+      ssl:
+        url.includes("localhost") || url.includes("127.0.0.1")
+          ? false
+          : { rejectUnauthorized: false },
       max: 4,
     });
   }
