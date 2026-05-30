@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "netlify dev",
-    "test:api": "node scripts/test_api.mjs"
+    "test:api": "node scripts/test_api.mjs",
+    "test:flow": "node scripts/test_flow.mjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

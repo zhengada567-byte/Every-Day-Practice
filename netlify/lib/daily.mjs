@@ -121,27 +121,32 @@ async function pickReviewWords(childId, excludeIds, limit, query) {
   return res.rows.map((r) => r.word_id);
 }
 
-export async function startDailyPlan(childId, query) {
+export async function startDailyPlan(childId, query, opts = {}) {
+  const testMode = !!opts.testMode;
   const hk = getHkNow();
-  if (hk.isSaturday || hk.isSunday) {
-    const err = new Error("No daily words on Saturday or Sunday");
-    err.status = 422;
-    throw err;
-  }
-  if (!(await isWorkday(hk.date, query))) {
-    const err = new Error("Today is not a workday");
-    err.status = 422;
-    throw err;
-  }
-  if (await fetchBlockingAssessment(childId, query)) {
-    const err = new Error("Complete the quiz or test first");
-    err.status = 409;
-    throw err;
+  const dateForPlan = testMode && opts.planDate ? opts.planDate : hk.date;
+
+  if (!testMode) {
+    if (hk.isSaturday || hk.isSunday) {
+      const err = new Error("No daily words on Saturday or Sunday");
+      err.status = 422;
+      throw err;
+    }
+    if (!(await isWorkday(hk.date, query))) {
+      const err = new Error("Today is not a workday");
+      err.status = 422;
+      throw err;
+    }
+    if (await fetchBlockingAssessment(childId, query)) {
+      const err = new Error("Complete the quiz or test first");
+      err.status = 409;
+      throw err;
+    }
   }
 
   const existing = await query(
     `SELECT id FROM daily_plans WHERE child_id = $1 AND plan_date = $2::date`,
-    [childId, hk.date]
+    [childId, dateForPlan]
   );
   if (existing.rows.length) {
     const err = new Error("Daily plan already exists for today");
@@ -158,7 +163,7 @@ export async function startDailyPlan(childId, query) {
     VALUES ($1, $2::date, 'in_progress', 'learn', $3, $4)
     RETURNING id
     `,
-    [childId, hk.date, 5, reviewIds.length]
+    [childId, dateForPlan, 5, reviewIds.length]
   );
   const planId = planRows[0].id;
 
@@ -177,7 +182,7 @@ export async function startDailyPlan(childId, query) {
       SET status = 'assigned', last_assigned_date = $3::date, updated_at = now()
       WHERE child_id = $1 AND word_id = $2
       `,
-      [childId, wordId, hk.date]
+      [childId, wordId, dateForPlan]
     );
   }
   for (const wordId of reviewIds) {
@@ -194,7 +199,7 @@ export async function startDailyPlan(childId, query) {
       SET last_assigned_date = $3::date, updated_at = now()
       WHERE child_id = $1 AND word_id = $2
       `,
-      [childId, wordId, hk.date]
+      [childId, wordId, dateForPlan]
     );
   }
 

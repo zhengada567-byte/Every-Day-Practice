@@ -1,4 +1,5 @@
 import { getHkNow, isWorkday } from "./calendar.mjs";
+import { gradeBlankChoice, prepareBlankItem } from "./blank-grammar.mjs";
 
 function shuffle(arr) {
   const a = arr.slice();
@@ -111,8 +112,9 @@ export async function refreshAssessmentStatus(assessment, hkDate, query) {
   return assessment;
 }
 
-async function buildItemsForWord(wordId, query) {
+async function buildItemsForWord(wordId, query, opts = {}) {
   const pending = [];
+  const l2Only = opts.l2Only === true || opts.assessmentType === "monthly";
   const { rows: wrows } = await query(
     `SELECT id, lemma, explanation, picture_emoji FROM words WHERE id = $1`,
     [wordId]
@@ -120,6 +122,7 @@ async function buildItemsForWord(wordId, query) {
   if (!wrows.length) return pending;
   const w = wrows[0];
 
+  if (!l2Only) {
   const usePicture = Math.random() < 0.35;
   if (!usePicture) {
     const { rows: others } = await query(
@@ -149,6 +152,7 @@ async function buildItemsForWord(wordId, query) {
       answerKey: { correct: w.picture_emoji },
     });
   }
+  }
 
   const { rows: blanks } = await query(
     `SELECT id, text, answer, distractors FROM blank_items
@@ -157,27 +161,43 @@ async function buildItemsForWord(wordId, query) {
   );
   if (blanks.length) {
     const b = blanks[0];
-    const d = b.distractors || [];
+    const prep = prepareBlankItem({
+      text: b.text,
+      answer: b.answer,
+      distractors: b.distractors || [],
+    });
     pending.push({
       wordId,
       itemType: "blank",
       payload: {
         lemma: w.lemma,
-        text: b.text,
-        choices: shuffle([b.answer, ...d.slice(0, 3)]),
+        text: prep.text,
+        choices: shuffle(prep.choices.slice(0, 4)),
+        blankHint:
+          prep.form === "plural"
+            ? "Use a plural noun (e.g. after five, many, or a swarm of)."
+            : prep.form === "verb"
+              ? "Use the correct verb form."
+              : "",
       },
-      answerKey: { correct: b.answer, blankItemId: b.id },
+      answerKey: {
+        correct: prep.answer,
+        baseAnswer: prep.baseAnswer,
+        acceptAnswers: prep.acceptAnswers,
+        blankForm: prep.form,
+        blankItemId: b.id,
+      },
     });
   }
 
   return pending;
 }
 
-/** L1 and L2 items per word are shuffled together (not grouped by word). */
-async function generateItems(assessmentId, wordIds, query) {
+/** Weekly: L1 + L2 per word (shuffled). Monthly: L2 (blank) only. */
+export async function generateItems(assessmentId, wordIds, query, opts = {}) {
   const all = [];
   for (const wordId of wordIds) {
-    const items = await buildItemsForWord(wordId, query);
+    const items = await buildItemsForWord(wordId, query, opts);
     items.forEach(function (item) {
       all.push(item);
     });
@@ -303,7 +323,7 @@ export async function ensureMonthlyAssessment(childId, query) {
       [childId, periodKey, monthSat, wordIds.length]
     );
     assessment = created[0];
-    await generateItems(assessment.id, wordIds, query);
+    await generateItems(assessment.id, wordIds, query, { assessmentType: "monthly" });
   }
 
   if (assessment) {
@@ -347,7 +367,7 @@ export async function ensureWeeklyAssessment(childId, query) {
       [childId, periodKey, weekSat, wordIds.length]
     );
     assessment = created[0];
-    await generateItems(assessment.id, wordIds, query);
+    await generateItems(assessment.id, wordIds, query, { assessmentType: "weekly" });
   }
 
   if (assessment) {
@@ -477,12 +497,19 @@ function gradeItem(itemType, answerKey, response) {
   }
   if (itemType === "blank") {
     const sel = (response.answer || "").trim();
-    return sel.toLowerCase() === (answerKey.correct || "").toLowerCase();
+    const prepared = {
+      acceptAnswers: answerKey.acceptAnswers || [
+        (answerKey.correct || "").toLowerCase(),
+      ],
+      form: answerKey.blankForm || "singular",
+      baseAnswer: (answerKey.baseAnswer || answerKey.correct || "").toLowerCase(),
+    };
+    return gradeBlankChoice(prepared, sel);
   }
   if (itemType === "sentence") {
     const text = (response.text || "").trim();
     const lemma = answerKey.lemma || "";
-    const minWords = answerKey.minWords || 15;
+    const minWords = answerKey.minWords || 10;
     const wc = text.split(/\s+/).filter(Boolean).length;
     if (wc < minWords) return false;
     const re = new RegExp("\\b" + lemma.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i");

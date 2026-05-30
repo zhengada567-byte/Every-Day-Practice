@@ -462,6 +462,70 @@ input::placeholder {
   background: #fff5f9;
 }
 
+.blank-hint {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 0.65rem;
+  line-height: 1.4;
+}
+
+.feedback.warn {
+  color: #8a4b00;
+  background: #fff8e8;
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+}
+
+.test-tools {
+  margin: 1rem 0;
+  padding: 0.85rem 1rem;
+  border: 2px dashed #c9b8ff;
+  border-radius: 12px;
+  background: #faf7ff;
+}
+
+.test-tools-title {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.test-tools-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.test-tool,
+.test-bypass {
+  padding: 0.4rem 0.7rem;
+  border: 2px solid #e0d4ff;
+  border-radius: 8px;
+  background: #fff;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--blue-dark);
+  cursor: pointer;
+}
+
+.test-tool:hover,
+.test-bypass:hover {
+  border-color: var(--pink);
+  background: #fff8fc;
+}
+
+.test-bypass--strong {
+  border-color: #ffb8d0;
+  color: #a03058;
+}
+
+.test-skip-row {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
 .form-panel {
   background: linear-gradient(180deg, #fdfbff 0%, #f8f4ff 100%);
   border: 2px solid #e8dcff;
@@ -2102,4 +2166,886 @@ p.lead strong {
   font-weight: 700;
   color: #8a6d00;
   font-size: 0.8rem;
+}
+
+.shop-price--active {
+  color: var(--green-dark);
+}
+
+.shop-grid--bg {
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+}
+
+.shop-item--bg.shop-item--active {
+  border-color: var(--green);
+  background: #f0fff4;
+}
+
+/* —— Pet backgrounds —— */
+.pet-scene-label {
+  position: absolute;
+  top: 0.45rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  pointer-events: none;
+}
+
+.pet-scene-label span {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #2d5016;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.pet-scene--stars .pet-scene-label span,
+.pet-scene--forest .pet-scene-label span {
+  color: #fff;
+  background: rgba(20, 40, 60, 0.55);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.pet-scene--ocean .pet-scene-label span {
+  color: #01579b;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.pet-scene--snow .pet-scene-label span {
+  color: #37474f;
+}
+
+.pet-scene--stars {
+  border-color: #5c6bc0;
+}
+
+.pet-scene--stars .pet-sky {
+  background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 45%, #415a77 100%);
+}
+
+.pet-scene--stars .pet-sun,
+.pet-scene--stars .pet-cloud,
+.pet-scene--stars .pet-grass,
+.pet-scene--stars .pet-flower {
+  display: none;
+}
+
+.pet-stars {
+  position: absolute;
+  inset: 0 0 28%;
+  z-index: 1;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 30% 35%, #fff9c4, transparent),
+    radial-gradient(1px 1px at 55% 15%, #fff, transparent),
+    radial-gradient(2px 2px at 70% 40%, #e3f2fd, transparent),
+    radial-gradient(1px 1px at 85% 25%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 20% 55%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 60%, #fffde7, transparent),
+    radial-gradient(1px 1px at 75% 55%, #fff, transparent);
+  opacity: 0.95;
+}
+
+.pet-moon {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fffde7 0%, #fff59d 50%, #fdd835 100%);
+  box-shadow: 0 0 24px rgba(255, 253, 231, 0.5);
+  z-index: 2;
+}
+
+.pet-ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  z-index: 1;
+}
+
+.pet-ground--night {
+  background: linear-gradient(180deg, #2d4a3e 0%, #1b3329 50%, #0f1f18 100%);
+}
+
+.pet-scene--forest {
+  border-color: #2e7d32;
+}
+
+.pet-scene--forest .pet-sky {
+  background: linear-gradient(180deg, #81c784 0%, #a5d6a7 50%, #c8e6c9 100%);
+}
+
+.pet-scene--forest .pet-sun,
+.pet-scene--forest .pet-cloud,
+.pet-scene--forest .pet-grass,
+.pet-scene--forest .pet-flower {
+  display: none;
+}
+
+.pet-forest-mist {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 28%;
+  height: 45%;
+  z-index: 1;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.2) 100%);
+  pointer-events: none;
+}
+
+.pet-forest-trees {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 26%;
+  height: 55%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pet-tree {
+  position: absolute;
+  line-height: 1;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+}
+
+.pet-tree--1 {
+  left: 0;
+  bottom: 8%;
+  font-size: 2rem;
+  opacity: 0.7;
+}
+
+.pet-tree--2 {
+  left: 8%;
+  bottom: 28%;
+  font-size: 2.5rem;
+}
+
+.pet-tree--3 {
+  left: 18%;
+  bottom: 5%;
+  font-size: 1.85rem;
+  opacity: 0.75;
+}
+
+.pet-tree--4 {
+  left: 28%;
+  bottom: 35%;
+  font-size: 2.2rem;
+}
+
+.pet-tree--5 {
+  left: 42%;
+  bottom: 12%;
+  font-size: 2.35rem;
+  opacity: 0.85;
+}
+
+.pet-tree--6 {
+  right: 32%;
+  bottom: 32%;
+  font-size: 2.6rem;
+}
+
+.pet-tree--7 {
+  right: 18%;
+  bottom: 6%;
+  font-size: 2rem;
+}
+
+.pet-tree--8 {
+  right: 8%;
+  bottom: 22%;
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.pet-tree--9 {
+  right: 0;
+  bottom: 10%;
+  font-size: 2.15rem;
+  opacity: 0.72;
+}
+
+.pet-forest-animal {
+  position: absolute;
+  z-index: 2;
+  line-height: 1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+  pointer-events: none;
+}
+
+.pet-forest-animal--deer {
+  left: 14%;
+  bottom: 30%;
+  font-size: 1.65rem;
+  animation: pet-animal-bob 3.5s ease-in-out infinite;
+}
+
+.pet-forest-animal--rabbit {
+  right: 16%;
+  bottom: 28%;
+  font-size: 1.35rem;
+  animation: pet-animal-bob 2.8s ease-in-out infinite 0.6s;
+}
+
+.pet-forest-animal--bird {
+  left: 48%;
+  top: 28%;
+  font-size: 1.1rem;
+  animation: pet-bird-flit 5s ease-in-out infinite;
+}
+
+@keyframes pet-animal-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes pet-bird-flit {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(8px, -4px);
+  }
+}
+
+.pet-ground--forest {
+  background: linear-gradient(180deg, #689f38 0%, #558b2f 35%, #33691e 70%, #1b5e20 100%);
+}
+
+.pet-scene--snow {
+  border-color: #90caf9;
+}
+
+.pet-scene--snow .pet-sky {
+  background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 55%, #e1f5fe 100%);
+}
+
+.pet-scene--snow .pet-sun,
+.pet-scene--snow .pet-cloud,
+.pet-scene--snow .pet-grass,
+.pet-scene--snow .pet-flower {
+  display: none;
+}
+
+.pet-snowflakes {
+  position: absolute;
+  inset: 0 0 35%;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  padding: 1rem 0.5rem 0;
+  font-size: 1.1rem;
+  color: #fff;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.pet-ground--snow {
+  background: linear-gradient(180deg, #fafafa 0%, #eceff1 40%, #b0bec5 100%);
+}
+
+.pet-scene--cabin {
+  border-color: #8d6e63;
+}
+
+.pet-scene--cabin .pet-sky {
+  background: linear-gradient(180deg, #ff8a65 0%, #ffab91 40%, #ffe0b2 100%);
+}
+
+.pet-scene--cabin .pet-cloud,
+.pet-scene--cabin .pet-grass,
+.pet-scene--cabin .pet-flower {
+  display: none;
+}
+
+.pet-sun--dusk {
+  top: 1.2rem;
+  right: 15%;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: radial-gradient(circle at 35% 35%, #fff3e0 0%, #ffb74d 45%, #ff7043 100%);
+}
+
+.pet-cabin {
+  position: absolute;
+  bottom: 38%;
+  left: 12%;
+  font-size: 2.75rem;
+  z-index: 2;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.15));
+}
+
+.pet-ground--cabin {
+  background: linear-gradient(180deg, #aed581 0%, #7cb342 50%, #558b2f 100%);
+}
+
+.pet-scene--ocean {
+  border-color: #0277bd;
+}
+
+.pet-scene--ocean .pet-sky--ocean {
+  inset: 0 0 0;
+  background: linear-gradient(
+    180deg,
+    #87ceeb 0%,
+    #4fc3f7 22%,
+    #29b6f6 45%,
+    #039be5 68%,
+    #0288d1 100%
+  );
+}
+
+.pet-scene--ocean .pet-grass,
+.pet-scene--ocean .pet-flower,
+.pet-scene--ocean .pet-sun:not(.pet-sun--ocean) {
+  display: none;
+}
+
+.pet-cloud--ocean-a {
+  width: 2.75rem;
+  height: 1.05rem;
+  top: 1.4rem;
+  left: 8%;
+  opacity: 0.95;
+  animation: pet-cloud-drift 22s linear infinite;
+}
+
+.pet-cloud--ocean-a::before {
+  width: 1.15rem;
+  height: 1.15rem;
+  top: -0.48rem;
+  left: 0.4rem;
+}
+
+.pet-cloud--ocean-a::after {
+  width: 1.4rem;
+  height: 1.4rem;
+  top: -0.58rem;
+  right: 0.3rem;
+}
+
+.pet-cloud--ocean-b {
+  width: 3.1rem;
+  height: 1.15rem;
+  top: 2.2rem;
+  left: 62%;
+  opacity: 0.88;
+  animation: pet-cloud-drift 28s linear infinite reverse;
+}
+
+.pet-cloud--ocean-b::before {
+  width: 1.3rem;
+  height: 1.3rem;
+  top: -0.52rem;
+  left: 0.55rem;
+}
+
+.pet-cloud--ocean-b::after {
+  width: 1.55rem;
+  height: 1.55rem;
+  top: -0.62rem;
+  right: 0.4rem;
+}
+
+.pet-sun--ocean {
+  top: 0.65rem;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: 3rem;
+  height: 3rem;
+  box-shadow:
+    0 0 0 5px rgba(255, 235, 59, 0.2),
+    0 0 32px rgba(255, 213, 79, 0.55);
+}
+
+.pet-ocean-island {
+  position: absolute;
+  right: 14%;
+  bottom: 48%;
+  font-size: 1.75rem;
+  z-index: 1;
+  opacity: 0.92;
+  filter: drop-shadow(0 2px 4px rgba(0, 60, 100, 0.25));
+}
+
+.pet-ocean-boat {
+  position: absolute;
+  left: 22%;
+  bottom: 44%;
+  font-size: 1.5rem;
+  z-index: 2;
+  animation: pet-boat-rock 4s ease-in-out infinite;
+}
+
+@keyframes pet-boat-rock {
+  0%,
+  100% {
+    transform: rotate(-4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-2px);
+  }
+}
+
+.pet-ocean-water {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14%;
+  height: 48%;
+  z-index: 1;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #26c6da 0%,
+    #00acc1 18%,
+    #0097a7 42%,
+    #00838f 68%,
+    #006064 100%
+  );
+}
+
+.pet-ocean-wave {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  border-radius: 45% 45% 0 0;
+  opacity: 0.55;
+}
+
+.pet-ocean-wave--far {
+  top: 8%;
+  height: 2.5rem;
+  background: rgba(255, 255, 255, 0.22);
+  animation: pet-wave-slide 8s ease-in-out infinite;
+}
+
+.pet-ocean-wave--mid {
+  top: 28%;
+  height: 2rem;
+  background: rgba(255, 255, 255, 0.28);
+  animation: pet-wave-slide 6s ease-in-out infinite reverse;
+}
+
+.pet-ocean-wave--near {
+  top: 48%;
+  height: 1.75rem;
+  background: rgba(255, 255, 255, 0.35);
+  animation: pet-wave-slide 4.5s ease-in-out infinite;
+}
+
+@keyframes pet-wave-slide {
+  0%,
+  100% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(6%) scaleY(1.08);
+  }
+}
+
+.pet-ocean-foam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0.55rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), transparent);
+}
+
+.pet-ocean-gull {
+  position: absolute;
+  font-size: 1rem;
+  z-index: 3;
+  opacity: 0.9;
+  animation: pet-bird-flit 6s ease-in-out infinite;
+}
+
+.pet-ocean-gull--1 {
+  top: 22%;
+  left: 25%;
+}
+
+.pet-ocean-gull--2 {
+  top: 18%;
+  right: 22%;
+  animation-delay: 1.2s;
+}
+
+.pet-beach {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16%;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    #ffe082 0%,
+    #ffcc80 35%,
+    #ffb74d 70%,
+    #f4a460 100%
+  );
+  border-top: 3px solid rgba(255, 255, 255, 0.65);
+}
+
+.pet-beach-shell {
+  position: absolute;
+  bottom: 28%;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.pet-beach-shell--1 {
+  left: 12%;
+}
+
+.pet-beach-shell--2 {
+  right: 14%;
+}
+
+.pet-scene--ocean .pet-name {
+  color: #004d40;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.pet-scene--stars .pet-name,
+.pet-scene--forest .pet-name {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.pet-scene--snow .pet-name {
+  color: #37474f;
+}
+
+.pet-scene--playground {
+  border-color: #ff9800;
+}
+
+.pet-scene--playground .pet-sky {
+  background: linear-gradient(180deg, #4fc3f7 0%, #81d4fa 45%, #b3e5fc 100%);
+}
+
+.pet-scene--playground .pet-grass,
+.pet-scene--playground .pet-flower {
+  display: none;
+}
+
+.pet-playground-mat {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 30%;
+  height: 28%;
+  z-index: 1;
+  border-radius: 12px;
+  background: repeating-linear-gradient(
+      90deg,
+      #ff7043 0,
+      #ff7043 14px,
+      #ffca28 14px,
+      #ffca28 28px,
+      #66bb6a 28px,
+      #66bb6a 42px,
+      #42a5f5 42px,
+      #42a5f5 56px
+    ),
+    #eceff1;
+  opacity: 0.85;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.pet-play-swing {
+  position: absolute;
+  left: 14%;
+  bottom: 42%;
+  width: 3.25rem;
+  height: 4.5rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pet-play-swing-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3.25rem;
+  height: 0.35rem;
+  margin-left: -1.625rem;
+  background: #5d4037;
+  border-radius: 2px;
+}
+
+.pet-play-swing-top::before,
+.pet-play-swing-top::after {
+  content: "";
+  position: absolute;
+  bottom: -3.5rem;
+  width: 0.3rem;
+  height: 3.5rem;
+  background: linear-gradient(180deg, #6d4c41, #4e342e);
+  border-radius: 2px;
+}
+
+.pet-play-swing-top::before {
+  left: 0.35rem;
+  transform: rotate(12deg);
+  transform-origin: top center;
+}
+
+.pet-play-swing-top::after {
+  right: 0.35rem;
+  transform: rotate(-12deg);
+  transform-origin: top center;
+}
+
+.pet-play-swing-seat {
+  position: absolute;
+  top: 1.1rem;
+  left: 50%;
+  width: 1.1rem;
+  height: 0.45rem;
+  margin-left: -0.55rem;
+  background: #ef5350;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 #c62828;
+  animation: pet-swing-seat 2.2s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.pet-play-swing-seat::before {
+  content: "";
+  position: absolute;
+  top: -1.1rem;
+  left: 50%;
+  width: 2px;
+  height: 1.1rem;
+  margin-left: -1px;
+  background: #78909c;
+}
+
+@keyframes pet-swing-seat {
+  0%,
+  100% {
+    transform: rotate(-18deg);
+  }
+  50% {
+    transform: rotate(18deg);
+  }
+}
+
+.pet-play-slide {
+  position: absolute;
+  right: 10%;
+  bottom: 38%;
+  font-size: 2.5rem;
+  z-index: 2;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.15));
+}
+
+.pet-play-carousel {
+  position: absolute;
+  left: 42%;
+  bottom: 40%;
+  font-size: 2rem;
+  z-index: 2;
+  animation: pet-carousel-spin 12s linear infinite;
+}
+
+@keyframes pet-carousel-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.pet-play-ball {
+  position: absolute;
+  right: 28%;
+  bottom: 32%;
+  font-size: 1.35rem;
+  z-index: 3;
+  animation: pet-ball-roll 4s ease-in-out infinite;
+}
+
+@keyframes pet-ball-roll {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(18px) rotate(180deg);
+  }
+}
+
+.pet-play-kite {
+  position: absolute;
+  top: 18%;
+  right: 18%;
+  font-size: 1.5rem;
+  z-index: 2;
+  animation: pet-kite-float 5s ease-in-out infinite;
+}
+
+@keyframes pet-kite-float {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-8deg);
+  }
+  50% {
+    transform: translate(-6px, -8px) rotate(8deg);
+  }
+}
+
+.pet-ground--playground {
+  background: linear-gradient(180deg, #aed581 0%, #9ccc65 40%, #7cb342 100%);
+}
+
+.pet-scene--playground .pet-name {
+  color: #1b5e20;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.pet-scene--school {
+  border-color: #1565c0;
+}
+
+.pet-scene--school .pet-sky {
+  background: linear-gradient(180deg, #64b5f6 0%, #90caf9 50%, #e3f2fd 100%);
+}
+
+.pet-scene--school .pet-grass,
+.pet-scene--school .pet-flower {
+  display: none;
+}
+
+.pet-school-building {
+  position: absolute;
+  left: 50%;
+  bottom: 36%;
+  transform: translateX(-50%);
+  font-size: 3.25rem;
+  z-index: 2;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.18));
+}
+
+.pet-school-flag {
+  position: absolute;
+  top: 22%;
+  left: 58%;
+  font-size: 1.1rem;
+  z-index: 3;
+  animation: pet-flag-wave 2.5s ease-in-out infinite;
+}
+
+@keyframes pet-flag-wave {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+.pet-school-bus {
+  position: absolute;
+  left: 4%;
+  bottom: 32%;
+  font-size: 1.85rem;
+  z-index: 2;
+}
+
+.pet-school-bag {
+  position: absolute;
+  right: 8%;
+  bottom: 34%;
+  font-size: 1.5rem;
+  z-index: 2;
+}
+
+.pet-school-books {
+  position: absolute;
+  right: 22%;
+  bottom: 30%;
+  font-size: 1.25rem;
+  z-index: 2;
+}
+
+.pet-school-bell {
+  position: absolute;
+  top: 24%;
+  left: 22%;
+  font-size: 1.15rem;
+  z-index: 2;
+  animation: pet-bell-ring 3s ease-in-out infinite;
+}
+
+@keyframes pet-bell-ring {
+  0%,
+  88%,
+  100% {
+    transform: rotate(0deg);
+  }
+  90% {
+    transform: rotate(-12deg);
+  }
+  94% {
+    transform: rotate(12deg);
+  }
+  98% {
+    transform: rotate(-6deg);
+  }
+}
+
+.pet-school-yard {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 28%;
+  height: 8%;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 18px,
+    rgba(255, 255, 255, 0.55) 18px,
+    rgba(255, 255, 255, 0.55) 36px
+  );
+  opacity: 0.7;
+}
+
+.pet-ground--school {
+  background: linear-gradient(180deg, #d7ccc8 0%, #bcaaa4 35%, #a1887f 100%);
+}
+
+.pet-scene--school .pet-scene-label span {
+  color: #0d47a1;
+}
+
+.pet-scene--school .pet-name {
+  color: #263238;
 }

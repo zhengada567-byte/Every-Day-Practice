@@ -1,5 +1,6 @@
 """Build data/wordpack.json with explanations, picture tags, and 4 sentences per word."""
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,12 +11,79 @@ def wc(text: str) -> int:
     return len(text.replace("___", "WORD").split())
 
 
+IRREGULAR_PLURALS = {
+    "child": "children",
+    "person": "people",
+    "man": "men",
+    "woman": "women",
+    "mouse": "mice",
+    "goose": "geese",
+    "foot": "feet",
+    "tooth": "teeth",
+    "fish": "fish",
+    "sheep": "sheep",
+    "deer": "deer",
+}
+
+
+def pluralize_noun(noun: str) -> str:
+    n = noun.strip().lower()
+    if not n:
+        return noun
+    if n in IRREGULAR_PLURALS:
+        return IRREGULAR_PLURALS[n]
+    if n.endswith("s"):
+        return n
+    if " " in n:
+        parts = n.split()
+        parts[-1] = pluralize_noun(parts[-1])
+        return " ".join(parts)
+    if n.endswith("y") and len(n) > 2 and n[-2] not in "aeiou":
+        return n[:-1] + "ies"
+    if n.endswith(("s", "sh", "ch", "x", "z", "o")):
+        return n + "es"
+    return n + "s"
+
+
+def blank_form(text: str) -> str:
+    idx = text.find("___")
+    if idx < 0:
+        return "singular"
+    before = text[:idx].lower()
+
+    if re.search(
+        r"\b(?:can|could|will|would|may|might|must|shall|should|does|do|did|has|have|had|is|are|was|were|began|begins|begin|started|starts|start|helped|helps|help|hoped|hopes|hope|continued|continues|continue)\s*$",
+        before,
+    ) or re.search(r"\bto\s*$", before):
+        return "verb"
+    if re.search(
+        r"\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|\d+)\s*$",
+        before,
+    ) or re.search(
+        r"\b(?:many|several|few|some|both|these|those|other|numerous|various|countless|multiple)\s*$",
+        before,
+    ) or re.search(
+        r"\b(?:swarm|pair|group|flock|herd|school|pack|bunch|collection)\s+of\s*$",
+        before,
+    ):
+        return "plural"
+    if re.search(r"\b(?:a|an)\s+$", before):
+        return "singular"
+    return "singular"
+
+
 def s(text: str, answer: str, distractors: list) -> dict:
-    filled = text.replace("___", answer)
+    form = blank_form(text)
+    ans = answer
+    dist = list(distractors)
+    if form == "plural":
+        ans = pluralize_noun(answer)
+        dist = [pluralize_noun(d) for d in distractors]
+    filled = text.replace("___", ans)
     n = wc(text)
     if n <= 15:
         raise ValueError(f"Sentence too short ({n} words): {filled}")
-    return {"text": text, "answer": answer, "distractors": distractors}
+    return {"text": text, "answer": ans, "distractors": dist}
 
 
 # Level 1 clues: no target word, root, or close giveaway in the explanation text.

@@ -56,6 +56,147 @@
     }
   }
 
+  function isTestUser() {
+    const u = API.getUser();
+    return !!(u && u.testMode);
+  }
+
+  function renderTestToolbar() {
+    if (!isTestUser()) return "";
+    return (
+      '<div class="test-tools">' +
+      '<p class="test-tools-title">🧪 ' +
+      bi("测试工具（可跳过题目）", "Test tools (skip questions)") +
+      "</p>" +
+      '<div class="test-tools-row">' +
+      '<button type="button" class="test-tool" id="testStartDaily">' +
+      bi("开始今日（测试）", "Start today (test)") +
+      "</button>" +
+      '<button type="button" class="test-tool" id="testFinishDaily">' +
+      bi("完成今日全部步骤", "Finish all steps today") +
+      "</button>" +
+      '<button type="button" class="test-tool" id="testSeedWeek">' +
+      bi("生成本周每日任务", "Seed week dailies") +
+      "</button>" +
+      '<button type="button" class="test-tool" id="testOpenWeekly">' +
+      bi("打开周测验", "Open weekly quiz") +
+      "</button>" +
+      '<button type="button" class="test-tool" id="testOpenMonthly">' +
+      bi("打开月测试", "Open monthly test") +
+      "</button>" +
+      '<button type="button" class="test-tool" id="testBypassQuiz">' +
+      bi("跳过当前测验", "Skip current quiz") +
+      "</button>" +
+      "</div></div>"
+    );
+  }
+
+  function wireTestToolbar(data) {
+    if (!isTestUser()) return;
+    function run(fn) {
+      setStatus(bi("测试中…", "Testing…"));
+      fn()
+        .then(function () {
+          setStatus("");
+          showChildToday();
+        })
+        .catch(showError);
+    }
+    const start = document.getElementById("testStartDaily");
+    if (start) {
+      start.onclick = function () {
+        setStatus(bi("测试中…", "Testing…"));
+        API.testStartDaily()
+          .then(function (res) {
+            setStatus("");
+            runDailyFlow(res.plan);
+          })
+          .catch(showError);
+      };
+    }
+    const finish = document.getElementById("testFinishDaily");
+    if (finish) {
+      finish.onclick = function () {
+        run(function () {
+          const planId = data && data.dailyPlan ? data.dailyPlan.id : undefined;
+          return API.testFinishDaily(planId);
+        });
+      };
+    }
+    const seed = document.getElementById("testSeedWeek");
+    if (seed) seed.onclick = function () { run(API.testSeedWeek); };
+    const weekly = document.getElementById("testOpenWeekly");
+    if (weekly) weekly.onclick = function () { run(API.testOpenWeekly); };
+    const monthly = document.getElementById("testOpenMonthly");
+    if (monthly) monthly.onclick = function () { run(API.testOpenMonthly); };
+    const bypass = document.getElementById("testBypassQuiz");
+    if (bypass) {
+      bypass.onclick = function () {
+        const id = data && data.blockingAssessment ? data.blockingAssessment.id : undefined;
+        run(function () {
+          return API.testBypassAssessment(id);
+        });
+      };
+    }
+  }
+
+  function appendTestSkipStep(planId, onPlan) {
+    if (!isTestUser() || !planId) return;
+    const wrap = document.createElement("div");
+    wrap.className = "test-skip-row";
+    wrap.innerHTML =
+      '<button type="button" class="test-bypass">' +
+      bi("跳过此步", "Skip step") +
+      "</button>";
+    screen.appendChild(wrap);
+    wrap.querySelector("button").onclick = function () {
+      API.testBypassPhase(planId)
+        .then(function (res) {
+          if (onPlan) onPlan(res.plan);
+          else runDailyFlow(res.plan);
+        })
+        .catch(showError);
+    };
+  }
+
+  function appendTestFinishDaily(planId) {
+    if (!isTestUser() || !planId) return;
+    const wrap = document.createElement("div");
+    wrap.className = "test-skip-row";
+    wrap.innerHTML =
+      '<button type="button" class="test-bypass test-bypass--strong">' +
+      bi("完成今日全部", "Finish all steps") +
+      "</button>";
+    screen.appendChild(wrap);
+    wrap.querySelector("button").onclick = function () {
+      API.testFinishDaily(planId)
+        .then(function () {
+          showChildToday();
+        })
+        .catch(showError);
+    };
+  }
+
+  function appendTestSkipQuiz(assessmentId) {
+    if (!isTestUser() || !assessmentId) return;
+    const wrap = document.createElement("div");
+    wrap.className = "test-skip-row";
+    wrap.innerHTML =
+      '<button type="button" class="test-bypass test-bypass--strong">' +
+      bi("跳过全部题目", "Skip all questions") +
+      "</button>";
+    screen.appendChild(wrap);
+    wrap.querySelector("button").onclick = function () {
+      setStatus(bi("跳过中…", "Skipping…"));
+      API.testBypassAssessment(assessmentId)
+        .then(function () {
+          setStatus("");
+          showChildToday();
+        })
+        .catch(showError);
+    };
+  }
+
   function renderQuickPicks(containerId, values, onPick) {
     const box = document.getElementById(containerId);
     if (!box) return;
@@ -295,6 +436,124 @@
     if (onPlan) onPlan(res.plan, "");
   }
 
+  function renderPetScene(background, outfitEmoji, sceneLabel) {
+    const bg = background || "grass";
+    const labelHtml =
+      '<div class="pet-scene-label" aria-hidden="false"><span>' +
+      escapeHtml(sceneLabel || bi("草地", "Grassland")) +
+      "</span></div>";
+    const room =
+      '<div class="pet-room">' +
+      (outfitEmoji ? '<span class="pet-outfit">' + outfitEmoji + "</span>" : "") +
+      '<span class="pet-sprite" aria-hidden="true">🐥</span>' +
+      '<p class="pet-name">' +
+      bi("小精灵", "Little buddy") +
+      "</p></div>";
+
+    const layers = {
+      grass:
+        '<div class="pet-sky"></div>' +
+        '<div class="pet-sun" aria-hidden="true"></div>' +
+        '<div class="pet-cloud pet-cloud--a" aria-hidden="true"></div>' +
+        '<div class="pet-cloud pet-cloud--b" aria-hidden="true"></div>' +
+        '<div class="pet-grass" aria-hidden="true"></div>' +
+        '<span class="pet-flower pet-flower--1" aria-hidden="true">🌼</span>' +
+        '<span class="pet-flower pet-flower--2" aria-hidden="true">🌸</span>' +
+        '<span class="pet-flower pet-flower--3" aria-hidden="true">🌷</span>' +
+        '<span class="pet-flower pet-flower--4" aria-hidden="true">🌻</span>' +
+        '<span class="pet-flower pet-flower--5" aria-hidden="true">🌼</span>' +
+        '<span class="pet-flower pet-flower--6" aria-hidden="true">🌸</span>',
+      stars:
+        '<div class="pet-sky"></div>' +
+        '<div class="pet-stars" aria-hidden="true"></div>' +
+        '<div class="pet-moon" aria-hidden="true"></div>' +
+        '<div class="pet-ground pet-ground--night" aria-hidden="true"></div>',
+      forest:
+        '<div class="pet-sky"></div>' +
+        '<div class="pet-forest-mist" aria-hidden="true"></div>' +
+        '<div class="pet-forest-trees" aria-hidden="true">' +
+        '<span class="pet-tree pet-tree--1">🌲</span>' +
+        '<span class="pet-tree pet-tree--2">🌳</span>' +
+        '<span class="pet-tree pet-tree--3">🌲</span>' +
+        '<span class="pet-tree pet-tree--4">🌴</span>' +
+        '<span class="pet-tree pet-tree--5">🌲</span>' +
+        '<span class="pet-tree pet-tree--6">🌳</span>' +
+        '<span class="pet-tree pet-tree--7">🌲</span>' +
+        '<span class="pet-tree pet-tree--8">🌿</span>' +
+        '<span class="pet-tree pet-tree--9">🌲</span>' +
+        "</div>" +
+        '<span class="pet-forest-animal pet-forest-animal--deer" aria-hidden="true">🦌</span>' +
+        '<span class="pet-forest-animal pet-forest-animal--rabbit" aria-hidden="true">🐇</span>' +
+        '<span class="pet-forest-animal pet-forest-animal--bird" aria-hidden="true">🐦</span>' +
+        '<div class="pet-ground pet-ground--forest" aria-hidden="true"></div>',
+      snow:
+        '<div class="pet-sky"></div>' +
+        '<div class="pet-snowflakes" aria-hidden="true">❄️ · ✨ · ❅ · ✨ · ❄️</div>' +
+        '<div class="pet-ground pet-ground--snow" aria-hidden="true"></div>',
+      cabin:
+        '<div class="pet-sky"></div>' +
+        '<div class="pet-sun pet-sun--dusk" aria-hidden="true"></div>' +
+        '<span class="pet-cabin" aria-hidden="true">🏡</span>' +
+        '<div class="pet-ground pet-ground--cabin" aria-hidden="true"></div>',
+      ocean:
+        '<div class="pet-sky pet-sky--ocean"></div>' +
+        '<div class="pet-sun pet-sun--ocean" aria-hidden="true"></div>' +
+        '<div class="pet-cloud pet-cloud--ocean-a" aria-hidden="true"></div>' +
+        '<div class="pet-cloud pet-cloud--ocean-b" aria-hidden="true"></div>' +
+        '<span class="pet-ocean-island" aria-hidden="true">🏝️</span>' +
+        '<span class="pet-ocean-boat" aria-hidden="true">⛵</span>' +
+        '<div class="pet-ocean-water" aria-hidden="true">' +
+        '<div class="pet-ocean-wave pet-ocean-wave--far"></div>' +
+        '<div class="pet-ocean-wave pet-ocean-wave--mid"></div>' +
+        '<div class="pet-ocean-wave pet-ocean-wave--near"></div>' +
+        '<div class="pet-ocean-foam"></div>' +
+        "</div>" +
+        '<span class="pet-ocean-gull pet-ocean-gull--1" aria-hidden="true">🕊️</span>' +
+        '<span class="pet-ocean-gull pet-ocean-gull--2" aria-hidden="true">🕊️</span>' +
+        '<div class="pet-beach" aria-hidden="true">' +
+        '<span class="pet-beach-shell pet-beach-shell--1">🐚</span>' +
+        '<span class="pet-beach-shell pet-beach-shell--2">⭐</span>' +
+        "</div>",
+      playground:
+        '<div class="pet-sky"></div>' +
+        '<div class="pet-sun" aria-hidden="true"></div>' +
+        '<div class="pet-cloud pet-cloud--a" aria-hidden="true"></div>' +
+        '<div class="pet-cloud pet-cloud--b" aria-hidden="true"></div>' +
+        '<div class="pet-playground-mat" aria-hidden="true"></div>' +
+        '<div class="pet-play-swing" aria-hidden="true">' +
+        '<span class="pet-play-swing-top"></span>' +
+        '<span class="pet-play-swing-seat"></span></div>' +
+        '<span class="pet-play-slide" aria-hidden="true">🛝</span>' +
+        '<span class="pet-play-carousel" aria-hidden="true">🎠</span>' +
+        '<span class="pet-play-ball" aria-hidden="true">⚽</span>' +
+        '<span class="pet-play-kite" aria-hidden="true">🪁</span>' +
+        '<div class="pet-ground pet-ground--playground" aria-hidden="true"></div>',
+      school:
+        '<div class="pet-sky"></div>' +
+        '<div class="pet-sun" aria-hidden="true"></div>' +
+        '<div class="pet-cloud pet-cloud--a" aria-hidden="true"></div>' +
+        '<div class="pet-cloud pet-cloud--b" aria-hidden="true"></div>' +
+        '<span class="pet-school-building" aria-hidden="true">🏫</span>' +
+        '<span class="pet-school-flag" aria-hidden="true">🚩</span>' +
+        '<span class="pet-school-bus" aria-hidden="true">🚌</span>' +
+        '<span class="pet-school-bag" aria-hidden="true">🎒</span>' +
+        '<span class="pet-school-books" aria-hidden="true">📚</span>' +
+        '<span class="pet-school-bell" aria-hidden="true">🔔</span>' +
+        '<div class="pet-school-yard" aria-hidden="true"></div>' +
+        '<div class="pet-ground pet-ground--school" aria-hidden="true"></div>',
+    };
+
+    return (
+      '<div class="pet-scene pet-scene--' +
+      escapeHtml(bg) +
+      '" aria-hidden="false">' +
+      labelHtml +
+      (layers[bg] || layers.grass) +
+      room +
+      "</div>"
+    );
+  }
+
   function showChildPet() {
     setStatus(bi("加载中…", "Loading…"));
     API.getPet()
@@ -364,6 +623,36 @@
           })
           .join("");
 
+        const bgItems = (state.backgrounds || [])
+          .map(function (bg) {
+            const label = escapeHtml(bg.label) + (bg.labelEn ? " · " + escapeHtml(bg.labelEn) : "");
+            let priceHtml;
+            if (bg.active) {
+              priceHtml =
+                '<span class="shop-price shop-price--active">' + bi("使用中", "In use") + "</span>";
+            } else if (bg.owned) {
+              priceHtml = '<span class="shop-price">' + bi("切换", "Switch") + "</span>";
+            } else {
+              priceHtml = '<span class="shop-price">🪙 ' + bg.cost + "</span>";
+            }
+            return (
+              '<button type="button" class="shop-item shop-item--bg' +
+              (bg.active ? " shop-item--active" : "") +
+              '" data-bg="' +
+              escapeHtml(bg.key) +
+              '">' +
+              '<span class="shop-emoji">' +
+              bg.emoji +
+              "</span>" +
+              "<span>" +
+              label +
+              "</span>" +
+              priceHtml +
+              "</button>"
+            );
+          })
+          .join("");
+
         setChildScreen(
           "pet",
           "<h2>🏠 " + bi("宠物小精灵的家", "Pet home") + "</h2>" +
@@ -371,23 +660,15 @@
             bi("用练习赚来的金币照顾你的小伙伴！", "Use coins from practice to care for your pet!") +
             "</p>" +
             '<div class="pet-house">' +
-            '<div class="pet-scene" aria-hidden="false">' +
-            '<div class="pet-sky"></div>' +
-            '<div class="pet-sun" aria-hidden="true"></div>' +
-            '<div class="pet-cloud pet-cloud--a" aria-hidden="true"></div>' +
-            '<div class="pet-cloud pet-cloud--b" aria-hidden="true"></div>' +
-            '<div class="pet-grass" aria-hidden="true"></div>' +
-            '<span class="pet-flower pet-flower--1" aria-hidden="true">🌼</span>' +
-            '<span class="pet-flower pet-flower--2" aria-hidden="true">🌸</span>' +
-            '<span class="pet-flower pet-flower--3" aria-hidden="true">🌷</span>' +
-            '<span class="pet-flower pet-flower--4" aria-hidden="true">🌻</span>' +
-            '<span class="pet-flower pet-flower--5" aria-hidden="true">🌼</span>' +
-            '<span class="pet-flower pet-flower--6" aria-hidden="true">🌸</span>' +
-            '<div class="pet-room">' +
-            (outfitEmoji ? '<span class="pet-outfit">' + outfitEmoji + "</span>" : "") +
-            '<span class="pet-sprite" aria-hidden="true">🐥</span>' +
-            '<p class="pet-name">' + bi("小精灵", "Little buddy") + "</p>" +
-            "</div></div>" +
+            (function () {
+              const activeBg = (state.backgrounds || []).find(function (b) {
+                return b.active;
+              });
+              const sceneLabel = activeBg
+                ? bi(activeBg.label, activeBg.labelEn || activeBg.label)
+                : bi("草地", "Grassland");
+              return renderPetScene(state.background || "grass", outfitEmoji, sceneLabel);
+            })() +
             '<div class="pet-status-grid">' +
             '<div class="pet-status-card">' +
             "<h3>" + bi("肚子", "Tummy") + "</h3>" +
@@ -432,6 +713,12 @@
             '<div class="shop-grid">' +
             shopItems +
             "</div>" +
+            '<p class="shop-note">' +
+            bi("更换家园背景（草地免费，其它各 20 金币）：", "Change home background (grass free, others 20 coins each):") +
+            "</p>" +
+            '<div class="shop-grid shop-grid--bg">' +
+            bgItems +
+            "</div>" +
             "</section>"
         );
 
@@ -461,6 +748,19 @@
           btn.onclick = function () {
             setStatus(bi("购买中…", "Buying…"));
             API.buyPetOutfit(btn.dataset.buy)
+              .then(function () {
+                setStatus("");
+                showChildPet();
+              })
+              .catch(function (err) {
+                setStatus(err.message, true);
+              });
+          };
+        });
+        screen.querySelectorAll("[data-bg]").forEach(function (btn) {
+          btn.onclick = function () {
+            setStatus(bi("更换背景…", "Changing background…"));
+            API.buyPetBackground(btn.dataset.bg)
               .then(function () {
                 setStatus("");
                 showChildPet();
@@ -500,8 +800,22 @@
     return blanks[Math.floor(Math.random() * blanks.length)];
   }
 
-  function sortedChoices(sent) {
-    return [sent.answer].concat(sent.distractors || []).sort(function (a, b) {
+  function prepareBlank(sent) {
+    if (window.WPBlank && window.WPBlank.prepareBlankItem) {
+      return window.WPBlank.prepareBlankItem(sent);
+    }
+    return {
+      text: sent.text,
+      answer: sent.answer,
+      choices: [sent.answer].concat(sent.distractors || []),
+      hint: "",
+      baseAnswer: sent.answer,
+      form: "singular",
+    };
+  }
+
+  function sortedChoices(prepared) {
+    return prepared.choices.slice().sort(function (a, b) {
       return a.localeCompare(b, undefined, { sensitivity: "base" });
     });
   }
@@ -631,7 +945,11 @@
         '<div class="auth-actions">' +
         '<button type="submit" class="btn-fun">' +
         bi("创建家长账号", "Create parent account") +
-        " ✓</button></div>";
+        " ✓</button></div>" +
+        '<div class="auth-actions">' +
+        '<button type="button" class="secondary" id="adminTestSetupBtn">' +
+        bi("创建测试账号（testparent / Tester）", "Create test accounts (testparent / Tester)") +
+        "</button></div>";
     }
 
     screen.innerHTML =
@@ -693,6 +1011,45 @@
         childInput.value = name;
       });
       parentInput.addEventListener("input", refreshChildPicks);
+    }
+
+    const testSetupBtn = document.getElementById("adminTestSetupBtn");
+    if (testSetupBtn) {
+      testSetupBtn.onclick = function () {
+        const adminKey = document.getElementById("adminKeyInput").value;
+        if (!adminKey) {
+          setStatus(bi("请输入管理员密钥", "Enter admin key"), true);
+          return;
+        }
+        setStatus(bi("创建测试账号…", "Creating test accounts…"));
+        API.adminTestSetup(adminKey)
+          .then(function (res) {
+            const a = res.accounts;
+            setStatus(
+              bi(
+                "测试家长 " +
+                  a.parent.email +
+                  " · 孩子 Tester 有 " +
+                  (a.child.startCoins || 10000) +
+                  " 金币 · 登录：家长 testparent，名字 Tester，密码 testpass1",
+                "Test parent " +
+                  a.parent.email +
+                  " · Child Tester starts with " +
+                  (a.child.startCoins || 10000) +
+                  " coins · Login: parent testparent, name Tester, password testpass1"
+              ),
+              false
+            );
+            showAuth("child");
+            const pIn = document.getElementById("parentAccountInput");
+            const cIn = document.getElementById("childNameInput");
+            if (pIn) pIn.value = a.child.parentAccount;
+            if (cIn) cIn.value = a.child.childName;
+          })
+          .catch(function (err) {
+            setStatus(err.message, true);
+          });
+      };
     }
 
     document.getElementById("authForm").onsubmit = function (e) {
@@ -1255,13 +1612,17 @@
         assessment.status +
         "</p></div>";
     } else {
+      const formatHint =
+        assessment.type === "monthly"
+          ? bi("每词 1 道填空（L2）", "1 fill-in-the-blank per word (L2)")
+          : bi("每词 2 题（含义/图片 + 填空）", "2 per word (meaning/picture + blank)");
       html +=
         "<p><strong>" +
         assessment.wordCount +
         "</strong> " +
         bi("个词", "words") +
         " · " +
-        bi("混合题型", "mixed questions") +
+        formatHint +
         "</p>";
     }
     html += btnRow(
@@ -1380,6 +1741,7 @@
             escapeHtml(data.date) +
             " (HK)</h2>" +
             coinTip +
+            renderTestToolbar() +
             body +
             btnRow(
               '<button type="button" class="secondary" id="openCalBtn">' +
@@ -1430,6 +1792,7 @@
             showAuth("parent");
           });
         };
+        wireTestToolbar(data);
       })
       .catch(showError);
   }
@@ -1515,6 +1878,8 @@
             .catch(showError);
         };
         document.getElementById("quitLearn").onclick = showChildToday;
+        appendTestSkipStep(plan.id, runDailyFlow);
+        appendTestFinishDaily(plan.id);
       })
       .catch(showError);
   }
@@ -1640,6 +2005,12 @@
         });
 
         document.getElementById("quitM").onclick = showChildToday;
+        if (!screen.querySelector(".test-skip-row")) {
+          appendTestSkipStep(plan && plan.id, function (p) {
+            runDailyFlow(p);
+          });
+          appendTestFinishDaily(plan && plan.id);
+        }
       }
 
       function pick(side, id) {
@@ -1707,8 +2078,12 @@
             showBlank();
             return;
           }
-          const choices = sortedChoices(sent);
-          const prompt = sent.text.replace("___", "______");
+          const prep = prepareBlank(sent);
+          const choices = sortedChoices(prep);
+          const prompt = prep.text.replace("___", "______");
+          const hintLine = prep.hint
+            ? '<p class="blank-hint">' + escapeHtml(bi(prep.hint, prep.hint)) + "</p>"
+            : "";
 
           screen.innerHTML =
             "<h2>✏️ Level 2 — Fill in the blank</h2>" +
@@ -1717,32 +2092,47 @@
             " of " +
             words.length +
             "</p>" +
+            hintLine +
             '<p class="blank-sentence">' +
             escapeHtml(prompt) +
             "</p>" +
             '<div class="blank-choices" id="choices"></div>' +
+            '<p id="blankFb" class="feedback" aria-live="polite"></p>' +
             btnRow('<button type="button" class="secondary" id="quitB">Back</button>');
 
           const box = document.getElementById("choices");
+          const blankFb = document.getElementById("blankFb");
           choices.forEach(function (c) {
             const b = document.createElement("button");
             b.type = "button";
             b.className = "blank-choice";
             b.textContent = c;
             b.onclick = function () {
-              if (c.toLowerCase() === sent.answer.toLowerCase()) {
+              const result = window.WPBlank
+                ? window.WPBlank.isBlankChoiceCorrect(prep, c)
+                : { ok: c.toLowerCase() === prep.answer.toLowerCase() };
+              if (result.ok) {
                 index++;
                 showBlank();
               } else {
                 b.classList.add("wrong");
+                if (blankFb && result.hint) {
+                  blankFb.className = "feedback warn";
+                  blankFb.textContent = result.hint;
+                }
                 setTimeout(function () {
                   b.classList.remove("wrong");
-                }, 400);
+                  if (blankFb) blankFb.textContent = "";
+                }, 1200);
               }
             };
             box.appendChild(b);
           });
           document.getElementById("quitB").onclick = showChildToday;
+          if (!screen.querySelector(".test-skip-row")) {
+            appendTestSkipStep(plan.id, runDailyFlow);
+            appendTestFinishDaily(plan.id);
+          }
         }
 
         showBlank();
@@ -1807,6 +2197,8 @@
             });
           };
           document.getElementById("quitS").onclick = showChildToday;
+          appendTestSkipStep(plan.id, runDailyFlow);
+          appendTestFinishDaily(plan.id);
         }
 
         showSentence();
@@ -1931,7 +2323,11 @@
           escapeHtml(p.prompt || "Pick the correct picture") +
           '</p><div class="blank-choices quiz-emoji-choices" id="choices"></div>';
       } else if (item.itemType === "blank") {
+        const blankHint = p.blankHint
+          ? '<p class="blank-hint">' + escapeHtml(p.blankHint) + "</p>"
+          : "";
         inner =
+          blankHint +
           '<p class="blank-sentence">' +
           escapeHtml((p.text || "").replace("___", "______")) +
           '</p><div class="blank-choices" id="choices"></div>';
@@ -1941,7 +2337,7 @@
           escapeHtml(p.prompt || "Write a sentence using this word.") +
           "</p>" +
           "<p>Use at least " +
-          (p.minWords || 15) +
+          (p.minWords || MIN_WORDS) +
           " words.</p>" +
           '<textarea id="quizSent" rows="4" class="sentence-input field-input" autocomplete="off" spellcheck="false"></textarea>' +
           '<p id="quizFb" class="feedback" aria-live="polite"></p>' +
@@ -1951,6 +2347,7 @@
       screen.innerHTML = head + inner + btnRow('<button type="button" class="secondary" id="quitQuiz">Back</button>');
 
       document.getElementById("quitQuiz").onclick = showChildToday;
+      appendTestSkipQuiz(assessment.id);
 
       if (item.itemType === "sentence") {
         const targetLemma = item.lemma || p.lemma || "";

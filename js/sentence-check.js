@@ -1,7 +1,7 @@
 (function (global) {
   "use strict";
 
-  const MIN_WORDS = 15;
+  const MIN_WORDS = 10;
 
   function countWords(text) {
     return text
@@ -48,6 +48,7 @@
     rescue: { third: "rescues", past: "rescued", ing: "rescuing" },
     survive: { third: "survives", past: "survived", ing: "surviving" },
     bellow: { third: "bellows", past: "bellowed", ing: "bellowing" },
+    scare: { third: "scares", past: "scared", ing: "scaring" },
     go: { third: "goes", past: "went", ing: "going" },
     run: { third: "runs", past: "ran", ing: "running" },
     walk: { third: "walks", past: "walked", ing: "walking" },
@@ -90,7 +91,7 @@
 
   /** Vocabulary / place words that are not verbs — do not run verb agreement on them. */
   const NOUN_OR_PLACE_LEMMAS =
-    /^(underground|overground|indoor|outdoor|earthworm|grasshopper|insect|mammal|understory|city|country|campus|manual|building|material|disaster|flower|flowers|rabbit|dog|knight|weather|climate|trek|resource|survivor|footprint|drought|gust|marine|bellow|emergent|ferocious|poisonous|dangerous|destructive|frequent|prone|armoured|stormproof)$/i;
+    /^(underground|overground|indoor|outdoor|earthworm|grasshopper|insect|mammal|understory|city|country|campus|manual|building|material|disaster|flower|flowers|rabbit|dog|knight|weather|climate|trek|resource|survivor|footprint|drought|gust|marine|emergent|ferocious|poisonous|dangerous|destructive|frequent|prone|armoured|stormproof)$/i;
 
   /** Adjectives often before a noun (not subjects). */
   const DESCRIPTOR_WORDS =
@@ -197,6 +198,17 @@
     "look",
     "become",
     "grow",
+    "scare",
+    "roar",
+    "chase",
+    "hunt",
+    "attack",
+    "hide",
+    "jump",
+    "climb",
+    "fight",
+    "bite",
+    "drink",
   ];
 
   function isLikelyAdjectiveLemma(lemma) {
@@ -287,7 +299,23 @@
 
   function isKnownActionVerb(conj) {
     if (!conj || !conj.base) return false;
-    return COMMON_BASE_VERBS.indexOf(conj.base) !== -1 || !!IRREGULAR_VERBS[conj.base];
+    const base = conj.base;
+    if (IRREGULAR_VERBS[base] || COMMON_BASE_VERBS.indexOf(base) !== -1) return true;
+    if (isLikelyAdjectiveLemma(base) || isLikelyNounOrPlaceLemma(base)) return false;
+    if (base.length < 3) return false;
+    return !!(conj.third && conj.third !== base && conj.past && conj.past !== base);
+  }
+
+  /** First noun subject in "The/A/An X …" for shared-subject checks. */
+  function inferLeadingSingularSubject(text) {
+    const m = text.match(/^\s*(?:the|a|an)\s+([A-Za-z]+)\b/i);
+    if (!m) return null;
+    const subj = m[1];
+    if (SUBJECT_STOP_WORDS.test(subj.toLowerCase()) || isVerbLikeWord(subj.toLowerCase())) {
+      return null;
+    }
+    if (!looksSingularSubject(subj.toLowerCase())) return null;
+    return subj;
   }
 
   const PAST_CLAUSE_WORDS =
@@ -824,7 +852,7 @@
           suggestion: conj.past,
           offset: m.index + m[0].lastIndexOf(verb),
         });
-      } else if (!past && !presentHint && verb === conj.base) {
+      } else if (!past && verb === conj.base) {
         pushTenseIssue(issues, seen, {
           type: "tense",
           topic: "subj-verb-agree-" + subjLower + "-" + verb,
@@ -845,6 +873,51 @@
           offset: m.index + m[0].lastIndexOf(verb),
         });
       }
+    }
+
+    return issues;
+  }
+
+  /** Same singular subject after "and": "The monster bellows … and scare …" → scares. */
+  function localCoordinatedVerbIssues(text) {
+    if (sentenceSuggestsPast(text)) return [];
+
+    const subj = inferLeadingSingularSubject(text);
+    if (!subj) return [];
+
+    const issues = [];
+    const seen = {};
+    const subjLower = subj.toLowerCase();
+    const re = /\b(?:and|or)\s+([A-Za-z]+)\b/gi;
+    let m;
+
+    while ((m = re.exec(text)) !== null) {
+      const verb = m[1].toLowerCase();
+      if (LINKING_AND_AUX_VERBS.test(verb)) continue;
+
+      const conj = resolveVerbConjugation(verb);
+      if (!isKnownActionVerb(conj)) continue;
+      if (verb !== conj.base) continue;
+
+      pushTenseIssue(issues, seen, {
+        type: "tense",
+        topic: "coord-verb-agree-" + subjLower + "-" + verb,
+        message:
+          'Verb agreement: "' +
+          subj +
+          '" is singular — use "' +
+          conj.third +
+          '", not "' +
+          verb +
+          '". Example: "The ' +
+          subjLower +
+          " " +
+          conj.third +
+          ' away many animals."',
+        word: verb,
+        suggestion: conj.third,
+        offset: m.index + m[0].lastIndexOf(verb),
+      });
     }
 
     return issues;
@@ -975,6 +1048,9 @@
 
     if (!hasClauseMix) {
       localSubjectVerbIssues(text).forEach(function (item) {
+        pushTenseIssue(issues, seen, item);
+      });
+      localCoordinatedVerbIssues(text).forEach(function (item) {
         pushTenseIssue(issues, seen, item);
       });
     }
@@ -1126,13 +1202,24 @@
   function localCausativeVerbIssues(text) {
     const issues = [];
     const seen = {};
+    const recipientAfterTo =
+      /^(me|you|him|her|us|them|it|mine|yours|hers|ours|theirs)$/i;
     const re =
-      /\b(let|lets|letting|make|makes|making|made)\b(?:\s+(?!to\b)[A-Za-z]+){1,8}\s+to\s+(?!the|a|an|their|his|her|my|our|your|some|any|this|that|those|these|one|school|home|work)\b([A-Za-z]+)\b/gi;
+      /\b(let|lets|letting|make|makes|making|made)\b(?:\s+(?!to\b)[A-Za-z]+){1,8}\s+to\s+(?!the|a|an|their|his|her|my|our|your|some|any|this|that|those|these|one|school|home|work|me|you|him|her|us|them|it)\b([A-Za-z]+)\b/gi;
     let m;
 
     while ((m = re.exec(text)) !== null) {
       const causative = m[1].toLowerCase();
+      const matchStart = m.index;
+      if (
+        (causative === "made" || causative === "making") &&
+        matchStart > 0 &&
+        text[matchStart - 1] === "-"
+      ) {
+        continue;
+      }
       const baseVerb = m[2];
+      if (recipientAfterTo.test(baseVerb)) continue;
       const root = causative.indexOf("let") === 0 ? "let" : "make";
       const topic = "causative-to-" + causative + "-" + baseVerb.toLowerCase();
       if (seen[topic]) continue;

@@ -117,5 +117,6 @@ export function publicUser(row) {
     displayName: row.display_name,
     createdAt: row.created_at,
     lastLoginAt: row.last_login_at,
+    testMode: !!row.is_test_account,
   };
 }

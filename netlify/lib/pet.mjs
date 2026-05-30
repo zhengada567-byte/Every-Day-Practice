@@ -51,10 +51,70 @@ export const SHOP_ITEMS = {
   },
 };
 
+/** Scene backgrounds (grass is free default). */
+export const PET_BACKGROUNDS = {
+  grass: {
+    key: "grass",
+    label: "草地",
+    labelEn: "Grassland",
+    emoji: "🌿",
+    cost: 0,
+  },
+  stars: {
+    key: "stars",
+    label: "星空",
+    labelEn: "Starry sky",
+    emoji: "✨",
+    cost: 20,
+  },
+  forest: {
+    key: "forest",
+    label: "森林",
+    labelEn: "Forest",
+    emoji: "🌲",
+    cost: 20,
+  },
+  snow: {
+    key: "snow",
+    label: "雪地",
+    labelEn: "Snow",
+    emoji: "❄️",
+    cost: 20,
+  },
+  cabin: {
+    key: "cabin",
+    label: "小屋",
+    labelEn: "Cottage",
+    emoji: "🏡",
+    cost: 20,
+  },
+  ocean: {
+    key: "ocean",
+    label: "大海",
+    labelEn: "Ocean",
+    emoji: "🌊",
+    cost: 20,
+  },
+  playground: {
+    key: "playground",
+    label: "游乐场",
+    labelEn: "Playground",
+    emoji: "🛝",
+    cost: 20,
+  },
+  school: {
+    key: "school",
+    label: "学校",
+    labelEn: "School",
+    emoji: "🏫",
+    cost: 20,
+  },
+};
+
 let petSchemaReady = false;
 
 /** Create pet/coin tables if migration 004 was not applied yet. */
-async function ensurePetSchema(query) {
+export async function ensurePetSchema(query) {
   if (petSchemaReady) return;
   await query(`
     CREATE TABLE IF NOT EXISTS child_coin_balances (
@@ -70,9 +130,17 @@ async function ensurePetSchema(query) {
       full_until TIMESTAMPTZ,
       happy_until TIMESTAMPTZ,
       outfit TEXT,
+      background TEXT NOT NULL DEFAULT 'grass',
+      owned_backgrounds JSONB NOT NULL DEFAULT '["grass"]'::jsonb,
       updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `);
+  await query(
+    `ALTER TABLE child_pet ADD COLUMN IF NOT EXISTS background TEXT NOT NULL DEFAULT 'grass'`
+  );
+  await query(
+    `ALTER TABLE child_pet ADD COLUMN IF NOT EXISTS owned_backgrounds JSONB NOT NULL DEFAULT '["grass"]'::jsonb`
+  );
   await query(`
     CREATE TABLE IF NOT EXISTS daily_plan_coin_grants (
       daily_plan_id UUID NOT NULL REFERENCES daily_plans (id) ON DELETE CASCADE,
@@ -119,12 +187,50 @@ async function loadPetRow(childId, query) {
     [childId]
   );
   const { rows: petRows } = await query(
-    `SELECT food_progress, full_until, happy_until, outfit FROM child_pet WHERE child_id = $1`,
+    `SELECT food_progress, full_until, happy_until, outfit, background, owned_backgrounds
+     FROM child_pet WHERE child_id = $1`,
     [childId]
   );
+  const row = petRows[0] || {
+    food_progress: 0,
+    full_until: null,
+    happy_until: null,
+    outfit: null,
+    background: "grass",
+    owned_backgrounds: ["grass"],
+  };
   return {
     coins: coinRows[0]?.coins ?? 0,
-    pet: petRows[0] || { food_progress: 0, full_until: null, happy_until: null, outfit: null },
+    pet: normalizePetRow(row),
+  };
+}
+
+function normalizeOwnedBackgrounds(raw) {
+  if (Array.isArray(raw)) return raw.filter((k) => PET_BACKGROUNDS[k]);
+  if (typeof raw === "string") {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed.filter((k) => PET_BACKGROUNDS[k]);
+    } catch {
+      /* ignore */
+    }
+  }
+  return ["grass"];
+}
+
+function normalizePetRow(row) {
+  const owned = normalizeOwnedBackgrounds(row.owned_backgrounds);
+  if (!owned.includes("grass")) owned.unshift("grass");
+  let background = row.background || "grass";
+  if (!PET_BACKGROUNDS[background]) background = "grass";
+  if (!owned.includes(background)) background = owned[0] || "grass";
+  return {
+    food_progress: row.food_progress,
+    full_until: row.full_until,
+    happy_until: row.happy_until,
+    outfit: row.outfit,
+    background,
+    owned_backgrounds: owned,
   };
 }
 
@@ -175,9 +281,22 @@ export function mapPetPayload(coins, pet) {
     foodProgress: pet.food_progress,
     foodNeeded: 10,
     outfit: pet.outfit,
+    background: pet.background,
+    ownedBackgrounds: pet.owned_backgrounds,
     fullRemainingMs,
     happyRemainingMs,
     shop: Object.values(SHOP_ITEMS),
+    backgrounds: Object.values(PET_BACKGROUNDS).map(function (bg) {
+      return {
+        key: bg.key,
+        label: bg.label,
+        labelEn: bg.labelEn,
+        emoji: bg.emoji,
+        cost: bg.cost,
+        owned: pet.owned_backgrounds.indexOf(bg.key) !== -1,
+        active: pet.background === bg.key,
+      };
+    }),
   };
 }
 
@@ -333,4 +452,40 @@ export async function buyOutfit(childId, itemKey, query) {
   );
   const state = await getPetState(childId, query);
   return { action: "outfit", item: itemKey, state };
+}
+
+export async function buyPetBackground(childId, backgroundKey, query) {
+  const bg = PET_BACKGROUNDS[backgroundKey];
+  if (!bg) {
+    const err = new Error("Unknown background");
+    err.status = 400;
+    throw err;
+  }
+
+  await applyPetDecay(childId, query);
+  const { pet } = await loadPetRow(childId, query);
+  const owned = pet.owned_backgrounds.slice();
+
+  if (!owned.includes(backgroundKey)) {
+    if (bg.cost > 0) {
+      await spendCoins(childId, bg.cost, query);
+    }
+    owned.push(backgroundKey);
+    await query(
+      `
+      UPDATE child_pet
+      SET owned_backgrounds = $2::jsonb, background = $3, updated_at = now()
+      WHERE child_id = $1
+      `,
+      [childId, JSON.stringify(owned), backgroundKey]
+    );
+  } else {
+    await query(
+      `UPDATE child_pet SET background = $2, updated_at = now() WHERE child_id = $1`,
+      [childId, backgroundKey]
+    );
+  }
+
+  const state = await getPetState(childId, query);
+  return { action: "background", background: backgroundKey, state };
 }

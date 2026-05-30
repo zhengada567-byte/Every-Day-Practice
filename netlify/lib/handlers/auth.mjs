@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { query } from "../db.mjs";
+import { ensureTestSchema } from "../test-harness.mjs";
 import {
   childEmailForParent,
   resolveParentEmail,
@@ -51,7 +52,8 @@ export async function login(event, body) {
 
   const { rows } = await query(
     `
-    SELECT id, email, password_hash, role, display_name, created_at, last_login_at
+    SELECT id, email, password_hash, role, display_name, created_at, last_login_at,
+           COALESCE(is_test_account, false) AS is_test_account
     FROM users WHERE email = $1
     `,
     [email]
@@ -100,7 +102,8 @@ export async function childLogin(event, body) {
 
   const { rows } = await query(
     `
-    SELECT u.id, u.email, u.password_hash, u.role, u.display_name, u.created_at, u.last_login_at
+    SELECT u.id, u.email, u.password_hash, u.role, u.display_name, u.created_at, u.last_login_at,
+           COALESCE(u.is_test_account, false) AS is_test_account
     FROM users u
     JOIN parent_children pc ON pc.child_id = u.id
     WHERE u.email = $1 AND u.role = 'child' AND pc.parent_id = $2
@@ -169,9 +172,11 @@ export async function logout(event) {
 }
 
 export async function me(event, auth) {
+  await ensureTestSchema();
   const { rows } = await query(
     `
-    SELECT id, email, role, display_name, created_at, last_login_at
+    SELECT id, email, role, display_name, created_at, last_login_at,
+           COALESCE(is_test_account, false) AS is_test_account
     FROM users WHERE id = $1
     `,
     [auth.sub]

@@ -122,12 +122,46 @@
       );
     },
 
+    adminTestSetup: function (adminKey) {
+      return request("POST", "/admin/test/setup", {}, { headers: { "X-Admin-Key": adminKey } });
+    },
+
+    testStartDaily: function () {
+      return request("POST", "/child/test/start-daily");
+    },
+    testBypassPhase: function (planId) {
+      return request("POST", "/child/test/bypass-phase", { planId: planId });
+    },
+    testFinishDaily: function (planId) {
+      return request("POST", "/child/test/finish-daily", { planId: planId || undefined });
+    },
+    testSeedWeek: function () {
+      return request("POST", "/child/test/seed-week");
+    },
+    testOpenWeekly: function () {
+      return request("POST", "/child/test/open-weekly");
+    },
+    testOpenMonthly: function () {
+      return request("POST", "/child/test/open-monthly");
+    },
+    testBypassAssessment: function (assessmentId) {
+      return request("POST", "/child/test/bypass-assessment", {
+        assessmentId: assessmentId || undefined,
+      });
+    },
+    testStatus: function () {
+      return request("GET", "/child/test/status");
+    },
+
     logout: function () {
       return request("POST", "/auth/logout").finally(clearSession);
     },
 
     me: function () {
-      return request("GET", "/auth/me");
+      return request("GET", "/auth/me").then(function (data) {
+        if (data.user) setUser(data.user);
+        return data;
+      });
     },
 
     listChildren: function () {
@@ -188,6 +222,10 @@
 
     buyPetOutfit: function (item) {
       return request("POST", "/child/pet/buy", { item: item });
+    },
+
+    buyPetBackground: function (background) {
+      return request("POST", "/child/pet/background", { background: background });
     },
 
     startDailyPlan: function () {

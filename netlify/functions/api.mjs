@@ -4,6 +4,8 @@ import { requireAuth, requireRole } from "../lib/auth.mjs";
 
 import * as assessmentHandlers from "../lib/handlers/assessment.mjs";
 import * as adminHandlers from "../lib/handlers/admin.mjs";
+import * as adminTestHandlers from "../lib/handlers/admin-test.mjs";
+import * as testHandlers from "../lib/handlers/test.mjs";
 import * as authHandlers from "../lib/handlers/auth.mjs";
 
 import * as calendarHandlers from "../lib/handlers/calendar.mjs";
@@ -72,6 +74,19 @@ export async function handler(event) {
 
     if (method === "POST" && path === "/admin/parents") {
       return await adminHandlers.createParent(event, parseBody(event));
+    }
+
+    if (method === "POST" && path === "/admin/test/setup") {
+      return await adminTestHandlers.setup(event, parseBody(event));
+    }
+    if (method === "POST" && path === "/admin/test/seed-week") {
+      return await adminTestHandlers.seedWeek(event, parseBody(event));
+    }
+    if (method === "POST" && path === "/admin/test/open-weekly") {
+      return await adminTestHandlers.openWeekly(event, parseBody(event));
+    }
+    if (method === "POST" && path === "/admin/test/open-monthly") {
+      return await adminTestHandlers.openMonthly(event, parseBody(event));
     }
 
     if (method === "POST" && path === "/auth/child-login") {
@@ -169,6 +184,11 @@ export async function handler(event) {
       return await petHandlers.buy(event, child, parseBody(event));
     }
 
+    if (method === "POST" && path === "/child/pet/background") {
+      const child = requireRole(event, "child");
+      return await petHandlers.buyBackground(event, child, parseBody(event));
+    }
+
     if (method === "GET" && path === "/child/calendar") {
       const child = requireRole(event, "child");
       return await calendarHandlers.getMonth(event, child);
@@ -197,6 +217,39 @@ export async function handler(event) {
 
       return await dailyHandlers.startPlan(event, child);
 
+    }
+
+    if (method === "POST" && path === "/child/test/start-daily") {
+      const child = requireRole(event, "child");
+      return await testHandlers.startDaily(event, child);
+    }
+    if (method === "POST" && path === "/child/test/bypass-phase") {
+      const child = requireRole(event, "child");
+      return await testHandlers.bypassPhase(event, child, parseBody(event));
+    }
+    if (method === "POST" && path === "/child/test/finish-daily") {
+      const child = requireRole(event, "child");
+      return await testHandlers.finishDaily(event, child, parseBody(event));
+    }
+    if (method === "POST" && path === "/child/test/seed-week") {
+      const child = requireRole(event, "child");
+      return await testHandlers.seedWeek(event, child);
+    }
+    if (method === "POST" && path === "/child/test/open-weekly") {
+      const child = requireRole(event, "child");
+      return await testHandlers.openWeekly(event, child);
+    }
+    if (method === "POST" && path === "/child/test/open-monthly") {
+      const child = requireRole(event, "child");
+      return await testHandlers.openMonthly(event, child);
+    }
+    if (method === "POST" && path === "/child/test/bypass-assessment") {
+      const child = requireRole(event, "child");
+      return await testHandlers.bypassAssessment(event, child, parseBody(event));
+    }
+    if (method === "GET" && path === "/child/test/status") {
+      const child = requireRole(event, "child");
+      return await testHandlers.status(event, child);
     }
 
 

@@ -32,6 +32,18 @@ http://localhost:8888/api/v1
 - Parent logs in (can change password), adds child by **name only** (e.g. `Alex` → system uses `alex_parentada@everydaypractice.com` internally).
 - Child logs in with **parent account** + **child name** + password; browser caches recent choices.
 
+### QA test account (skip questions)
+
+1. **Admin** tab → **Create test accounts** (or `POST /admin/test/setup` with `X-Admin-Key`).
+2. Child login: parent `testparent`, name `Tester`, password `testpass1` — **10,000 golden coins** on setup.
+3. On **Today**, use the **Test tools** panel: seed week dailies → open weekly/monthly → skip quiz, or use **Skip step** during practice.
+
+Automated flow (with `npm run dev`):
+
+```powershell
+npm run test:flow
+```
+
 ## Step 4 — Weekly quiz
 
 - Opens **Saturday** (HK) for words learned Mon–Fri that week (`word_role = new`, completed plans).
@@ -44,7 +56,8 @@ http://localhost:8888/api/v1
 
 - Opens on the **last Saturday** of each month (HK calendar).
 - Words = all **new** words from completed workdays that month.
-- Same 3 questions per word and mastery rules as the weekly quiz.
+- **One Level 2 (fill-in-the-blank) question per word** — no L1 meaning/picture items (shorter than weekly quiz).
+- Mastery: all blank items correct for that word.
 - On last Saturday: finish **weekly quiz first**, then **monthly test** if both are open.
 - Parent home → click a child → **View progress** (mastery counts + recent quiz reports).
 - API: `GET /parent/children/:childId/reports?type=weekly|monthly&limit=20`

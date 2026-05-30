@@ -80,11 +80,11 @@
             },
             {
               "text": "After the storm soaked the playground garden, students counted five ___ in one shovel of mud, wriggling toward the cooler depths.",
-              "answer": "earthworm",
+              "answer": "earthworms",
               "distractors": [
-                "grasshopper",
-                "insect",
-                "mammal"
+                "grasshoppers",
+                "insects",
+                "mammals"
               ]
             },
             {
@@ -268,11 +268,11 @@
             },
             {
               "text": "Farmers sometimes worry when a swarm of ___ eats young shoots, because thousands of hungry insects can strip a field in days.",
-              "answer": "grasshopper",
+              "answer": "grasshoppers",
               "distractors": [
-                "earthworm",
-                "insect",
-                "emergent"
+                "earthworms",
+                "insects",
+                "emergents"
               ]
             },
             {
@@ -3961,11 +3961,11 @@
             },
             {
               "text": "We compared two ___ samples, one with yeast and one without, to see which rose higher in the same warm cupboard overnight.",
-              "answer": "dough",
+              "answer": "doughs",
               "distractors": [
-                "substance",
-                "grind",
-                "composition"
+                "substances",
+                "grinds",
+                "compositions"
               ]
             }
           ],
