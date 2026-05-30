@@ -1,0 +1,47 @@
+{
+  "region": "HK",
+  "source": "GovHK gazetted general holidays",
+  "sources": [
+    "https://www.gov.hk/en/about/abouthk/holiday/2025.htm",
+    "https://www.gov.hk/en/about/abouthk/holiday/2026.htm"
+  ],
+  "fetchedAt": "2026-05-29",
+  "note": "Sundays are general holidays in HK law but excluded here; app already treats Sunday as non-workday. Saturdays in this list do not affect Mon–Fri workday logic. Add 2027+ from GovHK each May.",
+  "holidays": [
+    { "date": "2025-01-01", "name": "The first day of January" },
+    { "date": "2025-01-29", "name": "Lunar New Year's Day" },
+    { "date": "2025-01-30", "name": "The second day of Lunar New Year" },
+    { "date": "2025-01-31", "name": "The third day of Lunar New Year" },
+    { "date": "2025-04-04", "name": "Ching Ming Festival" },
+    { "date": "2025-04-18", "name": "Good Friday" },
+    { "date": "2025-04-19", "name": "The day following Good Friday" },
+    { "date": "2025-04-21", "name": "Easter Monday" },
+    { "date": "2025-05-01", "name": "Labour Day" },
+    { "date": "2025-05-05", "name": "The Birthday of the Buddha" },
+    { "date": "2025-05-31", "name": "Tuen Ng Festival" },
+    { "date": "2025-07-01", "name": "Hong Kong SAR Establishment Day" },
+    { "date": "2025-10-01", "name": "National Day" },
+    { "date": "2025-10-07", "name": "The day following the Chinese Mid-Autumn Festival" },
+    { "date": "2025-10-29", "name": "Chung Yeung Festival" },
+    { "date": "2025-12-25", "name": "Christmas Day" },
+    { "date": "2025-12-26", "name": "The first weekday after Christmas Day" },
+
+    { "date": "2026-01-01", "name": "The first day of January" },
+    { "date": "2026-02-17", "name": "Lunar New Year's Day" },
+    { "date": "2026-02-18", "name": "The second day of Lunar New Year" },
+    { "date": "2026-02-19", "name": "The third day of Lunar New Year" },
+    { "date": "2026-04-03", "name": "Good Friday" },
+    { "date": "2026-04-04", "name": "The day following Good Friday" },
+    { "date": "2026-04-06", "name": "The day following Ching Ming Festival" },
+    { "date": "2026-04-07", "name": "The day following Easter Monday" },
+    { "date": "2026-05-01", "name": "Labour Day" },
+    { "date": "2026-05-25", "name": "The day following the Birthday of the Buddha" },
+    { "date": "2026-06-19", "name": "Tuen Ng Festival" },
+    { "date": "2026-07-01", "name": "Hong Kong SAR Establishment Day" },
+    { "date": "2026-09-26", "name": "The day following the Chinese Mid-Autumn Festival" },
+    { "date": "2026-10-01", "name": "National Day" },
+    { "date": "2026-10-19", "name": "The day following Chung Yeung Festival" },
+    { "date": "2026-12-25", "name": "Christmas Day" },
+    { "date": "2026-12-26", "name": "The first weekday after Christmas Day" }
+  ]
+}

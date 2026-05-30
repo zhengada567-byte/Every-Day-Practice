@@ -1,0 +1,10 @@
+node_modules/
+.netlify/
+__pycache__/
+*.pyc
+
+# Local env (secrets)
+.env
+.env.*
+!.env.example
+env.txt

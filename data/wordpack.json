@@ -1,0 +1,4308 @@
+{
+  "version": 1,
+  "ageRange": "10-12",
+  "picturePolicy": "cartoon for mood/scary words; photo or diagram otherwise",
+  "modules": [
+    {
+      "id": 1,
+      "name": "Module 1 — Nature & living things",
+      "words": [
+        {
+          "word": "affect",
+          "explanation": "To change how something develops. One event can alter another in ways you may not expect.",
+          "pictureSearch": "cause effect diagram education cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "After weeks of dry weather, the lack of rain began to ___ the growth of the vegetables our class had planted behind the science building.",
+              "answer": "affect",
+              "distractors": [
+                "effect",
+                "sustain",
+                "underground"
+              ]
+            },
+            {
+              "text": "The biologist explained that even small changes in river temperature can ___ which fish species survive during the hottest months of the year.",
+              "answer": "affect",
+              "distractors": [
+                "effect",
+                "sustain",
+                "underground"
+              ]
+            },
+            {
+              "text": "Pollution from the old factory did not only harm the air; it began to ___ the health of trees miles away from the smokestacks.",
+              "answer": "affect",
+              "distractors": [
+                "effect",
+                "sustain",
+                "underground"
+              ]
+            },
+            {
+              "text": "When invasive plants spread across the field, they can ___ native wildflowers by stealing sunlight, water, and space in the soil.",
+              "answer": "affect",
+              "distractors": [
+                "effect",
+                "sustain",
+                "underground"
+              ]
+            }
+          ],
+          "examples": [
+            "Pollution can affect air quality in cities far from the factory."
+          ]
+        },
+        {
+          "word": "earthworm",
+          "explanation": "A long, soft animal that lives in soil. It tunnels through dirt and helps air and water reach plant roots.",
+          "pictureSearch": "earthworm soil cross section cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "During our outdoor lab, we gently lifted a log and watched a pink ___ slide between damp crumbs of earth and tiny white roots.",
+              "answer": "earthworm",
+              "distractors": [
+                "grasshopper",
+                "insect",
+                "mammal"
+              ]
+            },
+            {
+              "text": "The gardener explained that a healthy ___ tunnel network keeps soil loose so plant roots can breathe and absorb rainwater.",
+              "answer": "earthworm",
+              "distractors": [
+                "grasshopper",
+                "insect",
+                "mammal"
+              ]
+            },
+            {
+              "text": "After the storm soaked the playground garden, students counted five ___ in one shovel of mud, wriggling toward the cooler depths.",
+              "answer": "earthworm",
+              "distractors": [
+                "grasshopper",
+                "insect",
+                "mammal"
+              ]
+            },
+            {
+              "text": "Without creatures like the humble ___, fallen leaves might pile up and the ground below would become hard and difficult for roots to penetrate.",
+              "answer": "earthworm",
+              "distractors": [
+                "grasshopper",
+                "insect",
+                "mammal"
+              ]
+            }
+          ],
+          "examples": [
+            "We found an earthworm under the damp log in the school garden."
+          ]
+        },
+        {
+          "word": "effect",
+          "explanation": "What happens because of an earlier action or cause. Dropping a book can create a loud noise when it hits the floor.",
+          "pictureSearch": "domino effect simple illustration cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "The teacher warned that litter near storm drains can have a harmful ___ on fish and plants living downstream in the river.",
+              "answer": "effect",
+              "distractors": [
+                "affect",
+                "poisonous",
+                "emergent"
+              ]
+            },
+            {
+              "text": "Scientists studied the ___ of wildfire smoke on lungs by comparing air-quality reports from cities hundreds of miles apart.",
+              "answer": "effect",
+              "distractors": [
+                "affect",
+                "poisonous",
+                "emergent"
+              ]
+            },
+            {
+              "text": "Planting trees along the bank had a positive ___ on erosion, because roots held the soil when fast spring meltwater rushed past.",
+              "answer": "effect",
+              "distractors": [
+                "affect",
+                "poisonous",
+                "emergent"
+              ]
+            },
+            {
+              "text": "One surprising ___ of the long drought was that usually shy animals appeared near houses, searching for water and shade.",
+              "answer": "effect",
+              "distractors": [
+                "affect",
+                "poisonous",
+                "emergent"
+              ]
+            }
+          ],
+          "examples": [
+            "The medicine had a positive effect on her cough after two days."
+          ]
+        },
+        {
+          "word": "emergent",
+          "explanation": "The highest rainforest level, where the tallest trees rise above the main canopy into bright sun and wind.",
+          "pictureSearch": "rainforest emergent layer cartoon birds",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "From the trail far below, we could barely see eagle nests in the ___ layer, where the tallest trees break through the roof of leaves.",
+              "answer": "emergent",
+              "distractors": [
+                "understory",
+                "underground",
+                "insect"
+              ]
+            },
+            {
+              "text": "Only certain birds and bats thrive in the ___ zone, because branches are thin and winds can knock animals off if they are clumsy.",
+              "answer": "emergent",
+              "distractors": [
+                "understory",
+                "underground",
+                "insect"
+              ]
+            },
+            {
+              "text": "Our guide pointed upward to the ___ treetops that catch full sunlight and the first heavy rain during tropical thunderstorms.",
+              "answer": "emergent",
+              "distractors": [
+                "understory",
+                "underground",
+                "insect"
+              ]
+            },
+            {
+              "text": "Seeds scattered by wind from the ___ layer can travel long distances before landing in distant forests or open fields.",
+              "answer": "emergent",
+              "distractors": [
+                "understory",
+                "underground",
+                "insect"
+              ]
+            }
+          ],
+          "examples": [
+            "Toucan birds often nest in the emergent layer above the main canopy."
+          ]
+        },
+        {
+          "word": "ferocious",
+          "explanation": "Very wild, violent, or aggressive. Such behaviour can seem frightening and powerful in animals or storms.",
+          "pictureSearch": "ferocious cartoon lion adventure",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The nature film showed a ___ mother bear chasing intruders away from her cubs, splashing through the river without slowing down.",
+              "answer": "ferocious",
+              "distractors": [
+                "poisonous",
+                "mammal",
+                "trek"
+              ]
+            },
+            {
+              "text": "Although the cartoon dragon looked ___ when it roared, the story later revealed it only wanted to protect its hidden nest.",
+              "answer": "ferocious",
+              "distractors": [
+                "poisonous",
+                "mammal",
+                "trek"
+              ]
+            },
+            {
+              "text": "During the night, a ___ gust tore branches loose and scattered them across the road before the cleanup crew arrived at dawn.",
+              "answer": "ferocious",
+              "distractors": [
+                "poisonous",
+                "mammal",
+                "trek"
+              ]
+            },
+            {
+              "text": "Even a normally calm guard dog can become ___ if strangers step too close to the fence where puppies are sleeping.",
+              "answer": "ferocious",
+              "distractors": [
+                "poisonous",
+                "mammal",
+                "trek"
+              ]
+            }
+          ],
+          "examples": [
+            "The documentary showed a ferocious storm pounding the rocky coast."
+          ]
+        },
+        {
+          "word": "grasshopper",
+          "explanation": "A jumping plant-eater with long back legs and strong jaws. Large swarms can strip a field in days.",
+          "pictureSearch": "grasshopper on leaf cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "While we measured plants in the meadow, a bright green ___ launched from a blade of grass and vanished with a dry clicking sound.",
+              "answer": "grasshopper",
+              "distractors": [
+                "earthworm",
+                "insect",
+                "emergent"
+              ]
+            },
+            {
+              "text": "Under the magnifying glass, the ___ slowly opened its hind wings, revealing patterns that helped it disappear among dry stalks.",
+              "answer": "grasshopper",
+              "distractors": [
+                "earthworm",
+                "insect",
+                "emergent"
+              ]
+            },
+            {
+              "text": "Farmers sometimes worry when a swarm of ___ eats young shoots, because thousands of hungry insects can strip a field in days.",
+              "answer": "grasshopper",
+              "distractors": [
+                "earthworm",
+                "insect",
+                "emergent"
+              ]
+            },
+            {
+              "text": "Our journal entry described how the ___ chewed a neat edge on the leaf, leaving tiny tooth marks we sketched beside the photo.",
+              "answer": "grasshopper",
+              "distractors": [
+                "earthworm",
+                "insect",
+                "emergent"
+              ]
+            }
+          ],
+          "examples": [
+            "A bright green grasshopper leaped from the wheat stem into the grass."
+          ]
+        },
+        {
+          "word": "insect",
+          "explanation": "A small animal with six legs, three body parts, and often wings. Ants, bees, and beetles belong to this group.",
+          "pictureSearch": "insect anatomy educational cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Before we released it, we sketched the ___ carefully, counting six legs and watching its antennae twitch in the sunlit jar.",
+              "answer": "insect",
+              "distractors": [
+                "mammal",
+                "grasshopper",
+                "poisonous"
+              ]
+            },
+            {
+              "text": "Not every tiny crawler is an ___; the teacher reminded us that spiders have eight legs and belong to a different group.",
+              "answer": "insect",
+              "distractors": [
+                "mammal",
+                "grasshopper",
+                "poisonous"
+              ]
+            },
+            {
+              "text": "A single ___ drifting across the classroom window sparked a discussion about pollination and how crops depend on these visitors.",
+              "answer": "insect",
+              "distractors": [
+                "mammal",
+                "grasshopper",
+                "poisonous"
+              ]
+            },
+            {
+              "text": "During the pond field trip, we trapped a water ___ in a tray and observed how it rowed across the surface with oar-like legs.",
+              "answer": "insect",
+              "distractors": [
+                "mammal",
+                "grasshopper",
+                "poisonous"
+              ]
+            }
+          ],
+          "examples": [
+            "Every insect has six legs and three main body parts."
+          ]
+        },
+        {
+          "word": "mammal",
+          "explanation": "An animal with hair or fur that feeds milk to its young. Dogs, whales, and humans belong to this group.",
+          "pictureSearch": "mammals educational collage cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Although it lays eggs, the platypus is still a ___ because it has fur and nurses its babies with milk from its mother.",
+              "answer": "mammal",
+              "distractors": [
+                "insect",
+                "earthworm",
+                "ferocious"
+              ]
+            },
+            {
+              "text": "The whale surfaced quietly, and our guide explained that every ___ must breathe air, even when it spends life in salt water.",
+              "answer": "mammal",
+              "distractors": [
+                "insect",
+                "earthworm",
+                "ferocious"
+              ]
+            },
+            {
+              "text": "We compared a bat skeleton with a mouse and learned that both are classified as ___ because of shared features like jaw bones.",
+              "answer": "mammal",
+              "distractors": [
+                "insect",
+                "earthworm",
+                "ferocious"
+              ]
+            },
+            {
+              "text": "On the trail camera footage, a shy nocturnal ___ sniffed the bait, its eyes glowing before it disappeared into the pine forest.",
+              "answer": "mammal",
+              "distractors": [
+                "insect",
+                "earthworm",
+                "ferocious"
+              ]
+            }
+          ],
+          "examples": [
+            "A whale is a mammal that breathes air and feeds milk to its young."
+          ]
+        },
+        {
+          "word": "poisonous",
+          "explanation": "Unsafe to eat or touch; certain plants and animals can make you very sick if handled wrongly.",
+          "pictureSearch": "poison dart frog cartoon rainforest",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The ranger warned us never to touch the bright frog, because its skin is ___ and could cause serious illness if rubbed near your mouth.",
+              "answer": "poisonous",
+              "distractors": [
+                "ferocious",
+                "sustain",
+                "effect"
+              ]
+            },
+            {
+              "text": "Some berries look delicious but are ___; our field guide showed pictures of safe fruits and dangerous ones side by side.",
+              "answer": "poisonous",
+              "distractors": [
+                "ferocious",
+                "sustain",
+                "effect"
+              ]
+            },
+            {
+              "text": "Certain mushrooms are so ___ that even a small bite can send someone to the hospital, which is why foragers must study them carefully.",
+              "answer": "poisonous",
+              "distractors": [
+                "ferocious",
+                "sustain",
+                "effect"
+              ]
+            },
+            {
+              "text": "The sign beside the reef exhibit explained that the lionfish has ___ spines, so divers must keep a respectful distance.",
+              "answer": "poisonous",
+              "distractors": [
+                "ferocious",
+                "sustain",
+                "effect"
+              ]
+            }
+          ],
+          "examples": [
+            "The sign warned that the berries are poisonous and must not be eaten."
+          ]
+        },
+        {
+          "word": "sustain",
+          "explanation": "To keep something going over time; to support life, health, or interest so it continues.",
+          "pictureSearch": "sustainable ecosystem diagram cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "A healthy wetland needs many connected species to ___ the food web, from tiny algae to fish and wading birds along the shore.",
+              "answer": "sustain",
+              "distractors": [
+                "affect",
+                "underground",
+                "trek"
+              ]
+            },
+            {
+              "text": "Farmers rotate crops because planting the same crop every year can exhaust minerals needed to ___ fertile soil for future harvests.",
+              "answer": "sustain",
+              "distractors": [
+                "affect",
+                "underground",
+                "trek"
+              ]
+            },
+            {
+              "text": "Clean river water helps ___ trout populations, giving them gravel beds and insects to eat throughout long cold winters.",
+              "answer": "sustain",
+              "distractors": [
+                "affect",
+                "underground",
+                "trek"
+              ]
+            },
+            {
+              "text": "The community garden project hoped to ___ neighborhood interest by inviting families to harvest herbs and share recipes together.",
+              "answer": "sustain",
+              "distractors": [
+                "affect",
+                "underground",
+                "trek"
+              ]
+            }
+          ],
+          "examples": [
+            "Rain forests sustain countless species with food, shelter, and clean water."
+          ]
+        },
+        {
+          "word": "trek",
+          "explanation": "A long, hard journey, especially on foot through wild or rough country.",
+          "pictureSearch": "hikers mountain trek cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Our family planned a three-day ___ through the hills, carrying maps and extra water because the trail would be steep and remote.",
+              "answer": "trek",
+              "distractors": [
+                "underground",
+                "emergent",
+                "sustain"
+              ]
+            },
+            {
+              "text": "During the museum exhibit, we followed a simulated ___ across desert dunes, reading diary entries from explorers a century ago.",
+              "answer": "trek",
+              "distractors": [
+                "underground",
+                "emergent",
+                "sustain"
+              ]
+            },
+            {
+              "text": "The scouts prepared carefully for their overnight ___ , checking boots and rain jackets before heading into the pine forest.",
+              "answer": "trek",
+              "distractors": [
+                "underground",
+                "emergent",
+                "sustain"
+              ]
+            },
+            {
+              "text": "What began as a short walk became a tiring ___ when the bridge washed out and we had to circle the canyon rim to return.",
+              "answer": "trek",
+              "distractors": [
+                "underground",
+                "emergent",
+                "sustain"
+              ]
+            }
+          ],
+          "examples": [
+            "Our class began a trek through the hills at sunrise."
+          ]
+        },
+        {
+          "word": "underground",
+          "explanation": "Located below the surface of the ground, hidden from view above.",
+          "pictureSearch": "underground burrow cross section cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The naturalist showed diagrams of mole tunnels running ___, where the animals hunt worms in darkness beneath the soccer field.",
+              "answer": "underground",
+              "distractors": [
+                "understory",
+                "earthworm",
+                "trek"
+              ]
+            },
+            {
+              "text": "Tree roots spread ___ for meters, anchoring trunks and soaking up water that later rises through tubes inside the bark.",
+              "answer": "underground",
+              "distractors": [
+                "understory",
+                "earthworm",
+                "trek"
+              ]
+            },
+            {
+              "text": "Engineers bored ___ pipes to carry clean water into the city, marking each section on maps so repair crews could find leaks.",
+              "answer": "underground",
+              "distractors": [
+                "understory",
+                "earthworm",
+                "trek"
+              ]
+            },
+            {
+              "text": "Fossil hunters explained that some bones remain buried ___ for millions of years until erosion or construction exposes them.",
+              "answer": "underground",
+              "distractors": [
+                "understory",
+                "earthworm",
+                "trek"
+              ]
+            }
+          ],
+          "examples": [
+            "Moles build underground tunnels beneath the meadow."
+          ]
+        },
+        {
+          "word": "understory",
+          "explanation": "The shaded middle level of a forest, below the canopy but above the forest floor.",
+          "pictureSearch": "rainforest understory layer cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "In the dim ___ of the rainforest, ferns and orchids grow in humid shade while birds call softly beneath the thick ceiling of leaves.",
+              "answer": "understory",
+              "distractors": [
+                "emergent",
+                "underground",
+                "insect"
+              ]
+            },
+            {
+              "text": "Jaguars sometimes hunt in the ___ because prey move quietly there, hidden from the bright sun that burns above the canopy.",
+              "answer": "understory",
+              "distractors": [
+                "emergent",
+                "underground",
+                "insect"
+              ]
+            },
+            {
+              "text": "Our field guide listed plants of the ___ layer, including saplings waiting for a fallen tree to open a patch of sunlight.",
+              "answer": "understory",
+              "distractors": [
+                "emergent",
+                "underground",
+                "insect"
+              ]
+            },
+            {
+              "text": "Light meters proved the ___ receives only a fraction of noon brightness, which is why leaves there are often broad and dark green.",
+              "answer": "understory",
+              "distractors": [
+                "emergent",
+                "underground",
+                "insect"
+              ]
+            }
+          ],
+          "examples": [
+            "Ferns and shrubs fill the shady understory below the tall trees."
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Module 2 — Climate & environment",
+      "words": [
+        {
+          "word": "carbon footprint",
+          "explanation": "The total climate impact of your daily choices, from travel and electricity to what you buy and throw away.",
+          "pictureSearch": "carbon footprint infographic cartoon kids",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Our class calculated how bus rides, plastic snacks, and leftover food add to each student's ___ before brainstorming changes at home.",
+              "answer": "carbon footprint",
+              "distractors": [
+                "greenhouse gas",
+                "climate change",
+                "resource"
+              ]
+            },
+            {
+              "text": "The speaker compared the ___ of flying across the country with taking a train, using simple bars on a slide everyone could read.",
+              "answer": "carbon footprint",
+              "distractors": [
+                "greenhouse gas",
+                "climate change",
+                "resource"
+              ]
+            },
+            {
+              "text": "Choosing local vegetables can shrink your family's ___ because less fuel is burned to refrigerate and truck produce long distances.",
+              "answer": "carbon footprint",
+              "distractors": [
+                "greenhouse gas",
+                "climate change",
+                "resource"
+              ]
+            },
+            {
+              "text": "The worksheet asked us to list three habits that enlarge our ___ and three that reduce it over a typical school week.",
+              "answer": "carbon footprint",
+              "distractors": [
+                "greenhouse gas",
+                "climate change",
+                "resource"
+              ]
+            }
+          ],
+          "examples": [
+            "Riding a bike instead of driving can shrink your carbon footprint."
+          ]
+        },
+        {
+          "word": "climate change",
+          "explanation": "Long-term shifts in weather patterns and average temperature on Earth, linked to pollution and human activity.",
+          "pictureSearch": "climate change earth cartoon education",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Scientists explained that ___ can shift rainfall patterns, melt glaciers, and make certain heat waves more common than they were decades ago.",
+              "answer": "climate change",
+              "distractors": [
+                "drought",
+                "marine",
+                "destructive"
+              ]
+            },
+            {
+              "text": "The documentary showed how ___ affects polar bears, coral reefs, and farmers who depend on snowmelt arriving at predictable times each spring.",
+              "answer": "climate change",
+              "distractors": [
+                "drought",
+                "marine",
+                "destructive"
+              ]
+            },
+            {
+              "text": "Communities near the coast are planning sea walls because ___ raises ocean levels and pushes storm surges farther inland during hurricanes.",
+              "answer": "climate change",
+              "distractors": [
+                "drought",
+                "marine",
+                "destructive"
+              ]
+            },
+            {
+              "text": "Our debate club researched policies that could slow ___ by using cleaner energy and wasting less electricity in schools and homes.",
+              "answer": "climate change",
+              "distractors": [
+                "drought",
+                "marine",
+                "destructive"
+              ]
+            }
+          ],
+          "examples": [
+            "Scientists study climate change by tracking temperatures over many decades."
+          ]
+        },
+        {
+          "word": "damage",
+          "explanation": "Harm that makes something worse, broken, or less valuable.",
+          "pictureSearch": "storm damage cartoon house",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "After the hurricane passed, volunteers recorded the ___ to roofs, trees, and power lines before cleanup crews arrived from neighboring towns.",
+              "answer": "damage",
+              "distractors": [
+                "drought",
+                "rescue",
+                "prone"
+              ]
+            },
+            {
+              "text": "Oil spills can ___ coastal marshes for years, harming birds that nest in grasses now coated with sticky black film.",
+              "answer": "damage",
+              "distractors": [
+                "drought",
+                "rescue",
+                "prone"
+              ]
+            },
+            {
+              "text": "The insurance inspector photographed hail ___ on cars in the parking lot, noting dented hoods and cracked windshields in her report.",
+              "answer": "damage",
+              "distractors": [
+                "drought",
+                "rescue",
+                "prone"
+              ]
+            },
+            {
+              "text": "Students learned that even small litter can ___ streams when chemicals wash off plastic and poison insects fish depend on for food.",
+              "answer": "damage",
+              "distractors": [
+                "drought",
+                "rescue",
+                "prone"
+              ]
+            }
+          ],
+          "examples": [
+            "Hail can cause serious damage to roofs and car windows."
+          ]
+        },
+        {
+          "word": "dangerous",
+          "explanation": "Not safe; likely to cause harm or injury.",
+          "pictureSearch": "warning sign dangerous cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The news warned that driving through deep water on the highway is ___ because you cannot see holes or measure how fast currents pull.",
+              "answer": "dangerous",
+              "distractors": [
+                "destructive",
+                "gust",
+                "survivor"
+              ]
+            },
+            {
+              "text": "Touching downed power lines after a storm is extremely ___ , so our teacher told us to stay far away and call adults immediately.",
+              "answer": "dangerous",
+              "distractors": [
+                "destructive",
+                "gust",
+                "survivor"
+              ]
+            },
+            {
+              "text": "Climbing unstable cliffs without ropes is ___ , especially after rain loosens rocks that can slide without warning.",
+              "answer": "dangerous",
+              "distractors": [
+                "destructive",
+                "gust",
+                "survivor"
+              ]
+            },
+            {
+              "text": "Mixing certain cleaning chemicals at home can create ___ fumes, which is why labels say to ventilate rooms and never combine products.",
+              "answer": "dangerous",
+              "distractors": [
+                "destructive",
+                "gust",
+                "survivor"
+              ]
+            }
+          ],
+          "examples": [
+            "Swimming in a flooded river is dangerous after heavy rain."
+          ]
+        },
+        {
+          "word": "destructive",
+          "explanation": "Causing serious harm, ruin, or breakage.",
+          "pictureSearch": "destructive wildfire cartoon aerial",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "High winds overnight proved ___ to the old pier, tearing planks loose and scattering debris along the waterfront before sunrise.",
+              "answer": "destructive",
+              "distractors": [
+                "dangerous",
+                "damage",
+                "drought"
+              ]
+            },
+            {
+              "text": "The invasive beetle can be ___ to ash trees, boring tunnels under bark until branches weaken and snap during storms.",
+              "answer": "destructive",
+              "distractors": [
+                "dangerous",
+                "damage",
+                "drought"
+              ]
+            },
+            {
+              "text": "Lightning sparked a ___ blaze that jumped fire lines, forcing families to evacuate with pets and photo albums clutched in their arms.",
+              "answer": "destructive",
+              "distractors": [
+                "dangerous",
+                "damage",
+                "drought"
+              ]
+            },
+            {
+              "text": "Hailstones the size of golf balls were ___ to greenhouse glass, shattering panels and exposing tender seedlings to cold rain.",
+              "answer": "destructive",
+              "distractors": [
+                "dangerous",
+                "damage",
+                "drought"
+              ]
+            }
+          ],
+          "examples": [
+            "The destructive wildfire destroyed homes on the hillside."
+          ]
+        },
+        {
+          "word": "drought",
+          "explanation": "When little rain falls for a long time, rivers shrink and crops struggle or fail.",
+          "pictureSearch": "drought cracked earth cartoon farm",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "During the long summer ___ , the river behind our town shrank until stones showed above the surface and farmers hauled water for cattle.",
+              "answer": "drought",
+              "distractors": [
+                "frequent",
+                "marine",
+                "rescue"
+              ]
+            },
+            {
+              "text": "Meteorologists said the region's ___ had lasted eleven months, breaking records for the lowest rainfall since measurements began.",
+              "answer": "drought",
+              "distractors": [
+                "frequent",
+                "marine",
+                "rescue"
+              ]
+            },
+            {
+              "text": "The ___ stressed wildlife, pushing deer closer to roads as they searched for streams that had dried into cracked mud channels.",
+              "answer": "drought",
+              "distractors": [
+                "frequent",
+                "marine",
+                "rescue"
+              ]
+            },
+            {
+              "text": "Because of the severe ___ , city officials banned lawn sprinklers and asked families to take shorter showers until reservoirs refilled.",
+              "answer": "drought",
+              "distractors": [
+                "frequent",
+                "marine",
+                "rescue"
+              ]
+            }
+          ],
+          "examples": [
+            "During the drought, the lake shrank and farmers saved every drop of water."
+          ]
+        },
+        {
+          "word": "frequent",
+          "explanation": "Happening often or many times.",
+          "pictureSearch": "frequent rainfall chart cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "In our region, ___ heat waves have become more common, so schools are updating plans for hot afternoons without air conditioning.",
+              "answer": "frequent",
+              "distractors": [
+                "prone",
+                "gust",
+                "marine"
+              ]
+            },
+            {
+              "text": "___ power outages annoyed residents until crews trimmed trees away from lines that swayed during winter storms.",
+              "answer": "frequent",
+              "distractors": [
+                "prone",
+                "gust",
+                "marine"
+              ]
+            },
+            {
+              "text": "Coastal towns face ___ flooding at high tide, which is why engineers raised some roads and added pumps near the harbor.",
+              "answer": "frequent",
+              "distractors": [
+                "prone",
+                "gust",
+                "marine"
+              ]
+            },
+            {
+              "text": "Bird watchers noted ___ sightings of the rare heron this spring, suggesting the marsh restoration project might be working.",
+              "answer": "frequent",
+              "distractors": [
+                "prone",
+                "gust",
+                "marine"
+              ]
+            }
+          ],
+          "examples": [
+            "Frequent practice helps you remember new vocabulary."
+          ]
+        },
+        {
+          "word": "greenhouse gas",
+          "explanation": "A gas that traps heat in the atmosphere, warming the planet when too much builds up.",
+          "pictureSearch": "greenhouse effect diagram cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "Cars and factories release ___ that build up in the atmosphere, acting like a blanket that holds heat close to Earth's surface.",
+              "answer": "greenhouse gas",
+              "distractors": [
+                "carbon footprint",
+                "climate change",
+                "resource"
+              ]
+            },
+            {
+              "text": "Methane is a powerful ___ produced by landfills and livestock, which is why scientists study ways to capture it before it escapes.",
+              "answer": "greenhouse gas",
+              "distractors": [
+                "carbon footprint",
+                "climate change",
+                "resource"
+              ]
+            },
+            {
+              "text": "The experiment helped us see how extra ___ can raise temperature inside a model greenhouse compared with normal air levels.",
+              "answer": "greenhouse gas",
+              "distractors": [
+                "carbon footprint",
+                "climate change",
+                "resource"
+              ]
+            },
+            {
+              "text": "Reducing ___ emissions from power plants is one strategy countries discuss when they meet to plan cleaner energy for the future.",
+              "answer": "greenhouse gas",
+              "distractors": [
+                "carbon footprint",
+                "climate change",
+                "resource"
+              ]
+            }
+          ],
+          "examples": [
+            "Cars and factories release greenhouse gas that traps heat in the air."
+          ]
+        },
+        {
+          "word": "gust",
+          "explanation": "A sudden powerful blast of wind that can knock things over in seconds.",
+          "pictureSearch": "wind gust trees cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "While we crossed the bridge, a powerful ___ nearly pushed us sideways, whistling through railings and churning the river below.",
+              "answer": "gust",
+              "distractors": [
+                "storm-proof",
+                "drought",
+                "marine"
+              ]
+            },
+            {
+              "text": "A sudden ___ lifted the umbrella inside out and sent newspapers skittering across the plaza like startled birds.",
+              "answer": "gust",
+              "distractors": [
+                "storm-proof",
+                "drought",
+                "marine"
+              ]
+            },
+            {
+              "text": "Firefighters worried that each hot ___ might spread embers over the highway, igniting dry grass on the other side.",
+              "answer": "gust",
+              "distractors": [
+                "storm-proof",
+                "drought",
+                "marine"
+              ]
+            },
+            {
+              "text": "During the storm, a brief ___ rattled the windows, then vanished, leaving the wind chimes swinging in sudden quiet.",
+              "answer": "gust",
+              "distractors": [
+                "storm-proof",
+                "drought",
+                "marine"
+              ]
+            }
+          ],
+          "examples": [
+            "A sudden gust rattled the windows during the night."
+          ]
+        },
+        {
+          "word": "marine",
+          "explanation": "Having to do with the sea; describing life or activities in salt water.",
+          "pictureSearch": "marine life ocean reef cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The museum exhibit explained how ___ ecosystems such as coral reefs protect coastlines and shelter thousands of species.",
+              "answer": "marine",
+              "distractors": [
+                "resource",
+                "survivor",
+                "rescue"
+              ]
+            },
+            {
+              "text": "Oil spills threaten ___ birds that dive for fish, coating feathers so they cannot stay warm or dry in cold water.",
+              "answer": "marine",
+              "distractors": [
+                "resource",
+                "survivor",
+                "rescue"
+              ]
+            },
+            {
+              "text": "Our research poster compared ___ algae blooms with healthy kelp forests, showing how pollution can upset ocean food webs.",
+              "answer": "marine",
+              "distractors": [
+                "resource",
+                "survivor",
+                "rescue"
+              ]
+            },
+            {
+              "text": "The ___ biologist described tracking whales by listening to songs recorded underwater with microphones lowered from boats.",
+              "answer": "marine",
+              "distractors": [
+                "resource",
+                "survivor",
+                "rescue"
+              ]
+            }
+          ],
+          "examples": [
+            "The museum has a marine exhibit with fish from the deep ocean."
+          ]
+        },
+        {
+          "word": "prone",
+          "explanation": "Likely to experience something or tend toward it, such as flooding in a low valley.",
+          "pictureSearch": "flood prone area map cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "Because the town sits in a low valley, it is especially ___ to flooding whenever heavy rain falls upstream and rivers rise quickly.",
+              "answer": "prone",
+              "distractors": [
+                "frequent",
+                "dangerous",
+                "damage"
+              ]
+            },
+            {
+              "text": "Dry hills without plants are ___ to mudslides after downpours, so residents learn evacuation routes before winter storms arrive.",
+              "answer": "prone",
+              "distractors": [
+                "frequent",
+                "dangerous",
+                "damage"
+              ]
+            },
+            {
+              "text": "Without sunscreen, fair skin is more ___ to burning during field day, even when clouds make the sky look deceptively cool.",
+              "answer": "prone",
+              "distractors": [
+                "frequent",
+                "dangerous",
+                "damage"
+              ]
+            },
+            {
+              "text": "Forests weakened by beetles are ___ to larger wildfires, which is why crews remove dead trees near power lines.",
+              "answer": "prone",
+              "distractors": [
+                "frequent",
+                "dangerous",
+                "damage"
+              ]
+            }
+          ],
+          "examples": [
+            "Low valleys are prone to flooding after days of rain."
+          ]
+        },
+        {
+          "word": "rescue",
+          "explanation": "To save someone or something from danger; teams do this after storms or accidents.",
+          "pictureSearch": "rescue boat storm cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Coast guard crews worked through the night to ___ sailors stranded on rocks after their engine failed in pounding surf.",
+              "answer": "rescue",
+              "distractors": [
+                "survivor",
+                "resource",
+                "damage"
+              ]
+            },
+            {
+              "text": "Volunteers formed a chain to ___ dogs left on rooftops when floodwater surrounded houses during the sudden river surge.",
+              "answer": "rescue",
+              "distractors": [
+                "survivor",
+                "resource",
+                "damage"
+              ]
+            },
+            {
+              "text": "Firefighters planned how to ___ hikers lost in fog, using radios and thermal cameras while relatives waited at the trailhead.",
+              "answer": "rescue",
+              "distractors": [
+                "survivor",
+                "resource",
+                "damage"
+              ]
+            },
+            {
+              "text": "Wildlife workers tried to ___ seabirds covered in oil, gently washing feathers so the birds could float and fly again.",
+              "answer": "rescue",
+              "distractors": [
+                "survivor",
+                "resource",
+                "damage"
+              ]
+            }
+          ],
+          "examples": [
+            "Firefighters rescue people trapped on upper floors."
+          ]
+        },
+        {
+          "word": "resource",
+          "explanation": "Something useful that people or nature need, such as water, timber, or fish. Supplies can be limited.",
+          "pictureSearch": "natural resources water forest cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Clean freshwater is a precious ___ that entire communities depend on for drinking, farming, and factories, so wasting it harms everyone.",
+              "answer": "resource",
+              "distractors": [
+                "marine",
+                "greenhouse gas",
+                "rescue"
+              ]
+            },
+            {
+              "text": "The committee debated how to share forest ___ without cutting so many trees that animals lose nesting sites and shade.",
+              "answer": "resource",
+              "distractors": [
+                "marine",
+                "greenhouse gas",
+                "rescue"
+              ]
+            },
+            {
+              "text": "Solar panels turn sunlight into a renewable ___ , reducing the need to burn coal for electricity during hot afternoons.",
+              "answer": "resource",
+              "distractors": [
+                "marine",
+                "greenhouse gas",
+                "rescue"
+              ]
+            },
+            {
+              "text": "Overfishing can drain an ocean ___ faster than populations recover, which is why limits protect breeding seasons for cod and tuna.",
+              "answer": "resource",
+              "distractors": [
+                "marine",
+                "greenhouse gas",
+                "rescue"
+              ]
+            }
+          ],
+          "examples": [
+            "Clean water is a precious resource in dry regions."
+          ]
+        },
+        {
+          "word": "storm-proof",
+          "explanation": "Designed to withstand severe wind and heavy rain without breaking.",
+          "pictureSearch": "hurricane proof house cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Engineers showed photos of ___ windows and reinforced roofs that stayed intact while older buildings nearby lost shingles and glass.",
+              "answer": "storm-proof",
+              "distractors": [
+                "destructive",
+                "gust",
+                "prone"
+              ]
+            },
+            {
+              "text": "The new school was designed to be ___ , with deep anchors and doors that seal against driving rain during coastal hurricanes.",
+              "answer": "storm-proof",
+              "distractors": [
+                "destructive",
+                "gust",
+                "prone"
+              ]
+            },
+            {
+              "text": "Families stored supplies in a ___ shed, bolting it to concrete so winds could not tip it during the worst gusts.",
+              "answer": "storm-proof",
+              "distractors": [
+                "destructive",
+                "gust",
+                "prone"
+              ]
+            },
+            {
+              "text": "Building codes now require ___ features along the coast, including straps that tie walls to foundations when cyclones approach.",
+              "answer": "storm-proof",
+              "distractors": [
+                "destructive",
+                "gust",
+                "prone"
+              ]
+            }
+          ],
+          "examples": [
+            "Engineers designed storm-proof windows for the coastal school."
+          ]
+        },
+        {
+          "word": "survivor",
+          "explanation": "Someone or something that remains alive after an accident, disaster, or other danger.",
+          "pictureSearch": "disaster survivor rescue cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "After the earthquake, each ___ who walked out of the collapsed building was checked by medics and given water and blankets.",
+              "answer": "survivor",
+              "distractors": [
+                "rescue",
+                "marine",
+                "dangerous"
+              ]
+            },
+            {
+              "text": "The lone ___ of the shipwreck told reporters how life jackets and calm thinking kept him afloat until helicopters arrived.",
+              "answer": "survivor",
+              "distractors": [
+                "rescue",
+                "marine",
+                "dangerous"
+              ]
+            },
+            {
+              "text": "Scientists studied forest fire ___ trees to learn which species resist heat and can seed new growth after charred soil cools.",
+              "answer": "survivor",
+              "distractors": [
+                "rescue",
+                "marine",
+                "dangerous"
+              ]
+            },
+            {
+              "text": "The documentary honored a Holocaust ___ who visited schools, reminding students how courage and kindness matter during dark times.",
+              "answer": "survivor",
+              "distractors": [
+                "rescue",
+                "marine",
+                "dangerous"
+              ]
+            }
+          ],
+          "examples": [
+            "Each survivor of the shipwreck reached shore by dawn."
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Module 3 — Story, creatures & mood",
+      "words": [
+        {
+          "word": "armoured",
+          "explanation": "Covered with hard protection, such as metal plates or thick plates on skin.",
+          "pictureSearch": "knight armoured cartoon adventure",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The knight remained ___ even after the bridge battle, because metal plates covered his shoulders, chest, and legs from sword blows.",
+              "answer": "armoured",
+              "distractors": [
+                "scales",
+                "fierce",
+                "fossil"
+              ]
+            },
+            {
+              "text": "Certain beetles look ___ thanks to hard wing cases that click open when they spread hidden wings and lift into the air.",
+              "answer": "armoured",
+              "distractors": [
+                "scales",
+                "fierce",
+                "fossil"
+              ]
+            },
+            {
+              "text": "The tank model in the museum was heavily ___ , with angled plates designed to deflect blasts away from the crew compartment.",
+              "answer": "armoured",
+              "distractors": [
+                "scales",
+                "fierce",
+                "fossil"
+              ]
+            },
+            {
+              "text": "Deep-sea fish sometimes seem ___ , with thick scales and bony plates that help them survive crushing pressure in dark trenches.",
+              "answer": "armoured",
+              "distractors": [
+                "scales",
+                "fierce",
+                "fossil"
+              ]
+            }
+          ],
+          "examples": [
+            "The armoured knight clanged across the stone courtyard."
+          ]
+        },
+        {
+          "word": "bellow",
+          "explanation": "To roar or shout deeply and loudly, in a way that carries far across a field or cave.",
+          "pictureSearch": "bull bellow cartoon farm",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "From the cave mouth, we heard the dragon ___ so loudly that pebbles rattled down the slope and birds burst from the trees.",
+              "answer": "bellow",
+              "distractors": [
+                "shriek",
+                "frantically",
+                "fierce"
+              ]
+            },
+            {
+              "text": "The coach did not whisper; he began to ___ instructions across the windy field so every player could hear the new plan.",
+              "answer": "bellow",
+              "distractors": [
+                "shriek",
+                "frantically",
+                "fierce"
+              ]
+            },
+            {
+              "text": "During the thunderstorm, it sounded as if the sky itself would ___ , rumbling for seconds after each flash lit the clouds.",
+              "answer": "bellow",
+              "distractors": [
+                "shriek",
+                "frantically",
+                "fierce"
+              ]
+            },
+            {
+              "text": "Angry about the broken fence, the farmer let out a ___ that made the stray dogs scatter toward the dirt road.",
+              "answer": "bellow",
+              "distractors": [
+                "shriek",
+                "frantically",
+                "fierce"
+              ]
+            }
+          ],
+          "examples": [
+            "The coach would bellow instructions across the windy field."
+          ]
+        },
+        {
+          "word": "confused",
+          "explanation": "Unable to think clearly; unsure what is happening or what to do.",
+          "pictureSearch": "confused student thinking cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "After waking in the strange room with flickering candles, Maya felt ___ about where she was and how she had arrived during the night.",
+              "answer": "confused",
+              "distractors": [
+                "nervous",
+                "suspicious",
+                "relieved"
+              ]
+            },
+            {
+              "text": "The new schedule left everyone ___ until the principal posted a chart explaining which classes move to which rooms on Fridays.",
+              "answer": "confused",
+              "distractors": [
+                "nervous",
+                "suspicious",
+                "relieved"
+              ]
+            },
+            {
+              "text": "Twisting hallways in the old hotel made us ___ , because identical paintings appeared on every floor beneath the dim lights.",
+              "answer": "confused",
+              "distractors": [
+                "nervous",
+                "suspicious",
+                "relieved"
+              ]
+            },
+            {
+              "text": "Without his glasses, Leo was ___ by the blurry board, squinting and copying notes from a neighbor until the teacher noticed.",
+              "answer": "confused",
+              "distractors": [
+                "nervous",
+                "suspicious",
+                "relieved"
+              ]
+            }
+          ],
+          "examples": [
+            "She felt confused by the twist ending of the mystery novel."
+          ]
+        },
+        {
+          "word": "cosy",
+          "explanation": "Warm, comfortable, and pleasant, often in a small safe space.",
+          "pictureSearch": "cosy cabin fireplace cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "We dragged blankets to the fireplace and built a ___ nest of pillows where we could read while wind scratched at the windows.",
+              "answer": "cosy",
+              "distractors": [
+                "creature",
+                "haunted",
+                "stunning"
+              ]
+            },
+            {
+              "text": "The tiny bookshop felt ___ on rainy afternoons, with yellow lamps, soft chairs, and the smell of paper warming near the heater.",
+              "answer": "cosy",
+              "distractors": [
+                "creature",
+                "haunted",
+                "stunning"
+              ]
+            },
+            {
+              "text": "After sledding, we returned to the ___ kitchen where cocoa steamed on the stove and wet mittens hung over the radiator.",
+              "answer": "cosy",
+              "distractors": [
+                "creature",
+                "haunted",
+                "stunning"
+              ]
+            },
+            {
+              "text": "Even the treehouse seemed ___ once we hung fairy lights and laid down rugs, turning planks into a hideout from autumn drizzle.",
+              "answer": "cosy",
+              "distractors": [
+                "creature",
+                "haunted",
+                "stunning"
+              ]
+            }
+          ],
+          "examples": [
+            "We read stories in a cosy corner by the fireplace."
+          ]
+        },
+        {
+          "word": "creature",
+          "explanation": "A living being, especially one that seems strange, wild, or imaginary.",
+          "pictureSearch": "fantasy creature cartoon friendly",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Legends say a shy ___ leaves glowing footprints in the marsh, vanishing whenever lanterns swing too close to the reeds.",
+              "answer": "creature",
+              "distractors": [
+                "fawn over",
+                "fossil",
+                "tame"
+              ]
+            },
+            {
+              "text": "The diver filmed a deep-sea ___ with transparent fins, drifting like a ribbon through water darker than a moonless night.",
+              "answer": "creature",
+              "distractors": [
+                "fawn over",
+                "fossil",
+                "tame"
+              ]
+            },
+            {
+              "text": "In the puppet show, the forest ___ spoke gently, asking children to plant seeds instead of cutting down ancient oaks.",
+              "answer": "creature",
+              "distractors": [
+                "fawn over",
+                "fossil",
+                "tame"
+              ]
+            },
+            {
+              "text": "Biologists argued whether the lake ___ was real or rumor, setting underwater cameras that clicked every few seconds in the cold.",
+              "answer": "creature",
+              "distractors": [
+                "fawn over",
+                "fossil",
+                "tame"
+              ]
+            }
+          ],
+          "examples": [
+            "The tale described a shy creature living behind the waterfall."
+          ]
+        },
+        {
+          "word": "excited",
+          "explanation": "Feeling very happy and eager about something about to happen.",
+          "pictureSearch": "excited kids cartoon party",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The cousins were so ___ about the midnight treasure hunt that they could not eat dinner and kept checking the map on the porch.",
+              "answer": "excited",
+              "distractors": [
+                "nervous",
+                "relieved",
+                "frantically"
+              ]
+            },
+            {
+              "text": "Before the science fair, Nina felt ___ , pacing beside her volcano model and rehearsing how magma pressure builds underground.",
+              "answer": "excited",
+              "distractors": [
+                "nervous",
+                "relieved",
+                "frantically"
+              ]
+            },
+            {
+              "text": "Fans grew ___ when the band's bus turned the corner, waving homemade signs that fluttered in the evening breeze.",
+              "answer": "excited",
+              "distractors": [
+                "nervous",
+                "relieved",
+                "frantically"
+              ]
+            },
+            {
+              "text": "Even the usually quiet librarian seemed ___ to open the new fantasy wing, unlocking shelves wrapped in paper and ribbon.",
+              "answer": "excited",
+              "distractors": [
+                "nervous",
+                "relieved",
+                "frantically"
+              ]
+            }
+          ],
+          "examples": [
+            "The team was excited before the championship match."
+          ]
+        },
+        {
+          "word": "fawn over",
+          "explanation": "To shower someone with exaggerated praise, often in a way that seems insincere.",
+          "pictureSearch": "fans fawn over celebrity cartoon humorous",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "It felt awkward to watch the crowd ___ the magician after the show, as if he had saved the town instead of doing card tricks.",
+              "answer": "fawn over",
+              "distractors": [
+                "muster",
+                "vanish",
+                "tame"
+              ]
+            },
+            {
+              "text": "Try not to ___ the team captain only because she scored once; defenders worked just as hard during the second half in the rain.",
+              "answer": "fawn over",
+              "distractors": [
+                "muster",
+                "vanish",
+                "tame"
+              ]
+            },
+            {
+              "text": "Social media makes it easy to ___ influencers, leaving hundreds of identical compliments beneath photos that took minutes to edit.",
+              "answer": "fawn over",
+              "distractors": [
+                "muster",
+                "vanish",
+                "tame"
+              ]
+            },
+            {
+              "text": "The stern coach told parents not to ___ young athletes after every pass, because honest feedback helps players improve their skills.",
+              "answer": "fawn over",
+              "distractors": [
+                "muster",
+                "vanish",
+                "tame"
+              ]
+            }
+          ],
+          "examples": [
+            "Fans fawn over the singer, praising every note she sings."
+          ]
+        },
+        {
+          "word": "fierce",
+          "explanation": "Showing strong, wild anger or power; frighteningly intense.",
+          "pictureSearch": "fierce wolf cartoon snow adventure",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The wolf's ___ stare made the campers step back slowly, realizing the animal would defend its territory if they approached closer.",
+              "answer": "fierce",
+              "distractors": [
+                "threatening",
+                "armoured",
+                "bellow"
+              ]
+            },
+            {
+              "text": "A ___ storm rattled the shutters all night, tearing shingles away and flinging garden chairs across the muddy yard.",
+              "answer": "fierce",
+              "distractors": [
+                "threatening",
+                "armoured",
+                "bellow"
+              ]
+            },
+            {
+              "text": "Despite her ___ expression during the debate, Sofia later apologized and explained she had felt cornered by the surprising question.",
+              "answer": "fierce",
+              "distractors": [
+                "threatening",
+                "armoured",
+                "bellow"
+              ]
+            },
+            {
+              "text": "Competition grew ___ as the final minutes ticked down, with both teams diving for the ball in clouds of dust and shouted names.",
+              "answer": "fierce",
+              "distractors": [
+                "threatening",
+                "armoured",
+                "bellow"
+              ]
+            }
+          ],
+          "examples": [
+            "A fierce wind tore leaves from the oak trees."
+          ]
+        },
+        {
+          "word": "fossil",
+          "explanation": "Ancient remains or imprints of plants or animals preserved in rock for millions of years.",
+          "pictureSearch": "dinosaur fossil museum cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "In the museum hall, our guide pointed to a ___ of a fish pressed into stone, millions of years older than the nearby mountains.",
+              "answer": "fossil",
+              "distractors": [
+                "creature",
+                "legend",
+                "wrecked"
+              ]
+            },
+            {
+              "text": "The child brushed sand away from a tiny ___ tooth, while the paleontologist explained how sediment slowly turned bone to stone.",
+              "answer": "fossil",
+              "distractors": [
+                "creature",
+                "legend",
+                "wrecked"
+              ]
+            },
+            {
+              "text": "Coal and oil formed from ancient life, but a visible ___ in cliff rock lets you touch the ripple of a forgotten lakebed.",
+              "answer": "fossil",
+              "distractors": [
+                "creature",
+                "legend",
+                "wrecked"
+              ]
+            },
+            {
+              "text": "Using casts of a dinosaur ___ , the class compared hip bones to birds, discussing evidence that some reptiles had feathers.",
+              "answer": "fossil",
+              "distractors": [
+                "creature",
+                "legend",
+                "wrecked"
+              ]
+            }
+          ],
+          "examples": [
+            "Museum visitors admired a fossil of an ancient fern."
+          ]
+        },
+        {
+          "word": "frantically",
+          "explanation": "In a rushed, panicked way, as if there is no time to think.",
+          "pictureSearch": "frantically packing cartoon suitcase",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "When the alarm bells rang, students ran ___ down the corridor, clutching coats because they thought the drill might be a real fire.",
+              "answer": "frantically",
+              "distractors": [
+                "excited",
+                "nervous",
+                "shriek"
+              ]
+            },
+            {
+              "text": "Before the bus left, Miguel searched ___ through his backpack for the permission slip he had printed the night before.",
+              "answer": "frantically",
+              "distractors": [
+                "excited",
+                "nervous",
+                "shriek"
+              ]
+            },
+            {
+              "text": "The squirrel dug ___ for the acorn it had buried, kicking leaves into the air as dogs barked on the other side of the fence.",
+              "answer": "frantically",
+              "distractors": [
+                "excited",
+                "nervous",
+                "shriek"
+              ]
+            },
+            {
+              "text": "During the blackout, Mom waved ___ for candles in the junk drawer, laughing when the flashlight finally clicked on under notebooks.",
+              "answer": "frantically",
+              "distractors": [
+                "excited",
+                "nervous",
+                "shriek"
+              ]
+            }
+          ],
+          "examples": [
+            "She searched frantically for her lost ticket before the bus left."
+          ]
+        },
+        {
+          "word": "harmful",
+          "explanation": "Causing damage or injury; bad for health or safety.",
+          "pictureSearch": "harmful pollution sign cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The spell book warned that certain herbs become ___ if mixed wrongly, producing smoke that stings eyes and makes breathing difficult.",
+              "answer": "harmful",
+              "distractors": [
+                "spooky",
+                "threatening",
+                "suspicious"
+              ]
+            },
+            {
+              "text": "Spreading rumors can be ___ to classmates, hurting feelings long after the original joke seemed funny in a group chat.",
+              "answer": "harmful",
+              "distractors": [
+                "spooky",
+                "threatening",
+                "suspicious"
+              ]
+            },
+            {
+              "text": "Ultraviolet rays are ___ without sunscreen, so the nurse reminded us to wear hats during the outdoor science fair in June.",
+              "answer": "harmful",
+              "distractors": [
+                "spooky",
+                "threatening",
+                "suspicious"
+              ]
+            },
+            {
+              "text": "Invasive plants may look pretty, but they can be ___ to native flowers by crowding roots and stealing light beside the trail.",
+              "answer": "harmful",
+              "distractors": [
+                "spooky",
+                "threatening",
+                "suspicious"
+              ]
+            }
+          ],
+          "examples": [
+            "Smoking is harmful to your lungs and heart."
+          ]
+        },
+        {
+          "word": "haunted",
+          "explanation": "Thought to be visited by spirits; scary because of strange happenings.",
+          "pictureSearch": "haunted house cartoon mild fog",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Villagers avoided the ___ mill after dark, swearing they heard footsteps on empty floors and whispers in the broken grain chutes.",
+              "answer": "haunted",
+              "distractors": [
+                "spooky",
+                "underworld",
+                "legend"
+              ]
+            },
+            {
+              "text": "The story described a ___ lighthouse where lights flicker even when generators have been silent for years along the cliff.",
+              "answer": "haunted",
+              "distractors": [
+                "spooky",
+                "underworld",
+                "legend"
+              ]
+            },
+            {
+              "text": "On Halloween, we toured a ___ house with cartoon ghosts that popped out of barrels, making little kids laugh instead of cry.",
+              "answer": "haunted",
+              "distractors": [
+                "spooky",
+                "underworld",
+                "legend"
+              ]
+            },
+            {
+              "text": "Some guests claimed the inn was ___ because doors latched themselves, though the owner blamed drafts from the old stone chimney.",
+              "answer": "haunted",
+              "distractors": [
+                "spooky",
+                "underworld",
+                "legend"
+              ]
+            }
+          ],
+          "examples": [
+            "Children dared each other to enter the haunted house on the hill."
+          ]
+        },
+        {
+          "word": "legend",
+          "explanation": "An old story passed down for generations, often about heroes, magic, or great events.",
+          "pictureSearch": "legend myth book cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "According to the mountain ___, a silver wolf once guided lost travelers through the blizzard to the hidden valley behind the glacier.",
+              "answer": "legend",
+              "distractors": [
+                "fossil",
+                "creature",
+                "muster"
+              ]
+            },
+            {
+              "text": "The fishing ___ explains why the river bends, teaching children to respect promises made to strangers at twilight.",
+              "answer": "legend",
+              "distractors": [
+                "fossil",
+                "creature",
+                "muster"
+              ]
+            },
+            {
+              "text": "Historians separated fact from ___ , showing which details appeared only in songs written centuries after the battle.",
+              "answer": "legend",
+              "distractors": [
+                "fossil",
+                "creature",
+                "muster"
+              ]
+            },
+            {
+              "text": "Every culture shares a ___ about how the stars formed, turning ordinary constellations into maps of ancient heroes and animals.",
+              "answer": "legend",
+              "distractors": [
+                "fossil",
+                "creature",
+                "muster"
+              ]
+            }
+          ],
+          "examples": [
+            "The legend tells how a hero found fire for the village."
+          ]
+        },
+        {
+          "word": "muster",
+          "explanation": "To gather courage, strength, or people together before facing something difficult.",
+          "pictureSearch": "muster courage cartoon knight",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Before stepping onto the stage, Jonah tried to ___ enough courage to speak the first line without staring at his shoes.",
+              "answer": "muster",
+              "distractors": [
+                "legend",
+                "relieved",
+                "vanish"
+              ]
+            },
+            {
+              "text": "She had to ___ her nerve before opening the attic door, remembering spooky stories her brother told at bedtime last summer.",
+              "answer": "muster",
+              "distractors": [
+                "legend",
+                "relieved",
+                "vanish"
+              ]
+            },
+            {
+              "text": "The captain tried to ___ volunteers to repair the sail in pounding rain, promising hot soup when the crew reached harbor.",
+              "answer": "muster",
+              "distractors": [
+                "legend",
+                "relieved",
+                "vanish"
+              ]
+            },
+            {
+              "text": "Facing the giant footprint in the garden, the friends ___ their bravery and decided to follow it with notebooks and a camera.",
+              "answer": "muster",
+              "distractors": [
+                "legend",
+                "relieved",
+                "vanish"
+              ]
+            }
+          ],
+          "examples": [
+            "He mustered the courage to speak in front of the whole school."
+          ]
+        },
+        {
+          "word": "nervous",
+          "explanation": "Worried or uneasy about what might happen.",
+          "pictureSearch": "nervous before presentation cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Liam felt ___ before the school play, pacing backstage and repeating lines because the auditorium was packed with parents and teachers.",
+              "answer": "nervous",
+              "distractors": [
+                "excited",
+                "confused",
+                "suspicious"
+              ]
+            },
+            {
+              "text": "The puppy seemed ___ around thunder, hiding under the bed and trembling until its owner sat nearby with a calm voice.",
+              "answer": "nervous",
+              "distractors": [
+                "excited",
+                "confused",
+                "suspicious"
+              ]
+            },
+            {
+              "text": "I always get ___ before spelling bees, even when I studied, because the bright lights make the letters swim on the placard.",
+              "answer": "nervous",
+              "distractors": [
+                "excited",
+                "confused",
+                "suspicious"
+              ]
+            },
+            {
+              "text": "She was ___ about presenting her invention, worrying the judges would ask questions she had not practiced answering aloud.",
+              "answer": "nervous",
+              "distractors": [
+                "excited",
+                "confused",
+                "suspicious"
+              ]
+            }
+          ],
+          "examples": [
+            "I felt nervous waiting backstage before the play."
+          ]
+        },
+        {
+          "word": "relieved",
+          "explanation": "Glad because something frightening or difficult has ended or turned out well.",
+          "pictureSearch": "relieved expression cartoon sigh",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "We were ___ when the last bus appeared around the corner, because we had waited in cold rain for more than forty minutes.",
+              "answer": "relieved",
+              "distractors": [
+                "excited",
+                "cosy",
+                "confused"
+              ]
+            },
+            {
+              "text": "After the x-ray showed no fracture, the goalie felt ___ and joked that he would still dive, just more carefully next time.",
+              "answer": "relieved",
+              "distractors": [
+                "excited",
+                "cosy",
+                "confused"
+              ]
+            },
+            {
+              "text": "Parents sounded ___ when the principal announced school would reopen, ending weeks of improvised lessons at the kitchen table.",
+              "answer": "relieved",
+              "distractors": [
+                "excited",
+                "cosy",
+                "confused"
+              ]
+            },
+            {
+              "text": "The hikers were ___ to see trail markers again, realizing they had circled the ridge but not wandered into the restricted quarry.",
+              "answer": "relieved",
+              "distractors": [
+                "excited",
+                "cosy",
+                "confused"
+              ]
+            }
+          ],
+          "examples": [
+            "We were relieved when the storm passed without flooding our street."
+          ]
+        },
+        {
+          "word": "scales",
+          "explanation": "Small, flat, hard plates on the skin of fish and reptiles that protect the body.",
+          "pictureSearch": "fish scales close up cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The biologist showed how a snake's ___ overlap like shingles, helping the reptile slide through grass without tearing its skin.",
+              "answer": "scales",
+              "distractors": [
+                "armoured",
+                "slobbery",
+                "stunning"
+              ]
+            },
+            {
+              "text": "Light bounced off the fish's silver ___ as it twisted in the net, each plate catching the sun like tiny mirrors.",
+              "answer": "scales",
+              "distractors": [
+                "armoured",
+                "slobbery",
+                "stunning"
+              ]
+            },
+            {
+              "text": "Fossils sometimes preserve ___ impressions, revealing diamond patterns on ancient reptiles that swam in shallow seas.",
+              "answer": "scales",
+              "distractors": [
+                "armoured",
+                "slobbery",
+                "stunning"
+              ]
+            },
+            {
+              "text": "We weighed the lizard gently, noting warm ___ under our gloves and counting toes before releasing it beside the log.",
+              "answer": "scales",
+              "distractors": [
+                "armoured",
+                "slobbery",
+                "stunning"
+              ]
+            }
+          ],
+          "examples": [
+            "Fish scales shimmered as the trout twisted in the net."
+          ]
+        },
+        {
+          "word": "shriek",
+          "explanation": "A loud, high, sharp cry, often from fear or surprise.",
+          "pictureSearch": "cartoon shriek surprise funny",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "When the hidden door crashed open, someone let out a ___ that echoed through stone halls and sent bats swirling into the courtyard.",
+              "answer": "shriek",
+              "distractors": [
+                "bellow",
+                "spooky",
+                "frantically"
+              ]
+            },
+            {
+              "text": "The roller coaster turn made Ava ___ with excitement, even though she had promised to stay completely silent through the loop.",
+              "answer": "shriek",
+              "distractors": [
+                "bellow",
+                "spooky",
+                "frantically"
+              ]
+            },
+            {
+              "text": "A sudden ___ from the alley made us jump, until we realized it was only a rusty swing scraping in the wind.",
+              "answer": "shriek",
+              "distractors": [
+                "bellow",
+                "spooky",
+                "frantically"
+              ]
+            },
+            {
+              "text": "The microphone picked up a ___ from the back row when the magician pulled a rubber chicken from an empty hat.",
+              "answer": "shriek",
+              "distractors": [
+                "bellow",
+                "spooky",
+                "frantically"
+              ]
+            }
+          ],
+          "examples": [
+            "A shriek echoed through the hallway when the lights went out."
+          ]
+        },
+        {
+          "word": "slobbery",
+          "explanation": "Wet and messy with drool.",
+          "pictureSearch": "slobbery dog cartoon funny",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The friendly mastiff was so ___ that it left damp marks on our jackets whenever it panted and leaned against us by the gate.",
+              "answer": "slobbery",
+              "distractors": [
+                "cosy",
+                "tame",
+                "creature"
+              ]
+            },
+            {
+              "text": "After the puppy drank, it gave a ___ kiss that made everyone laugh and search for towels near the kitchen sink.",
+              "answer": "slobbery",
+              "distractors": [
+                "cosy",
+                "tame",
+                "creature"
+              ]
+            },
+            {
+              "text": "We avoided the ___ chew toy on the carpet, choosing instead to toss the dry ball across the freshly mowed lawn.",
+              "answer": "slobbery",
+              "distractors": [
+                "cosy",
+                "tame",
+                "creature"
+              ]
+            },
+            {
+              "text": "The cartoon dragon looked ___ on purpose, dripping jelly from its grin while the knight held up a giant napkin.",
+              "answer": "slobbery",
+              "distractors": [
+                "cosy",
+                "tame",
+                "creature"
+              ]
+            }
+          ],
+          "examples": [
+            "The slobbery dog greeted us with happy, wet kisses."
+          ]
+        },
+        {
+          "word": "spooky",
+          "explanation": "Strange and creepy in a fun or frightening way, like a tale told on a dark night.",
+          "pictureSearch": "spooky forest fog cartoon mild",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Fog hung between the trees so thick that every branch looked like a reaching hand, and the path ahead felt wonderfully ___ in lantern light.",
+              "answer": "spooky",
+              "distractors": [
+                "haunted",
+                "suspicious",
+                "underworld"
+              ]
+            },
+            {
+              "text": "The soundtrack made the cartoon basement seem ___ , though we knew the glowing eyes belonged to raccoons knocking over paint cans.",
+              "answer": "spooky",
+              "distractors": [
+                "haunted",
+                "suspicious",
+                "underworld"
+              ]
+            },
+            {
+              "text": "Our flashlight died during the ___ trail walk, and we giggled nervously while sharing the last phone battery to read the map.",
+              "answer": "spooky",
+              "distractors": [
+                "haunted",
+                "suspicious",
+                "underworld"
+              ]
+            },
+            {
+              "text": "The book club chose a ___ mystery set in a lighthouse, promising chills without nightmares before the camping trip next month.",
+              "answer": "spooky",
+              "distractors": [
+                "haunted",
+                "suspicious",
+                "underworld"
+              ]
+            }
+          ],
+          "examples": [
+            "The spooky forest trail was fun on Halloween night."
+          ]
+        },
+        {
+          "word": "stunning",
+          "explanation": "Extremely beautiful or impressive; breathtaking.",
+          "pictureSearch": "stunning landscape sunset cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "From the cliff edge, we saw a ___ view of the valley, with rivers shining like silver threads beneath clouds painted pink at sunset.",
+              "answer": "stunning",
+              "distractors": [
+                "cosy",
+                "relieved",
+                "wrecked"
+              ]
+            },
+            {
+              "text": "The dancer's final leap was ___ , freezing the audience mid-clap while music faded and spotlights warmed her white costume.",
+              "answer": "stunning",
+              "distractors": [
+                "cosy",
+                "relieved",
+                "wrecked"
+              ]
+            },
+            {
+              "text": "Bioluminescent waves looked ___ at midnight, each breaker glowing blue as if the ocean held scattered stars along the shore.",
+              "answer": "stunning",
+              "distractors": [
+                "cosy",
+                "relieved",
+                "wrecked"
+              ]
+            },
+            {
+              "text": "The restored cathedral ceiling was ___ , covered in gold leaf patterns that seemed to move when we tilted our heads.",
+              "answer": "stunning",
+              "distractors": [
+                "cosy",
+                "relieved",
+                "wrecked"
+              ]
+            }
+          ],
+          "examples": [
+            "The sunset over the mountains was absolutely stunning."
+          ]
+        },
+        {
+          "word": "suspicious",
+          "explanation": "Feeling that something is wrong, dishonest, or not trustworthy.",
+          "pictureSearch": "suspicious detective magnifying glass cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The shopkeeper grew ___ when the stranger refused to show what was inside the muddy sack he carried through the market at closing time.",
+              "answer": "suspicious",
+              "distractors": [
+                "confused",
+                "nervous",
+                "harmful"
+              ]
+            },
+            {
+              "text": "Neighbors became ___ of the quiet house because lights flickered at midnight even though mail piled up on the porch.",
+              "answer": "suspicious",
+              "distractors": [
+                "confused",
+                "nervous",
+                "harmful"
+              ]
+            },
+            {
+              "text": "The cat gave a ___ stare to the new robotic vacuum, creeping behind furniture until the machine docked and fell silent.",
+              "answer": "suspicious",
+              "distractors": [
+                "confused",
+                "nervous",
+                "harmful"
+              ]
+            },
+            {
+              "text": "Detectives remained ___ of the alibi, noticing train tickets dated after the witness claimed to be sleeping at home.",
+              "answer": "suspicious",
+              "distractors": [
+                "confused",
+                "nervous",
+                "harmful"
+              ]
+            }
+          ],
+          "examples": [
+            "The guard grew suspicious of the unlocked window."
+          ]
+        },
+        {
+          "word": "tame",
+          "explanation": "Gentle and used to humans; not wild.",
+          "pictureSearch": "tame deer hand feed cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Over many months, keepers worked to ___ the injured hawk so it could perch calmly on a glove during educational shows for schools.",
+              "answer": "tame",
+              "distractors": [
+                "fierce",
+                "creature",
+                "threatening"
+              ]
+            },
+            {
+              "text": "The once-wild pony grew ___ enough for children to brush its mane, though it still startled at loud motorcycles on the road.",
+              "answer": "tame",
+              "distractors": [
+                "fierce",
+                "creature",
+                "threatening"
+              ]
+            },
+            {
+              "text": "Legends describe heroes who try to ___ dragons with music, though our comic showed the dragon preferring earplugs and snacks.",
+              "answer": "tame",
+              "distractors": [
+                "fierce",
+                "creature",
+                "threatening"
+              ]
+            },
+            {
+              "text": "Scientists wondered whether the foxes visiting the campsite were becoming ___ because campers left food scraps near the fire ring.",
+              "answer": "tame",
+              "distractors": [
+                "fierce",
+                "creature",
+                "threatening"
+              ]
+            }
+          ],
+          "examples": [
+            "The tame rabbit ate lettuce from the girl's hand."
+          ]
+        },
+        {
+          "word": "threatening",
+          "explanation": "Giving a warning that harm may come; menacing.",
+          "pictureSearch": "threatening storm clouds cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The giant's ___ shadow spread across the village square as it leaned over the wall, blocking the sun and rumbling like distant thunder.",
+              "answer": "threatening",
+              "distractors": [
+                "fierce",
+                "harmful",
+                "haunted"
+              ]
+            },
+            {
+              "text": "Dark clouds stacked in a ___ wall along the horizon, and the weather app buzzed with warnings about hail and sudden winds.",
+              "answer": "threatening",
+              "distractors": [
+                "fierce",
+                "harmful",
+                "haunted"
+              ]
+            },
+            {
+              "text": "The dog's low growl sounded ___ , so we slowly backed away and closed the gate without slamming it or running.",
+              "answer": "threatening",
+              "distractors": [
+                "fierce",
+                "harmful",
+                "haunted"
+              ]
+            },
+            {
+              "text": "Even a ___ note in the mystery book made us flip ahead, curious who had slipped the envelope under the classroom door.",
+              "answer": "threatening",
+              "distractors": [
+                "fierce",
+                "harmful",
+                "haunted"
+              ]
+            }
+          ],
+          "examples": [
+            "Dark clouds looked threatening as we packed up the picnic."
+          ]
+        },
+        {
+          "word": "underworld",
+          "explanation": "In myths, the land of the dead or spirits beneath the earth.",
+          "pictureSearch": "myth underworld cartoon storybook",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "In the ancient tale, the hero descended into the ___ to bargain for his friend's soul, crossing rivers of mist guarded by silent ferries.",
+              "answer": "underworld",
+              "distractors": [
+                "haunted",
+                "legend",
+                "vanish"
+              ]
+            },
+            {
+              "text": "The play's ___ set glowed with blue lanterns, representing caverns ruled by a misunderstood king rather than monsters with claws.",
+              "answer": "underworld",
+              "distractors": [
+                "haunted",
+                "legend",
+                "vanish"
+              ]
+            },
+            {
+              "text": "Archaeologists explained how tombs mirrored beliefs about an ___ where honored rulers carried gifts into the afterlife beside them.",
+              "answer": "underworld",
+              "distractors": [
+                "haunted",
+                "legend",
+                "vanish"
+              ]
+            },
+            {
+              "text": "Our comic strip joked that the cafeteria basement was an ___ ruled by lost lunch boxes and squeaky vending machines.",
+              "answer": "underworld",
+              "distractors": [
+                "haunted",
+                "legend",
+                "vanish"
+              ]
+            }
+          ],
+          "examples": [
+            "Greek myth places Hades in the underworld below the earth."
+          ]
+        },
+        {
+          "word": "vanish",
+          "explanation": "To go out of sight suddenly so you cannot be seen or found.",
+          "pictureSearch": "magician vanish cartoon smoke",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The fox seemed to ___ between one blink and the next, slipping through a gap in the hedge we had not noticed in the leaves.",
+              "answer": "vanish",
+              "distractors": [
+                "frantically",
+                "creature",
+                "muster"
+              ]
+            },
+            {
+              "text": "Coins ___ from the magician's palm, reappearing behind a giggling volunteer's ear while the audience tried to spot the hidden sleeve.",
+              "answer": "vanish",
+              "distractors": [
+                "frantically",
+                "creature",
+                "muster"
+              ]
+            },
+            {
+              "text": "Snow tracks can ___ after warm winds, erasing evidence of deer that crossed the field only hours before sunrise.",
+              "answer": "vanish",
+              "distractors": [
+                "frantically",
+                "creature",
+                "muster"
+              ]
+            },
+            {
+              "text": "When the lights returned after the blackout, the mysterious footprint seemed to ___ , leaving only wet grass and our unanswered questions.",
+              "answer": "vanish",
+              "distractors": [
+                "frantically",
+                "creature",
+                "muster"
+              ]
+            }
+          ],
+          "examples": [
+            "The magician made the coin vanish with a quick wave."
+          ]
+        },
+        {
+          "word": "wrecked",
+          "explanation": "Badly damaged or destroyed.",
+          "pictureSearch": "shipwreck coast cartoon storm",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "After the hurricane, we saw a ___ fishing boat tossed onto the rocks, its mast snapped and paint stripped by waves taller than a house.",
+              "answer": "wrecked",
+              "distractors": [
+                "harmful",
+                "stunning",
+                "fossil"
+              ]
+            },
+            {
+              "text": "The teenager felt ___ after crashing his bicycle into a trash can, bending the wheel and scraping paint along the frame.",
+              "answer": "wrecked",
+              "distractors": [
+                "harmful",
+                "stunning",
+                "fossil"
+              ]
+            },
+            {
+              "text": "Rescuers searched the ___ cabin for supplies, careful of nails sticking out from walls twisted by the tornado's spinning winds.",
+              "answer": "wrecked",
+              "distractors": [
+                "harmful",
+                "stunning",
+                "fossil"
+              ]
+            },
+            {
+              "text": "The toy spaceship looked ___ after the dog carried it through the mud, missing fins and covered in paw prints and grass.",
+              "answer": "wrecked",
+              "distractors": [
+                "harmful",
+                "stunning",
+                "fossil"
+              ]
+            }
+          ],
+          "examples": [
+            "The storm wrecked several boats along the harbour wall."
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Module 4 — Science & matter",
+      "words": [
+        {
+          "word": "hypothesis",
+          "explanation": "A testable idea or educated guess that scientists check with experiments and evidence.",
+          "pictureSearch": "science hypothesis experiment cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "Before starting the lab, our team wrote a ___ that taller cups would hold more water because they have greater height inside.",
+              "answer": "hypothesis",
+              "distractors": [
+                "theory",
+                "observation",
+                "accurate"
+              ]
+            },
+            {
+              "text": "The teacher reminded us that a ___ must be testable, so we planned measurements we could repeat on three different afternoons.",
+              "answer": "hypothesis",
+              "distractors": [
+                "theory",
+                "observation",
+                "accurate"
+              ]
+            },
+            {
+              "text": "If your ___ is supported by the data, you still need more trials before telling the class that the pattern is proven.",
+              "answer": "hypothesis",
+              "distractors": [
+                "theory",
+                "observation",
+                "accurate"
+              ]
+            },
+            {
+              "text": "After the first results disagreed with our guess, we revised our ___ instead of changing the numbers to match what we hoped.",
+              "answer": "hypothesis",
+              "distractors": [
+                "theory",
+                "observation",
+                "accurate"
+              ]
+            }
+          ],
+          "examples": [
+            "Our hypothesis predicted that plants grow faster with more light."
+          ]
+        },
+        {
+          "word": "accurate",
+          "explanation": "Correct and exact, without mistakes; measurements or records match what is truly true.",
+          "pictureSearch": "accurate measurement ruler cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "To get an ___ reading of the plant's growth, we measured from the soil line to the tip of the highest leaf every Monday morning.",
+              "answer": "accurate",
+              "distractors": [
+                "observation",
+                "hypothesis",
+                "temporary"
+              ]
+            },
+            {
+              "text": "The digital scale was more ___ than guessing by hand, so we used it when comparing the mass of rocks before and after soaking.",
+              "answer": "accurate",
+              "distractors": [
+                "observation",
+                "hypothesis",
+                "temporary"
+              ]
+            },
+            {
+              "text": "Careful labels on each jar helped us keep ___ records, which mattered when we reviewed photos from week one and week four.",
+              "answer": "accurate",
+              "distractors": [
+                "observation",
+                "hypothesis",
+                "temporary"
+              ]
+            },
+            {
+              "text": "If your thermometer is not ___ , your temperature table may mislead the whole group during the heating and cooling investigation.",
+              "answer": "accurate",
+              "distractors": [
+                "observation",
+                "hypothesis",
+                "temporary"
+              ]
+            }
+          ],
+          "examples": [
+            "Use an accurate ruler when you measure the beam."
+          ]
+        },
+        {
+          "word": "observation",
+          "explanation": "Careful watching and noting of what happens, using senses or tools to gather facts.",
+          "pictureSearch": "science observation notebook magnifying glass cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "During the field trip, each student made an ___ of how many birds visited the feeder during a quiet fifteen-minute sit by the window.",
+              "answer": "observation",
+              "distractors": [
+                "hypothesis",
+                "accurate",
+                "theory"
+              ]
+            },
+            {
+              "text": "Your lab notebook should separate ___ from opinion, describing only what your eyes or instruments actually detected during the trial.",
+              "answer": "observation",
+              "distractors": [
+                "hypothesis",
+                "accurate",
+                "theory"
+              ]
+            },
+            {
+              "text": "A sudden color change in the liquid was an important ___ that a chemical reaction might be starting inside the heated beaker.",
+              "answer": "observation",
+              "distractors": [
+                "hypothesis",
+                "accurate",
+                "theory"
+              ]
+            },
+            {
+              "text": "Repeated ___ of the pendulum's swing helped us notice that the arc grew smaller whenever we forgot to release it from the same angle.",
+              "answer": "observation",
+              "distractors": [
+                "hypothesis",
+                "accurate",
+                "theory"
+              ]
+            }
+          ],
+          "examples": [
+            "Write down every observation you make during the experiment."
+          ]
+        },
+        {
+          "word": "temporary",
+          "explanation": "Lasting for only a short time; not permanent.",
+          "pictureSearch": "temporary sign short term cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The bridge closure was ___ , so commuters expected traffic to return to normal after workers finished replacing the cracked beams.",
+              "answer": "temporary",
+              "distractors": [
+                "accurate",
+                "theory",
+                "volume"
+              ]
+            },
+            {
+              "text": "Frost on the grass was a ___ change that melted by noon, leaving the field damp while the sun warmed the playground.",
+              "answer": "temporary",
+              "distractors": [
+                "accurate",
+                "theory",
+                "volume"
+              ]
+            },
+            {
+              "text": "We built a ___ dam from sandbags during the drill, knowing the river would wash it away once the practice ended at sunset.",
+              "answer": "temporary",
+              "distractors": [
+                "accurate",
+                "theory",
+                "volume"
+              ]
+            },
+            {
+              "text": "The museum placed a ___ screen in front of the statue while experts cleaned the stone, promising to reopen the hall on Friday.",
+              "answer": "temporary",
+              "distractors": [
+                "accurate",
+                "theory",
+                "volume"
+              ]
+            }
+          ],
+          "examples": [
+            "The bridge closure is temporary while workers repair the deck."
+          ]
+        },
+        {
+          "word": "theory",
+          "explanation": "A well-tested scientific explanation that fits many results from experiments and repeated studies.",
+          "pictureSearch": "science theory diagram education cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "After many classes tested the idea with different plants, the school accepted the ___ that light direction affects stem bending.",
+              "answer": "theory",
+              "distractors": [
+                "hypothesis",
+                "observation",
+                "accurate"
+              ]
+            },
+            {
+              "text": "A scientific ___ is stronger than a single lucky result because it explains patterns seen in labs around the world for years.",
+              "answer": "theory",
+              "distractors": [
+                "hypothesis",
+                "observation",
+                "accurate"
+              ]
+            },
+            {
+              "text": "The video described how the ___ of plate movement helps explain earthquakes along coasts where two huge slabs of crust meet.",
+              "answer": "theory",
+              "distractors": [
+                "hypothesis",
+                "observation",
+                "accurate"
+              ]
+            },
+            {
+              "text": "Students learned that a ___ can change when new evidence appears, which is normal and does not mean scientists were careless.",
+              "answer": "theory",
+              "distractors": [
+                "hypothesis",
+                "observation",
+                "accurate"
+              ]
+            }
+          ],
+          "examples": [
+            "Einstein's theory explains how gravity shapes space."
+          ]
+        },
+        {
+          "word": "volume",
+          "explanation": "The amount of three-dimensional space something takes up, such as how much a box or tank can hold.",
+          "pictureSearch": "volume container water displacement science cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "We calculated the ___ of the rectangular box by multiplying its length, width, and height, then checked with water displacement.",
+              "answer": "volume",
+              "distractors": [
+                "expand",
+                "contract",
+                "condense"
+              ]
+            },
+            {
+              "text": "The recipe failed because we confused mass with ___, using a cup meant for flour to measure liquid without leveling carefully.",
+              "answer": "volume",
+              "distractors": [
+                "expand",
+                "contract",
+                "condense"
+              ]
+            },
+            {
+              "text": "When rocks sank in the graduated cylinder, the water level rose, showing that their ___ pushed aside an equal amount of fluid.",
+              "answer": "volume",
+              "distractors": [
+                "expand",
+                "contract",
+                "condense"
+              ]
+            },
+            {
+              "text": "The science question asked for ___ of space inside the tank, not how loud the pump sounded when the motor switched on.",
+              "answer": "volume",
+              "distractors": [
+                "expand",
+                "contract",
+                "condense"
+              ]
+            }
+          ],
+          "examples": [
+            "We measured the volume of water the tank can hold."
+          ]
+        },
+        {
+          "word": "elastic",
+          "explanation": "Able to stretch and then return to its original shape when the pulling force is removed.",
+          "pictureSearch": "elastic stretch rubber band cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The waistband remained ___ after dozens of stretches, returning to its original length each time the fabric relaxed on the table.",
+              "answer": "elastic",
+              "distractors": [
+                "rubber",
+                "expand",
+                "contract"
+              ]
+            },
+            {
+              "text": "We tested which material was most ___ by hanging weights on strips and measuring how far each one stretched before snapping.",
+              "answer": "elastic",
+              "distractors": [
+                "rubber",
+                "expand",
+                "contract"
+              ]
+            },
+            {
+              "text": "An ___ ball stores energy when squashed and may launch upward when the pressure inside is released through the valve.",
+              "answer": "elastic",
+              "distractors": [
+                "rubber",
+                "expand",
+                "contract"
+              ]
+            },
+            {
+              "text": "The bridge designer chose cables with ___ properties so they could flex slightly during high winds without cracking immediately.",
+              "answer": "elastic",
+              "distractors": [
+                "rubber",
+                "expand",
+                "contract"
+              ]
+            }
+          ],
+          "examples": [
+            "The elastic band snapped back after we stretched it."
+          ]
+        },
+        {
+          "word": "rubber",
+          "explanation": "A flexible material that bends easily and is often used for bands, tires, and waterproof coats.",
+          "pictureSearch": "rubber band material stretch cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The sole of the hiking boot was made from thick ___ that gripped wet rocks better than the smooth plastic samples we tried.",
+              "answer": "rubber",
+              "distractors": [
+                "elastic",
+                "contract",
+                "rusting"
+              ]
+            },
+            {
+              "text": "During the insulation test, a sheet of ___ blocked less heat than the foam panel, which we recorded in our comparison chart.",
+              "answer": "rubber",
+              "distractors": [
+                "elastic",
+                "contract",
+                "rusting"
+              ]
+            },
+            {
+              "text": "The factory tour showed how liquid latex becomes solid ___ through heating, stretching, and cutting into bands for packaging.",
+              "answer": "rubber",
+              "distractors": [
+                "elastic",
+                "contract",
+                "rusting"
+              ]
+            },
+            {
+              "text": "Because ___ bends without cracking easily, engineers sometimes use it for seals around doors that must close tightly in the rain.",
+              "answer": "rubber",
+              "distractors": [
+                "elastic",
+                "contract",
+                "rusting"
+              ]
+            }
+          ],
+          "examples": [
+            "The rubber sole grips wet pavement on rainy days."
+          ]
+        },
+        {
+          "word": "contract",
+          "explanation": "To become smaller or tighter, often when cooled or when a material is squeezed.",
+          "pictureSearch": "metal contract cold heat science cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "The metal lid seemed stuck until hot water made the jar expand slightly and the rim stopped gripping as it began to ___ .",
+              "answer": "contract",
+              "distractors": [
+                "expand",
+                "condense",
+                "elastic"
+              ]
+            },
+            {
+              "text": "In winter, gaps appear in old sidewalks because concrete can ___ when temperatures drop during long freezing nights in January.",
+              "answer": "contract",
+              "distractors": [
+                "expand",
+                "condense",
+                "elastic"
+              ]
+            },
+            {
+              "text": "The balloon skin will ___ as the air inside cools, shrinking the toy until you warm it gently above the radiator.",
+              "answer": "contract",
+              "distractors": [
+                "expand",
+                "condense",
+                "elastic"
+              ]
+            },
+            {
+              "text": "Muscle fibers ___ when you relax your arm, shortening the visible bulge after you finish lifting the heavy classroom chair.",
+              "answer": "contract",
+              "distractors": [
+                "expand",
+                "condense",
+                "elastic"
+              ]
+            }
+          ],
+          "examples": [
+            "Metal rails contract slightly on cold winter nights."
+          ]
+        },
+        {
+          "word": "expand",
+          "explanation": "To become larger or spread out, often when heated or when pressure decreases.",
+          "pictureSearch": "expand heat balloon science cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "Heated air began to ___ inside the bottle, pushing the balloon outward until the plastic stretched thin over the rubber stopper.",
+              "answer": "expand",
+              "distractors": [
+                "contract",
+                "evaporate",
+                "volume"
+              ]
+            },
+            {
+              "text": "Ice can ___ when it freezes inside a crack, widening the stone slowly until a piece of the trail breaks loose downhill.",
+              "answer": "expand",
+              "distractors": [
+                "contract",
+                "evaporate",
+                "volume"
+              ]
+            },
+            {
+              "text": "The map drawer would not close because humidity made the paper sheets ___ overnight, rubbing against the wooden sides.",
+              "answer": "expand",
+              "distractors": [
+                "contract",
+                "evaporate",
+                "volume"
+              ]
+            },
+            {
+              "text": "As steam filled the kitchen, the bread dough continued to ___ in the warm bowl, doubling in size before baking began at noon.",
+              "answer": "expand",
+              "distractors": [
+                "contract",
+                "evaporate",
+                "volume"
+              ]
+            }
+          ],
+          "examples": [
+            "Heat makes many materials expand before they melt."
+          ]
+        },
+        {
+          "word": "evaporate",
+          "explanation": "To change from a liquid into a gas, such as when water turns into vapour in the air.",
+          "pictureSearch": "water evaporate sun puddle science cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "After recess, the puddle on the asphalt seemed to ___ in the sun, leaving only a dark outline of grit and fallen leaves.",
+              "answer": "evaporate",
+              "distractors": [
+                "condense",
+                "expand",
+                "decaying"
+              ]
+            },
+            {
+              "text": "Salt crystals appeared when seawater began to ___ in the shallow tray, leaving minerals behind on the glass near the lamp.",
+              "answer": "evaporate",
+              "distractors": [
+                "condense",
+                "expand",
+                "decaying"
+              ]
+            },
+            {
+              "text": "The teacher explained that sweat helps cool skin because moisture can ___ from your arms, carrying heat away into the air.",
+              "answer": "evaporate",
+              "distractors": [
+                "condense",
+                "expand",
+                "decaying"
+              ]
+            },
+            {
+              "text": "If you leave the lid off the jar, the scented liquid will slowly ___ until the classroom no longer smells like peppermint.",
+              "answer": "evaporate",
+              "distractors": [
+                "condense",
+                "expand",
+                "decaying"
+              ]
+            }
+          ],
+          "examples": [
+            "Puddles evaporate quickly on a hot, windy afternoon."
+          ]
+        },
+        {
+          "word": "condense",
+          "explanation": "To change from a gas into a liquid, such as when vapour forms droplets on a cold surface.",
+          "pictureSearch": "water condense cold glass science cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Droplets began to ___ on the outside of the cold can when humid air touched the metal and changed into tiny beads.",
+              "answer": "condense",
+              "distractors": [
+                "evaporate",
+                "expand",
+                "volume"
+              ]
+            },
+            {
+              "text": "Steam from the kettle will ___ on the mirror if you breathe nearby, forming a foggy patch you can draw shapes in quickly.",
+              "answer": "condense",
+              "distractors": [
+                "evaporate",
+                "expand",
+                "volume"
+              ]
+            },
+            {
+              "text": "At night, water vapor in the tent can ___ on the fabric, making sleeping bags feel damp unless you vent the flap.",
+              "answer": "condense",
+              "distractors": [
+                "evaporate",
+                "expand",
+                "volume"
+              ]
+            },
+            {
+              "text": "The cloud formed when warm moist air rose, cooled, and allowed vapor to ___ into visible bits drifting across the valley.",
+              "answer": "condense",
+              "distractors": [
+                "evaporate",
+                "expand",
+                "volume"
+              ]
+            }
+          ],
+          "examples": [
+            "Steam will condense into droplets on a cold mirror."
+          ]
+        },
+        {
+          "word": "shattering",
+          "explanation": "Breaking suddenly into many sharp pieces, often with a loud crash.",
+          "pictureSearch": "glass shatter safety cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The frozen marble floor made the dropped flask ___ into glittering pieces that scattered under the desks before we swept carefully.",
+              "answer": "shattering",
+              "distractors": [
+                "rusting",
+                "decaying",
+                "contract"
+              ]
+            },
+            {
+              "text": "Safety goggles are required because ___ glass can spray sideways faster than you can turn away from the broken beaker.",
+              "answer": "shattering",
+              "distractors": [
+                "rusting",
+                "decaying",
+                "contract"
+              ]
+            },
+            {
+              "text": "The old window was ___ during the hailstorm, leaving sharp fragments caught in the frame until the custodian boarded it up.",
+              "answer": "shattering",
+              "distractors": [
+                "rusting",
+                "decaying",
+                "contract"
+              ]
+            },
+            {
+              "text": "We learned that sudden temperature change can cause ceramic cups to crack, sometimes ___ them without any one strong bump.",
+              "answer": "shattering",
+              "distractors": [
+                "rusting",
+                "decaying",
+                "contract"
+              ]
+            }
+          ],
+          "examples": [
+            "The shattering glass made everyone jump."
+          ]
+        },
+        {
+          "word": "decaying",
+          "explanation": "Breaking down or rotting slowly over time as living material is broken down by bacteria or fungi.",
+          "pictureSearch": "decaying leaves compost science cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Fallen logs were ___ in the forest, turning soft and dark as fungi broke them down into nutrients for new seedlings nearby.",
+              "answer": "decaying",
+              "distractors": [
+                "rusting",
+                "evaporate",
+                "shattering"
+              ]
+            },
+            {
+              "text": "The compost bin smelled earthy because fruit peels were ___ slowly, helped by worms stirring the layers with their tunnels.",
+              "answer": "decaying",
+              "distractors": [
+                "rusting",
+                "evaporate",
+                "shattering"
+              ]
+            },
+            {
+              "text": "Scientists study ___ leaves to learn how carbon returns to the soil instead of staying locked inside dried plant tissue forever.",
+              "answer": "decaying",
+              "distractors": [
+                "rusting",
+                "evaporate",
+                "shattering"
+              ]
+            },
+            {
+              "text": "Without decomposers, ___ matter would pile up in parks, covering trails and blocking sunlight from reaching the ground plants.",
+              "answer": "decaying",
+              "distractors": [
+                "rusting",
+                "evaporate",
+                "shattering"
+              ]
+            }
+          ],
+          "examples": [
+            "Decaying leaves feed nutrients back into the forest soil."
+          ]
+        },
+        {
+          "word": "rusting",
+          "explanation": "Forming reddish-brown flakes on iron or steel when metal reacts with oxygen and moisture over time.",
+          "pictureSearch": "rusting metal oxidation science cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The old gate was ___ along the bottom hinge, flaking orange powder onto the path whenever someone pushed it open quickly.",
+              "answer": "rusting",
+              "distractors": [
+                "shattering",
+                "decaying",
+                "condense"
+              ]
+            },
+            {
+              "text": "Salt spray from the harbor speeds up ___ on bicycle chains, so riders rinse and oil them after riding near the pier.",
+              "answer": "rusting",
+              "distractors": [
+                "shattering",
+                "decaying",
+                "condense"
+              ]
+            },
+            {
+              "text": "We painted the steel bracket to slow ___ , because bare metal left in the rain forms rough patches within a few weeks.",
+              "answer": "rusting",
+              "distractors": [
+                "shattering",
+                "decaying",
+                "condense"
+              ]
+            },
+            {
+              "text": "The investigation compared nails in dry air, damp air, and water to see which conditions increased ___ on the iron samples.",
+              "answer": "rusting",
+              "distractors": [
+                "shattering",
+                "decaying",
+                "condense"
+              ]
+            }
+          ],
+          "examples": [
+            "Rusting nails weakened the old fence after years of rain."
+          ]
+        },
+        {
+          "word": "limitation",
+          "explanation": "A restriction or weak point that sets how far something can go or what it cannot do.",
+          "pictureSearch": "limitation restriction diagram cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "The small battery was a serious ___ for our robot, because the motor drained power after only five minutes on the track.",
+              "answer": "limitation",
+              "distractors": [
+                "excessive",
+                "component",
+                "property"
+              ]
+            },
+            {
+              "text": "During the design review, engineers listed each ___ of the bridge model, including weight, cost, and materials available in the shop.",
+              "answer": "limitation",
+              "distractors": [
+                "excessive",
+                "component",
+                "property"
+              ]
+            },
+            {
+              "text": "Our survey had a ___ of only fifty students, so the teacher warned us not to claim the results represent every school in the city.",
+              "answer": "limitation",
+              "distractors": [
+                "excessive",
+                "component",
+                "property"
+              ]
+            },
+            {
+              "text": "Night vision goggles have a ___ in thick fog, which is why the manual says pilots must still rely on instruments in low clouds.",
+              "answer": "limitation",
+              "distractors": [
+                "excessive",
+                "component",
+                "property"
+              ]
+            }
+          ],
+          "examples": [
+            "Battery life is one limitation of the small robot."
+          ]
+        },
+        {
+          "word": "excessive",
+          "explanation": "More than is needed, safe, or reasonable; too much.",
+          "pictureSearch": "excessive too much warning cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Adding ___ sugar to the yeast mixture slowed growth, because the extra sweetness drew water out of the cells through osmosis.",
+              "answer": "excessive",
+              "distractors": [
+                "limitation",
+                "enhance",
+                "temporary"
+              ]
+            },
+            {
+              "text": "The coach said ___ training without rest days could injure runners, even when they feel strong during the first week of practice.",
+              "answer": "excessive",
+              "distractors": [
+                "limitation",
+                "enhance",
+                "temporary"
+              ]
+            },
+            {
+              "text": "Lights left on all weekend used ___ electricity, so the class calculated how much money the school could save with timers.",
+              "answer": "excessive",
+              "distractors": [
+                "limitation",
+                "enhance",
+                "temporary"
+              ]
+            },
+            {
+              "text": "Wear safety goggles when ___ steam bursts from the beaker, because hot droplets can burn skin faster than students expect.",
+              "answer": "excessive",
+              "distractors": [
+                "limitation",
+                "enhance",
+                "temporary"
+              ]
+            }
+          ],
+          "examples": [
+            "Excessive sugar can harm your teeth over time."
+          ]
+        },
+        {
+          "word": "consist of",
+          "explanation": "To be made up of particular parts or ingredients that together form a whole.",
+          "pictureSearch": "mixture parts consist diagram cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "The lab manual stated that the unknown powder might ___ three salts dissolved together, so we tested each possible combination separately.",
+              "answer": "consist of",
+              "distractors": [
+                "component",
+                "property",
+                "volume"
+              ]
+            },
+            {
+              "text": "Healthy soil samples usually ___ mineral grains, water, air pockets, and living organisms that break down fallen leaves over time.",
+              "answer": "consist of",
+              "distractors": [
+                "component",
+                "property",
+                "volume"
+              ]
+            },
+            {
+              "text": "The committee learned that the new alloy will ___ iron, carbon, and a small amount of nickel to increase strength without much extra weight.",
+              "answer": "consist of",
+              "distractors": [
+                "component",
+                "property",
+                "volume"
+              ]
+            },
+            {
+              "text": "Your poster should explain what mixtures ___ , using labeled diagrams instead of listing ingredients without showing how they connect.",
+              "answer": "consist of",
+              "distractors": [
+                "component",
+                "property",
+                "volume"
+              ]
+            }
+          ],
+          "examples": [
+            "Healthy meals consist of vegetables, protein, and whole grains."
+          ]
+        },
+        {
+          "word": "component",
+          "explanation": "A part that combines with others to make a machine, system, or structure work.",
+          "pictureSearch": "machine components parts diagram cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "Each ___ of the motor, including the coil and magnets, must be aligned carefully or the fan will vibrate loudly on the desk.",
+              "answer": "component",
+              "distractors": [
+                "appliance",
+                "consist of",
+                "insulation"
+              ]
+            },
+            {
+              "text": "Technicians replaced a failed ___ in the dishwasher rather than buying an entirely new machine, saving plastic and metal from the landfill.",
+              "answer": "component",
+              "distractors": [
+                "appliance",
+                "consist of",
+                "insulation"
+              ]
+            },
+            {
+              "text": "Our group drew every ___ of the water filter on the board, showing how sediment trays stack above the charcoal layer inside.",
+              "answer": "component",
+              "distractors": [
+                "appliance",
+                "consist of",
+                "insulation"
+              ]
+            },
+            {
+              "text": "If one electronic ___ overheats, the whole circuit may shut down, which is why the kit includes a spare fuse in the bag.",
+              "answer": "component",
+              "distractors": [
+                "appliance",
+                "consist of",
+                "insulation"
+              ]
+            }
+          ],
+          "examples": [
+            "Each component of the motor must fit precisely."
+          ]
+        },
+        {
+          "word": "appliance",
+          "explanation": "A powered machine used at home for jobs such as cooking, cleaning, or cooling food.",
+          "pictureSearch": "home appliance kitchen cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The energy audit measured how much power each kitchen ___ used during an hour of normal cooking on a typical school holiday morning.",
+              "answer": "appliance",
+              "distractors": [
+                "component",
+                "kettle",
+                "copper"
+              ]
+            },
+            {
+              "text": "Before plugging in any ___ , the safety sheet told us to dry our hands and check that cords were not frayed near the plug.",
+              "answer": "appliance",
+              "distractors": [
+                "component",
+                "kettle",
+                "copper"
+              ]
+            },
+            {
+              "text": "Older ___ often waste heat, so replacing them with efficient models can lower bills while still washing clothes just as cleanly.",
+              "answer": "appliance",
+              "distractors": [
+                "component",
+                "kettle",
+                "copper"
+              ]
+            },
+            {
+              "text": "During the invention fair, Maya explained how her low-cost ___ could sort recycling using sensors instead of manual labor after lunch.",
+              "answer": "appliance",
+              "distractors": [
+                "component",
+                "kettle",
+                "copper"
+              ]
+            }
+          ],
+          "examples": [
+            "The kitchen appliance heated soup in minutes."
+          ]
+        },
+        {
+          "word": "insulation",
+          "explanation": "Material or design that reduces how much heat, sound, or electricity passes through.",
+          "pictureSearch": "home insulation heat cartoon cross section",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "Thick wall ___ kept the classroom cooler in May, slowing the movement of heat from the sunny parking lot through the bricks.",
+              "answer": "insulation",
+              "distractors": [
+                "conductivity",
+                "copper",
+                "property"
+              ]
+            },
+            {
+              "text": "We wrapped the hot water pipe with foam ___ so less energy escaped before the liquid reached the sink across the hall.",
+              "answer": "insulation",
+              "distractors": [
+                "conductivity",
+                "copper",
+                "property"
+              ]
+            },
+            {
+              "text": "Penguin feathers trap air that acts as natural ___ , helping the birds stay warm while they stand on ice for hours.",
+              "answer": "insulation",
+              "distractors": [
+                "conductivity",
+                "copper",
+                "property"
+              ]
+            },
+            {
+              "text": "The challenge was to build a box whose ___ would keep an ice cube from melting for thirty minutes in a warm gym.",
+              "answer": "insulation",
+              "distractors": [
+                "conductivity",
+                "copper",
+                "property"
+              ]
+            }
+          ],
+          "examples": [
+            "Thick insulation keeps the house warm in winter."
+          ]
+        },
+        {
+          "word": "copper",
+          "explanation": "A reddish-brown metal that carries electricity and heat well; used in wires and pipes.",
+          "pictureSearch": "copper wire metal science cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The circuit kit used thin ___ wire because it carries electric current well and bends easily around the battery holder clips.",
+              "answer": "copper",
+              "distractors": [
+                "conductivity",
+                "kettle",
+                "insulation"
+              ]
+            },
+            {
+              "text": "Statues made from ___ develop a green surface over time when oxygen in the air reacts with the metal outdoors.",
+              "answer": "copper",
+              "distractors": [
+                "conductivity",
+                "kettle",
+                "insulation"
+              ]
+            },
+            {
+              "text": "Miners once prized ___ ore for tools and decoration, long before factories drew miles of cable across continents for power grids.",
+              "answer": "copper",
+              "distractors": [
+                "conductivity",
+                "kettle",
+                "insulation"
+              ]
+            },
+            {
+              "text": "Our table compared how quickly heat traveled along ___ and aluminum rods when we held one end over a small flame.",
+              "answer": "copper",
+              "distractors": [
+                "conductivity",
+                "kettle",
+                "insulation"
+              ]
+            }
+          ],
+          "examples": [
+            "Copper wire carries electricity to the lamp."
+          ]
+        },
+        {
+          "word": "kettle",
+          "explanation": "A container used to heat water, often with a handle, spout, and lid for pouring.",
+          "pictureSearch": "electric kettle boil water cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "When the ___ switched off automatically, the water had reached boiling and the class was ready to steep the tea bags safely.",
+              "answer": "kettle",
+              "distractors": [
+                "appliance",
+                "copper",
+                "evaporate"
+              ]
+            },
+            {
+              "text": "We measured how long the ___ took to heat one liter of water on high power versus low power using the lab watt meter.",
+              "answer": "kettle",
+              "distractors": [
+                "appliance",
+                "copper",
+                "evaporate"
+              ]
+            },
+            {
+              "text": "Steam rose from the spout as the ___ heated the remaining cup of water left from the previous group's chemistry demonstration.",
+              "answer": "kettle",
+              "distractors": [
+                "appliance",
+                "copper",
+                "evaporate"
+              ]
+            },
+            {
+              "text": "The hotel room had a small ___ for making hot drinks, but the guide reminded travelers to pour slowly to avoid splashes.",
+              "answer": "kettle",
+              "distractors": [
+                "appliance",
+                "copper",
+                "evaporate"
+              ]
+            }
+          ],
+          "examples": [
+            "She filled the kettle and set it on the stove."
+          ]
+        },
+        {
+          "word": "conductivity",
+          "explanation": "A measure of how well a material allows heat or electricity to pass through it.",
+          "pictureSearch": "heat conductivity metal rods science cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "Our chart ranked metals by thermal ___ , showing which rod carried warmth to the wax flag fastest during the demonstration.",
+              "answer": "conductivity",
+              "distractors": [
+                "copper",
+                "insulation",
+                "property"
+              ]
+            },
+            {
+              "text": "Salt water has higher electrical ___ than pure water, which is why the bulb lit when we placed the probes in the brine.",
+              "answer": "conductivity",
+              "distractors": [
+                "copper",
+                "insulation",
+                "property"
+              ]
+            },
+            {
+              "text": "The engineer chose a gasket material with low ___ so heat from the engine would not escape into the passenger cabin.",
+              "answer": "conductivity",
+              "distractors": [
+                "copper",
+                "insulation",
+                "property"
+              ]
+            },
+            {
+              "text": "Students learned that ___ describes how easily energy flows through a substance, not how heavy or colorful the sample looks.",
+              "answer": "conductivity",
+              "distractors": [
+                "copper",
+                "insulation",
+                "property"
+              ]
+            }
+          ],
+          "examples": [
+            "We compared the conductivity of copper and plastic rods."
+          ]
+        },
+        {
+          "word": "enhance",
+          "explanation": "To improve something or make it stronger, clearer, or more effective.",
+          "pictureSearch": "enhance improve science cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Adding a reflector behind the lamp can ___ brightness at the workbench without increasing electricity use during late evening study sessions.",
+              "answer": "enhance",
+              "distractors": [
+                "excessive",
+                "accurate",
+                "property"
+              ]
+            },
+            {
+              "text": "Certain enzymes ___ chemical reactions in cells, allowing digestion to finish faster than it would without those biological helpers.",
+              "answer": "enhance",
+              "distractors": [
+                "excessive",
+                "accurate",
+                "property"
+              ]
+            },
+            {
+              "text": "The software filter did not change the data, but it could ___ faint lines on the graph so trends were easier to discuss.",
+              "answer": "enhance",
+              "distractors": [
+                "excessive",
+                "accurate",
+                "property"
+              ]
+            },
+            {
+              "text": "Planting trees along the stream may ___ water quality by shading the channel and reducing erosion from heavy rain on bare soil.",
+              "answer": "enhance",
+              "distractors": [
+                "excessive",
+                "accurate",
+                "property"
+              ]
+            }
+          ],
+          "examples": [
+            "Bright colours enhance the poster's message."
+          ]
+        },
+        {
+          "word": "property",
+          "explanation": "A quality or feature of a material, such as hardness, flexibility, or melting point.",
+          "pictureSearch": "material properties science chart cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "Hardness is one physical ___ of a mineral that geologists test by scratching samples with tools of known strength on the bench.",
+              "answer": "property",
+              "distractors": [
+                "conductivity",
+                "component",
+                "limitation"
+              ]
+            },
+            {
+              "text": "The lab sheet asked us to record each ___ we measured, such as density, flexibility, and whether the plastic melted near the heater.",
+              "answer": "property",
+              "distractors": [
+                "conductivity",
+                "component",
+                "limitation"
+              ]
+            },
+            {
+              "text": "Wax changed from solid to liquid when heated, demonstrating a ___ that depends on temperature rather than on the shape of the mold.",
+              "answer": "property",
+              "distractors": [
+                "conductivity",
+                "component",
+                "limitation"
+              ]
+            },
+            {
+              "text": "Comparing the ___ of rubber and glass helped explain why one material bounced while the other cracked under the same dropped weight.",
+              "answer": "property",
+              "distractors": [
+                "conductivity",
+                "component",
+                "limitation"
+              ]
+            }
+          ],
+          "examples": [
+            "Hardness is one property of the mineral sample."
+          ]
+        },
+        {
+          "word": "composition",
+          "explanation": "What something is made from; the different parts or ingredients combined in a material or mixture.",
+          "pictureSearch": "material composition mixture diagram cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "The lab report described the ___ of the alloy, listing each metal present and the percentage measured by the spectrometer on Tuesday.",
+              "answer": "composition",
+              "distractors": [
+                "substance",
+                "consist of",
+                "component"
+              ]
+            },
+            {
+              "text": "Changing the ___ of the soil sample altered how quickly water drained through the tube during our permeability demonstration in class.",
+              "answer": "composition",
+              "distractors": [
+                "substance",
+                "consist of",
+                "component"
+              ]
+            },
+            {
+              "text": "Artists sometimes hide the ___ of old paintings under X-rays, revealing sketches and pigments layered over many years of work.",
+              "answer": "composition",
+              "distractors": [
+                "substance",
+                "consist of",
+                "component"
+              ]
+            },
+            {
+              "text": "Before recycling, we sorted plastic by ___ because different polymers melt at different temperatures in the factory furnace.",
+              "answer": "composition",
+              "distractors": [
+                "substance",
+                "consist of",
+                "component"
+              ]
+            }
+          ],
+          "examples": [
+            "Lab notes record the composition of the unknown liquid."
+          ]
+        },
+        {
+          "word": "substance",
+          "explanation": "A particular kind of matter with uniform properties, such as water, salt, or oxygen gas.",
+          "pictureSearch": "chemistry substance beaker cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Wear gloves when handling an unknown ___ , because even powders that look harmless can react strongly with water on the bench.",
+              "answer": "substance",
+              "distractors": [
+                "composition",
+                "property",
+                "phenomena"
+              ]
+            },
+            {
+              "text": "The teacher defined a pure ___ as matter with the same properties throughout, unlike a mixture of sand and salt in one jar.",
+              "answer": "substance",
+              "distractors": [
+                "composition",
+                "property",
+                "phenomena"
+              ]
+            },
+            {
+              "text": "Oxygen is a ___ that many living things need, dissolving in river water so fish can breathe through their gills underwater.",
+              "answer": "substance",
+              "distractors": [
+                "composition",
+                "property",
+                "phenomena"
+              ]
+            },
+            {
+              "text": "When the mysterious ___ changed color after heating, we recorded the time and temperature in our notebook before it cooled again.",
+              "answer": "substance",
+              "distractors": [
+                "composition",
+                "property",
+                "phenomena"
+              ]
+            }
+          ],
+          "examples": [
+            "Handle the unknown substance with gloves and goggles."
+          ]
+        },
+        {
+          "word": "dough",
+          "explanation": "A thick, soft mixture of flour and liquid used for baking before it is cooked in an oven.",
+          "pictureSearch": "bread dough baking cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "After kneading the ___ for ten minutes, the class left it to rise near the window while we measured how much carbon dioxide formed inside.",
+              "answer": "dough",
+              "distractors": [
+                "substance",
+                "grind",
+                "composition"
+              ]
+            },
+            {
+              "text": "Too much water made the ___ sticky, so we sprinkled flour on the table and folded it until the surface felt smooth and elastic.",
+              "answer": "dough",
+              "distractors": [
+                "substance",
+                "grind",
+                "composition"
+              ]
+            },
+            {
+              "text": "The bakery showed how ___ bubbles expand in the oven when yeast releases gas, turning a dense lump into a light loaf.",
+              "answer": "dough",
+              "distractors": [
+                "substance",
+                "grind",
+                "composition"
+              ]
+            },
+            {
+              "text": "We compared two ___ samples, one with yeast and one without, to see which rose higher in the same warm cupboard overnight.",
+              "answer": "dough",
+              "distractors": [
+                "substance",
+                "grind",
+                "composition"
+              ]
+            }
+          ],
+          "examples": [
+            "Knead the dough until it feels smooth and springy."
+          ]
+        },
+        {
+          "word": "grind",
+          "explanation": "To crush or rub something into small pieces or powder, often with a tool or machine.",
+          "pictureSearch": "grind pepper mill cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Students used a mortar and pestle to ___ the chalk into powder before mixing it with vinegar to study how fast bubbles formed.",
+              "answer": "grind",
+              "distractors": [
+                "dough",
+                "shattering",
+                "split"
+              ]
+            },
+            {
+              "text": "The mill continued to ___ wheat between heavy stones, producing flour that felt warm when it poured into the wooden bin below.",
+              "answer": "grind",
+              "distractors": [
+                "dough",
+                "shattering",
+                "split"
+              ]
+            },
+            {
+              "text": "Safety rules warned us not to ___ glass in the open lab, because tiny shards can scatter farther than people expect when they break.",
+              "answer": "grind",
+              "distractors": [
+                "dough",
+                "shattering",
+                "split"
+              ]
+            },
+            {
+              "text": "To speed dissolution, we decided to ___ the tablet into smaller pieces, increasing the surface area touching the water in the beaker.",
+              "answer": "grind",
+              "distractors": [
+                "dough",
+                "shattering",
+                "split"
+              ]
+            }
+          ],
+          "examples": [
+            "Use the mill to grind wheat into flour."
+          ]
+        },
+        {
+          "word": "phenomena",
+          "explanation": "Observable events in nature that can be studied, such as lightning, tides, or rust on metal.",
+          "pictureSearch": "natural phenomena lightning rainbow cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The unit on weather ___ included lightning, halos around the moon, and frost patterns that form on windows during cold clear nights.",
+              "answer": "phenomena",
+              "distractors": [
+                "observation",
+                "theory",
+                "substance"
+              ]
+            },
+            {
+              "text": "Scientists collect data on natural ___ such as tides and auroras, then look for patterns that might be explained by tested models.",
+              "answer": "phenomena",
+              "distractors": [
+                "observation",
+                "theory",
+                "substance"
+              ]
+            },
+            {
+              "text": "Our poster listed three classroom ___ we could repeat, unlike rare events such as earthquakes that cannot be scheduled for Friday labs.",
+              "answer": "phenomena",
+              "distractors": [
+                "observation",
+                "theory",
+                "substance"
+              ]
+            },
+            {
+              "text": "The textbook chapter linked everyday ___ like rust and evaporation to particle ideas we had studied earlier in the term.",
+              "answer": "phenomena",
+              "distractors": [
+                "observation",
+                "theory",
+                "substance"
+              ]
+            }
+          ],
+          "examples": [
+            "Lightning and rainbows are fascinating natural phenomena."
+          ]
+        },
+        {
+          "word": "split",
+          "explanation": "To divide or break apart into two or more parts.",
+          "pictureSearch": "split log axe cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Heating caused the wooden ruler to ___ along a hidden crack, sending two pieces skittering across the desk during the expansion demo.",
+              "answer": "split",
+              "distractors": [
+                "grind",
+                "expand",
+                "contract"
+              ]
+            },
+            {
+              "text": "The class watched a laser ___ a beam through a prism, producing a band of colors on the white screen at the back wall.",
+              "answer": "split",
+              "distractors": [
+                "grind",
+                "expand",
+                "contract"
+              ]
+            },
+            {
+              "text": "When the frozen juice cup began to ___ , we saw sharp lines form on the surface before the ice slid apart in the tray.",
+              "answer": "split",
+              "distractors": [
+                "grind",
+                "expand",
+                "contract"
+              ]
+            },
+            {
+              "text": "Genetic material can ___ when a cell divides, copying information so each new cell receives a full set of instructions for life.",
+              "answer": "split",
+              "distractors": [
+                "grind",
+                "expand",
+                "contract"
+              ]
+            }
+          ],
+          "examples": [
+            "We split the log with a sharp axe."
+          ]
+        },
+        {
+          "word": "resistance",
+          "explanation": "Opposition to electric current in a wire, or opposition to movement through a material.",
+          "pictureSearch": "electrical resistance circuit cartoon",
+          "pictureStyle": "diagram",
+          "sentences": [
+            {
+              "text": "A longer thin wire showed more electrical ___ than a short thick one, so the bulb in that part of the circuit glowed dimmer.",
+              "answer": "resistance",
+              "distractors": [
+                "conductivity",
+                "insulation",
+                "copper"
+              ]
+            },
+            {
+              "text": "The worksheet asked us to measure ___ in ohms and explain why the same battery produced different currents through two resistors.",
+              "answer": "resistance",
+              "distractors": [
+                "conductivity",
+                "insulation",
+                "copper"
+              ]
+            },
+            {
+              "text": "Rubber gloves provide high ___ to current, which helps protect electricians when they work near live equipment in the workshop.",
+              "answer": "resistance",
+              "distractors": [
+                "conductivity",
+                "insulation",
+                "copper"
+              ]
+            },
+            {
+              "text": "Swimmers feel water's ___ against their arms, a different kind of opposition than electrons meeting impurities inside a metal wire.",
+              "answer": "resistance",
+              "distractors": [
+                "conductivity",
+                "insulation",
+                "copper"
+              ]
+            }
+          ],
+          "examples": [
+            "Thick wires lower electrical resistance in the circuit."
+          ]
+        },
+        {
+          "word": "barrel",
+          "explanation": "A large, rounded container, often made of wood or metal, used to store or transport liquids or goods.",
+          "pictureSearch": "wooden barrel container cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "Rainwater collected in the ___ behind the shed, and we dipped a graduated cylinder in to measure how many liters filled after the storm.",
+              "answer": "barrel",
+              "distractors": [
+                "kettle",
+                "volume",
+                "substance"
+              ]
+            },
+            {
+              "text": "The museum displayed a shipping ___ used a century ago, showing how hoops of metal held curved wooden staves tightly together.",
+              "answer": "barrel",
+              "distractors": [
+                "kettle",
+                "volume",
+                "substance"
+              ]
+            },
+            {
+              "text": "During the investigation, we rolled the ___ across the floor to study how its mass affected the distance it traveled on the ramp.",
+              "answer": "barrel",
+              "distractors": [
+                "kettle",
+                "volume",
+                "substance"
+              ]
+            },
+            {
+              "text": "Workers sealed the ___ with a lid so the olive oil inside would not spill during the long truck ride to the coastal factory.",
+              "answer": "barrel",
+              "distractors": [
+                "kettle",
+                "volume",
+                "substance"
+              ]
+            }
+          ],
+          "examples": [
+            "Rainwater collected in an old wooden barrel."
+          ]
+        },
+        {
+          "word": "alley",
+          "explanation": "A narrow passage or street between or behind buildings.",
+          "pictureSearch": "narrow alley between buildings cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "The delivery truck could barely fit down the ___ behind the shops, so crates were carried by hand to the loading door step by step.",
+              "answer": "alley",
+              "distractors": [
+                "barrel",
+                "component",
+                "temporary"
+              ]
+            },
+            {
+              "text": "Echoes bounced off brick walls in the quiet ___ , making our footsteps sound louder than they did on the wide main street nearby.",
+              "answer": "alley",
+              "distractors": [
+                "barrel",
+                "component",
+                "temporary"
+              ]
+            },
+            {
+              "text": "The map showed a shortcut through an ___ that connected the school parking lot to the park without crossing the busy intersection.",
+              "answer": "alley",
+              "distractors": [
+                "barrel",
+                "component",
+                "temporary"
+              ]
+            },
+            {
+              "text": "Recycling bins lined the ___ , and we recorded how wind swirled between the buildings during our weather journal project in March.",
+              "answer": "alley",
+              "distractors": [
+                "barrel",
+                "component",
+                "temporary"
+              ]
+            }
+          ],
+          "examples": [
+            "Cats sometimes sleep in the quiet alley behind the shop."
+          ]
+        },
+        {
+          "word": "coarse",
+          "explanation": "Rough in texture, with large grains or pieces rather than smooth and fine.",
+          "pictureSearch": "coarse sand texture cartoon",
+          "pictureStyle": "cartoon",
+          "sentences": [
+            {
+              "text": "___ sand felt rough between our fingers, while the fine sample flowed almost like powder when we poured it through the funnel.",
+              "answer": "coarse",
+              "distractors": [
+                "conductivity",
+                "property",
+                "accurate"
+              ]
+            },
+            {
+              "text": "The filter removed ___ debris from the water, leaving clearer liquid in the lower flask after gravity pulled it through the paper.",
+              "answer": "coarse",
+              "distractors": [
+                "conductivity",
+                "property",
+                "accurate"
+              ]
+            },
+            {
+              "text": "Builders mix ___ gravel with cement so the concrete grips better, creating strong foundations that resist cracking under heavy loads.",
+              "answer": "coarse",
+              "distractors": [
+                "conductivity",
+                "property",
+                "accurate"
+              ]
+            },
+            {
+              "text": "Under the microscope, ___ salt crystals looked jagged and uneven compared with the tiny, smooth grains in the refined table salt.",
+              "answer": "coarse",
+              "distractors": [
+                "conductivity",
+                "property",
+                "accurate"
+              ]
+            }
+          ],
+          "examples": [
+            "Coarse sand felt rough between our fingers."
+          ]
+        }
+      ]
+    }
+  ]
+}
