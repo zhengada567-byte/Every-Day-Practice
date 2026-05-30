@@ -8,7 +8,11 @@ export function getPool() {
   if (!pool) {
     const url = process.env.DATABASE_URL;
     if (!url) {
-      throw new Error("DATABASE_URL is not set");
+      const err = new Error(
+        "Database is not configured. Set DATABASE_URL in Netlify environment variables or env.txt for local dev."
+      );
+      err.status = 503;
+      throw err;
     }
     pool = new Pool({
       connectionString: url,

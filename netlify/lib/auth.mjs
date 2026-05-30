@@ -6,7 +6,11 @@ const TOKEN_TTL = "7d";
 function secret() {
   const value = process.env.JWT_SECRET;
   if (!value) {
-    throw new Error("JWT_SECRET is not set");
+    const err = new Error(
+      "JWT_SECRET is not set. Add it in Netlify environment variables or env.txt for local dev."
+    );
+    err.status = 503;
+    throw err;
   }
   return value;
 }

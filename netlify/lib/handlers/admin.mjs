@@ -10,7 +10,9 @@ import { ok } from "../http.mjs";
 function assertAdmin(event, body) {
   const expected = process.env.ADMIN_API_KEY;
   if (!expected) {
-    const err = new Error("Admin API is not configured");
+    const err = new Error(
+      "Admin API is not configured. Set ADMIN_API_KEY in Netlify environment variables or env.txt for local dev."
+    );
     err.status = 503;
     throw err;
   }

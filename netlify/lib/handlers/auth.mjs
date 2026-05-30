@@ -41,6 +41,7 @@ async function loginUserRow(user, event) {
 }
 
 export async function login(event, body) {
+  await ensureTestSchema();
   const email = (body.email || "").trim().toLowerCase();
   const password = body.password || "";
 
@@ -77,6 +78,7 @@ export async function login(event, body) {
 
 /** Child login: parent account name + child display name + password. */
 export async function childLogin(event, body) {
+  await ensureTestSchema();
   const parentAccount = (body.parentAccount || body.parent || "").trim();
   const childName = (body.childName || body.child || body.displayName || "").trim();
   const password = body.password || "";
