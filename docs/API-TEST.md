@@ -13,6 +13,7 @@ http://localhost:8888/api/v1
    ```env
    JWT_SECRET=your-long-random-secret-here
    CORS_ORIGIN=http://localhost:8888
+   ADMIN_API_KEY=your-admin-secret
    ```
 
 2. Install and start:
@@ -23,6 +24,13 @@ http://localhost:8888/api/v1
    ```
 
    Netlify Dev serves the static game **and** API functions (default port **8888**).
+
+### Accounts (admin / parent / child)
+
+- Only **admin** creates parents: `POST /admin/parents` with header `X-Admin-Key` (set `ADMIN_API_KEY` in env).
+- Example: account `parentada` → email `parentada@everydaypractice.com`, default password `qwer1234`.
+- Parent logs in (can change password), adds child by **name only** (e.g. `Alex` → system uses `alex_parentada@everydaypractice.com` internally).
+- Child logs in with **parent account** + **child name** + password; browser caches recent choices.
 
 ## Step 4 — Weekly quiz
 
@@ -44,8 +52,8 @@ http://localhost:8888/api/v1
 ## Step 3 — Daily plan (browser)
 
 1. `npm run dev` → open **http://localhost:8888**
-2. **Sign up** as parent → **Add a child** (email + password)
-3. **Log out** → **Log in** as the child
+2. **Admin** tab (or API): create parent `parentada` → parent logs in with default password `qwer1234`
+3. Parent **Add child** (name + password only) → **Log out** → **Child** tab: parent account + child name + password
 4. **Start today's words** → Learn → Level 1 → 2 → 3
 
 First day: **5 new**, **0 review**. After a quiz creates mastered words: **5 new + up to 3 review** (review = L1 + L2 only).
@@ -66,31 +74,30 @@ npm run test:api
 Invoke-RestMethod http://localhost:8888/api/v1/health
 ```
 
-### Register parent
+### Admin: create parent
 
 ```powershell
-$body = @{
-  email = "parent@example.com"
-  password = "password123"
-  displayName = "Test Parent"
-  role = "parent"
-} | ConvertTo-Json
-
-Invoke-RestMethod -Method Post -Uri http://localhost:8888/api/v1/auth/register `
-  -ContentType "application/json" -Body $body
+$adminKey = "YOUR_ADMIN_API_KEY"
+$body = @{ accountName = "parentada"; displayName = "Ada Parent" } | ConvertTo-Json
+$parent = Invoke-RestMethod -Method Post -Uri http://localhost:8888/api/v1/admin/parents `
+  -Headers @{ "X-Admin-Key" = $adminKey } -ContentType "application/json" -Body $body
+# Email: parentada@everydaypractice.com  Password: qwer1234
 ```
 
-Save the `token` from the response.
+### Parent login
+
+```powershell
+$body = @{ email = "parentada@everydaypractice.com"; password = "qwer1234" } | ConvertTo-Json
+$res = Invoke-RestMethod -Method Post -Uri http://localhost:8888/api/v1/auth/login `
+  -ContentType "application/json" -Body $body
+$parentToken = $res.token
+```
 
 ### Create child (parent token)
 
 ```powershell
-$headers = @{ Authorization = "Bearer YOUR_PARENT_TOKEN" }
-$body = @{
-  displayName = "Alex"
-  email = "alex@example.com"
-  password = "password123"
-} | ConvertTo-Json
+$headers = @{ Authorization = "Bearer $parentToken" }
+$body = @{ displayName = "Alex"; password = "childpass1" } | ConvertTo-Json
 
 Invoke-RestMethod -Method Post -Uri http://localhost:8888/api/v1/parent/children `
   -Headers $headers -ContentType "application/json" -Body $body
@@ -99,8 +106,8 @@ Invoke-RestMethod -Method Post -Uri http://localhost:8888/api/v1/parent/children
 ### Login as child
 
 ```powershell
-$body = @{ email = "alex@example.com"; password = "password123" } | ConvertTo-Json
-$res = Invoke-RestMethod -Method Post -Uri http://localhost:8888/api/v1/auth/login `
+$body = @{ parentAccount = "parentada"; childName = "Alex"; password = "childpass1" } | ConvertTo-Json
+$res = Invoke-RestMethod -Method Post -Uri http://localhost:8888/api/v1/auth/child-login `
   -ContentType "application/json" -Body $body
 $childToken = $res.token
 ```
@@ -132,6 +139,7 @@ Set environment variables in Netlify dashboard:
 
 - `DATABASE_URL`
 - `JWT_SECRET`
+- `ADMIN_API_KEY`
 - `CORS_ORIGIN` (your site URL, e.g. `https://your-app.netlify.app`)
 
 Push the repo and connect to Netlify; `netlify.toml` routes `/api/v1/*` to the function.

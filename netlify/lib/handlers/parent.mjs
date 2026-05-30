@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { query, withTransaction } from "../db.mjs";
+import { childEmailForParent, publicChildForParent } from "../accounts.mjs";
 import { publicUser } from "../auth.mjs";
 import { buildTodayPayload } from "../daily.mjs";
 import { ok } from "../http.mjs";
@@ -30,16 +31,26 @@ async function initChildWordState(client, childId) {
 }
 
 export async function createChild(event, parentAuth, body) {
-  const displayName = (body.displayName || "").trim();
-  const email = (body.email || "").trim().toLowerCase();
+  const displayName = (body.displayName || body.childName || "").trim();
   const password = body.password || "";
 
-  if (!displayName || !email || password.length < 8) {
-    const err = new Error("displayName, email, and password (8+) are required");
+  if (!displayName || password.length < 8) {
+    const err = new Error("Child name and password (8+) are required");
     err.status = 400;
     throw err;
   }
 
+  const { rows: parentRows } = await query(
+    `SELECT email FROM users WHERE id = $1 AND role = 'parent'`,
+    [parentAuth.sub]
+  );
+  if (!parentRows.length) {
+    const err = new Error("Parent not found");
+    err.status = 404;
+    throw err;
+  }
+
+  const email = childEmailForParent(parentRows[0].email, displayName);
   const passwordHash = await bcrypt.hash(password, 10);
 
   const child = await withTransaction(async (client) => {
@@ -70,7 +81,7 @@ export async function createChild(event, parentAuth, body) {
     return row;
   });
 
-  return ok(event, { child: publicUser(child) }, 201);
+  return ok(event, { child: publicChildForParent(child) }, 201);
 }
 
 export async function listChildren(event, parentAuth) {
@@ -84,7 +95,7 @@ export async function listChildren(event, parentAuth) {
     `,
     [parentAuth.sub]
   );
-  return ok(event, { children: rows.map(publicUser) });
+  return ok(event, { children: rows.map(publicChildForParent) });
 }
 
 export async function childDashboard(event, parentAuth, childId) {

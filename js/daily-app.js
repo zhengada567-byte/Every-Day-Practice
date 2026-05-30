@@ -13,6 +13,66 @@
   let childTab = "today";
   let petState = null;
 
+  const LS_PARENT_ACCOUNT = "ewp_parent_account";
+  const LS_PARENT_ACCOUNTS = "ewp_parent_accounts";
+  const LS_CHILDREN_BY_PARENT = "ewp_children_by_parent";
+
+  function parentSlugFromEmail(email) {
+    const e = String(email || "").trim().toLowerCase();
+    const at = e.indexOf("@");
+    return at > 0 ? e.slice(0, at) : e;
+  }
+
+  function loadJson(key, fallback) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : fallback;
+    } catch {
+      return fallback;
+    }
+  }
+
+  function rememberParentAccount(slug) {
+    const s = String(slug || "").trim().toLowerCase();
+    if (!s) return;
+    localStorage.setItem(LS_PARENT_ACCOUNT, s);
+    const list = loadJson(LS_PARENT_ACCOUNTS, []);
+    if (list.indexOf(s) === -1) {
+      list.unshift(s);
+      localStorage.setItem(LS_PARENT_ACCOUNTS, JSON.stringify(list.slice(0, 12)));
+    }
+  }
+
+  function rememberChildForParent(parentSlug, childName) {
+    const p = String(parentSlug || "").trim().toLowerCase();
+    const c = String(childName || "").trim();
+    if (!p || !c) return;
+    const map = loadJson(LS_CHILDREN_BY_PARENT, {});
+    const arr = map[p] || [];
+    if (arr.indexOf(c) === -1) {
+      arr.unshift(c);
+      map[p] = arr.slice(0, 12);
+      localStorage.setItem(LS_CHILDREN_BY_PARENT, JSON.stringify(map));
+    }
+  }
+
+  function renderQuickPicks(containerId, values, onPick) {
+    const box = document.getElementById(containerId);
+    if (!box) return;
+    box.innerHTML = "";
+    if (!values || !values.length) return;
+    values.forEach(function (val) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "quick-pick";
+      b.textContent = val;
+      b.onclick = function () {
+        onPick(val);
+      };
+      box.appendChild(b);
+    });
+  }
+
   function escapeHtml(s) {
     const d = document.createElement("div");
     d.textContent = s;
@@ -453,6 +513,9 @@
       : "";
     const extra =
       (attrs.placeholder ? ' placeholder="' + escapeHtml(attrs.placeholder) + '"' : "") +
+      (attrs.value != null && attrs.value !== ""
+        ? ' value="' + escapeHtml(String(attrs.value)) + '"'
+        : "") +
       (attrs.autocomplete ? ' autocomplete="' + attrs.autocomplete + '"' : "") +
       (attrs.minlength ? ' minlength="' + attrs.minlength + '"' : "") +
       (attrs.maxlength ? ' maxlength="' + attrs.maxlength + '"' : "") +
@@ -479,58 +542,130 @@
   /* —— Auth —— */
 
   function showAuth(mode) {
-    const isLogin = mode === "login";
+    const authMode = mode || "parent";
+    const lastParent = localStorage.getItem(LS_PARENT_ACCOUNT) || "";
+    const parentList = loadJson(LS_PARENT_ACCOUNTS, []);
+    const childMap = loadJson(LS_CHILDREN_BY_PARENT, {});
+    const childList = childMap[lastParent] || [];
+
+    let formHtml = "";
+    if (authMode === "parent") {
+      formHtml =
+        '<p class="auth-hint">' +
+        bi(
+          "使用管理员创建的家长账号登录（例如 parentada@everydaypractice.com）。",
+          "Sign in with the parent account your admin created (e.g. parentada@everydaypractice.com)."
+        ) +
+        "</p>" +
+        fieldGroup("emailInput", bi("家长邮箱", "Parent email"), "email", {
+          placeholder: "parentada@everydaypractice.com",
+          autocomplete: "email",
+          required: true,
+        }) +
+        fieldGroup("passInput", bi("密码", "Password"), "password", {
+          placeholder: "qwer1234",
+          autocomplete: "current-password",
+          minlength: 8,
+          required: true,
+        }) +
+        '<div class="auth-actions">' +
+        '<button type="submit" class="btn-fun">' +
+        bi("家长登录", "Parent log in") +
+        " 🚀</button></div>";
+    } else if (authMode === "child") {
+      formHtml =
+        '<p class="auth-hint">' +
+        bi(
+          "输入家长账号名和孩子名字，不用输入完整邮箱。",
+          "Enter parent account name and child name — no full email needed."
+        ) +
+        "</p>" +
+        fieldGroup("parentAccountInput", bi("家长账号", "Parent account"), "text", {
+          placeholder: "parentada",
+          value: lastParent,
+          autocomplete: "off",
+          required: true,
+        }) +
+        '<div id="parentQuickPick" class="quick-pick-row"></div>' +
+        fieldGroup("childNameInput", bi("孩子名字", "Child name"), "text", {
+          placeholder: "Alex",
+          autocomplete: "off",
+          required: true,
+        }) +
+        '<div id="childQuickPick" class="quick-pick-row"></div>' +
+        fieldGroup("childPassInput", bi("密码", "Password"), "password", {
+          placeholder: bi("家长设置的密码", "Password from parent"),
+          autocomplete: "current-password",
+          minlength: 8,
+          required: true,
+        }) +
+        '<div class="auth-actions">' +
+        '<button type="submit" class="btn-fun">' +
+        bi("孩子登录", "Child log in") +
+        " 🚀</button></div>";
+    } else {
+      formHtml =
+        '<p class="auth-hint">' +
+        bi(
+          "仅管理员可创建家长账号。默认密码 qwer1234。",
+          "Only admin can create parent accounts. Default password is qwer1234."
+        ) +
+        "</p>" +
+        fieldGroup("adminKeyInput", bi("管理员密钥", "Admin key"), "password", {
+          placeholder: "ADMIN_API_KEY",
+          autocomplete: "off",
+          required: true,
+        }) +
+        fieldGroup("accountNameInput", bi("家长账号名", "Parent account name"), "text", {
+          placeholder: "parentada",
+          hint: bi(
+            "将创建 parentada@everydaypractice.com",
+            "Creates parentada@everydaypractice.com"
+          ),
+          required: true,
+        }) +
+        fieldGroup("parentDisplayInput", bi("显示名称（可选）", "Display name (optional)"), "text", {
+          placeholder: "Ada family",
+          maxlength: 32,
+        }) +
+        '<div class="auth-actions">' +
+        '<button type="submit" class="btn-fun">' +
+        bi("创建家长账号", "Create parent account") +
+        " ✓</button></div>";
+    }
+
     screen.innerHTML =
       '<div class="auth-shell">' +
       '<div class="auth-hero">' +
       '<div class="auth-hero-icon" aria-hidden="true">' +
-      (isLogin ? "🔐" : "✨") +
+      (authMode === "child" ? "🎮" : authMode === "admin" ? "🛡️" : "🔐") +
       "</div>" +
       "<h2>" +
-      (isLogin ? "Welcome back!" : "Create parent account") +
-      "</h2>" +
-      '<p class="lead">' +
-      (isLogin
-        ? "Parents and children — sign in with your email."
-        : "Sign up once, then add your kids' accounts.") +
-      "</p>" +
-      "</div>" +
+      (authMode === "child"
+        ? bi("孩子登录", "Child sign in")
+        : authMode === "admin"
+          ? bi("管理员", "Admin")
+          : bi("家长登录", "Parent sign in")) +
+      "</h2></div>" +
       '<div class="auth-tabs" role="tablist">' +
       '<button type="button" class="auth-tab' +
-      (isLogin ? " is-active" : "") +
-      '" data-mode="login" role="tab">Log in</button>' +
-      '<button type="button" class="auth-tab' +
-      (!isLogin ? " is-active" : "") +
-      '" data-mode="register" role="tab">Sign up</button>' +
-      "</div>" +
-      '<form id="authForm" class="auth-form">' +
-      (isLogin
-        ? ""
-        : fieldGroup("nameInput", "Your name", "text", {
-            placeholder: "e.g. Sam",
-            autocomplete: "name",
-            maxlength: 32,
-            required: true,
-          })) +
-      fieldGroup("emailInput", "Email", "email", {
-        placeholder: "you@example.com",
-        autocomplete: isLogin ? "email" : "email",
-        required: true,
-      }) +
-      fieldGroup("passInput", "Password", "password", {
-        placeholder: "At least 8 characters",
-        autocomplete: isLogin ? "current-password" : "new-password",
-        minlength: 8,
-        hint: isLogin ? "" : "Use 8 or more characters.",
-        required: true,
-      }) +
-      '<div class="auth-actions">' +
-      '<button type="submit" class="btn-fun">' +
-      (isLogin ? "Log in 🚀" : "Create account 🚀") +
+      (authMode === "parent" ? " is-active" : "") +
+      '" data-mode="parent" role="tab">' +
+      bi("家长", "Parent") +
       "</button>" +
-      "</div>" +
-      "</form>" +
-      "</div>";
+      '<button type="button" class="auth-tab' +
+      (authMode === "child" ? " is-active" : "") +
+      '" data-mode="child" role="tab">' +
+      bi("孩子", "Child") +
+      "</button>" +
+      '<button type="button" class="auth-tab' +
+      (authMode === "admin" ? " is-active" : "") +
+      '" data-mode="admin" role="tab">' +
+      bi("管理员", "Admin") +
+      "</button></div>" +
+      '<form id="authForm" class="auth-form">' +
+      formHtml +
+      "</form></div>";
 
     screen.querySelectorAll(".auth-tab").forEach(function (tab) {
       tab.onclick = function () {
@@ -538,24 +673,83 @@
       };
     });
 
+    if (authMode === "child") {
+      const parentInput = document.getElementById("parentAccountInput");
+      const childInput = document.getElementById("childNameInput");
+
+      function refreshChildPicks() {
+        const slug = parentInput.value.trim().toLowerCase();
+        const kids = loadJson(LS_CHILDREN_BY_PARENT, {})[slug] || [];
+        renderQuickPicks("childQuickPick", kids, function (name) {
+          childInput.value = name;
+        });
+      }
+
+      renderQuickPicks("parentQuickPick", parentList, function (slug) {
+        parentInput.value = slug;
+        refreshChildPicks();
+      });
+      renderQuickPicks("childQuickPick", childList, function (name) {
+        childInput.value = name;
+      });
+      parentInput.addEventListener("input", refreshChildPicks);
+    }
+
     document.getElementById("authForm").onsubmit = function (e) {
       e.preventDefault();
-      const email = document.getElementById("emailInput").value.trim();
-      const password = document.getElementById("passInput").value;
-      setStatus("Signing in…");
-      const p = isLogin
-        ? API.login(email, password)
-        : API.register(
-            email,
-            password,
-            document.getElementById("nameInput").value.trim()
+      setStatus(bi("登录中…", "Signing in…"));
+
+      if (authMode === "parent") {
+        const email = document.getElementById("emailInput").value.trim().toLowerCase();
+        const password = document.getElementById("passInput").value;
+        API.login(email, password)
+          .then(function () {
+            rememberParentAccount(parentSlugFromEmail(email));
+            setStatus("");
+            return bootstrap();
+          })
+          .catch(function (err) {
+            setStatus(err.message, true);
+          });
+        return;
+      }
+
+      if (authMode === "child") {
+        const parentAccount = document.getElementById("parentAccountInput").value.trim();
+        const childName = document.getElementById("childNameInput").value.trim();
+        const password = document.getElementById("childPassInput").value;
+        API.childLogin(parentAccount, childName, password)
+          .then(function () {
+            rememberParentAccount(parentAccount.toLowerCase());
+            rememberChildForParent(parentAccount.toLowerCase(), childName);
+            setStatus("");
+            return bootstrap();
+          })
+          .catch(function (err) {
+            setStatus(err.message, true);
+          });
+        return;
+      }
+
+      const adminKey = document.getElementById("adminKeyInput").value;
+      const accountName = document.getElementById("accountNameInput").value.trim();
+      const displayName = document.getElementById("parentDisplayInput").value.trim();
+      API.adminCreateParent(accountName, displayName, adminKey)
+        .then(function (res) {
+          setStatus(
+            bi(
+              "已创建 " + res.user.email + "（默认密码 qwer1234）",
+              "Created " + res.user.email + " (default password qwer1234)"
+            ),
+            false
           );
-      p.then(function () {
-        setStatus("");
-        return bootstrap();
-      }).catch(function (err) {
-        setStatus(err.message, true);
-      });
+          showAuth("parent");
+          const emailEl = document.getElementById("emailInput");
+          if (emailEl) emailEl.value = res.user.email;
+        })
+        .catch(function (err) {
+          setStatus(err.message, true);
+        });
     };
   }
 
@@ -578,62 +772,98 @@
                 "<strong>" +
                 escapeHtml(c.displayName) +
                 "</strong> · " +
-                escapeHtml(c.email) +
-                " · View progress</button></li>"
+                bi("查看进度", "View progress") +
+                "</button></li>"
               );
             })
-            .join("") || "<li>No children yet — add one below.</li>";
+            .join("") ||
+          "<li>" + bi("还没有孩子 — 在下方添加。", "No children yet — add one below.") + "</li>";
 
         screen.innerHTML =
-          "<h2>👪 Parent home</h2>" +
-          '<p class="lead">Add child accounts — each child logs in with their own email to play.</p>' +
+          "<h2>👪 " + bi("家长主页", "Parent home") + "</h2>" +
+          '<p class="lead">' +
+          bi(
+            "只需输入孩子名字；登录账号会自动创建（您无需看到邮箱）。",
+            "Enter your child's name only; their login is created automatically (you don't see the email)."
+          ) +
+          "</p>" +
           '<ul class="child-list">' +
           list +
           "</ul>" +
           '<div class="form-panel">' +
-          '<h3 class="form-panel-title">➕ Add a child</h3>' +
+          '<h3 class="form-panel-title">➕ ' + bi("添加孩子", "Add a child") + "</h3>" +
           '<form id="addChildForm" class="auth-form auth-form--flat">' +
-          fieldGroup("childName", "Child's name", "text", {
+          fieldGroup("childName", bi("孩子名字", "Child's name"), "text", {
             placeholder: "e.g. Alex",
             required: true,
             maxlength: 32,
           }) +
-          fieldGroup("childEmail", "Child's email", "email", {
-            placeholder: "alex@example.com",
-            autocomplete: "email",
-            required: true,
-          }) +
-          fieldGroup("childPass", "Child's password", "password", {
-            placeholder: "At least 8 characters",
+          fieldGroup("childPass", bi("孩子密码", "Child's password"), "password", {
+            placeholder: bi("至少 8 个字符", "At least 8 characters"),
             minlength: 8,
             autocomplete: "new-password",
             required: true,
           }) +
           '<div class="auth-actions">' +
-          '<button type="submit" class="btn-fun">Add child ✓</button>' +
-          "</div>" +
-          "</form>" +
-          "</div>" +
+          '<button type="submit" class="btn-fun">' +
+          bi("添加孩子", "Add child") +
+          " ✓</button></div></form></div>" +
+          '<div class="form-panel">' +
+          '<h3 class="form-panel-title">🔑 ' + bi("修改密码", "Change password") + "</h3>" +
+          '<form id="changePassForm" class="auth-form auth-form--flat">' +
+          fieldGroup("curPass", bi("当前密码", "Current password"), "password", {
+            autocomplete: "current-password",
+            required: true,
+          }) +
+          fieldGroup("newPass", bi("新密码", "New password"), "password", {
+            minlength: 8,
+            autocomplete: "new-password",
+            required: true,
+          }) +
+          '<div class="auth-actions"><button type="submit" class="btn-fun">' +
+          bi("更新密码", "Update password") +
+          "</button></div></form></div>" +
           btnRow(
-            '<button type="button" class="secondary" id="logoutBtn">Log out</button>'
+            '<button type="button" class="secondary" id="logoutBtn">' +
+              bi("退出", "Log out") +
+              "</button>"
           );
 
         document.getElementById("addChildForm").onsubmit = function (ev) {
           ev.preventDefault();
           API.createChild(
             document.getElementById("childName").value.trim(),
-            document.getElementById("childEmail").value.trim(),
             document.getElementById("childPass").value
           )
-            .then(function () {
+            .then(function (res) {
+              const user = API.getUser();
+              if (user && user.email) {
+                rememberChildForParent(
+                  parentSlugFromEmail(user.email),
+                  (res.child && res.child.displayName) ||
+                    document.getElementById("childName").value.trim()
+                );
+              }
               showParentHome();
+            })
+            .catch(showError);
+        };
+        document.getElementById("changePassForm").onsubmit = function (ev) {
+          ev.preventDefault();
+          API.changePassword(
+            document.getElementById("curPass").value,
+            document.getElementById("newPass").value
+          )
+            .then(function () {
+              alert(bi("密码已更新。", "Password updated."));
+              document.getElementById("changePassForm").reset();
             })
             .catch(showError);
         };
         document.getElementById("logoutBtn").onclick = function () {
           API.logout().then(function () {
             updateFooter(null);
-            showAuth("login");
+            showAuth("parent");
           });
         };
         screen.querySelectorAll(".child-link").forEach(function (btn) {
@@ -709,7 +939,7 @@
         document.getElementById("logoutBtn").onclick = function () {
           API.logout().then(function () {
             updateFooter(null);
-            showAuth("login");
+            showAuth("parent");
           });
         };
       })
@@ -1197,7 +1427,7 @@
         document.getElementById("logoutBtn").onclick = function () {
           API.logout().then(function () {
             updateFooter(null);
-            showAuth("login");
+            showAuth("parent");
           });
         };
       })
@@ -1595,7 +1825,7 @@
       .catch(function () {
         API.clearSession();
         updateFooter(null);
-        showAuth("login");
+        showAuth("parent");
       });
   }
 
@@ -1608,7 +1838,7 @@
       updateFooter(user);
       bootstrap();
     } else {
-      showAuth("login");
+      showAuth("parent");
     }
   }
 

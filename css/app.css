@@ -431,6 +431,37 @@ input::placeholder {
   box-shadow: none;
 }
 
+.auth-hint {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.quick-pick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: -0.35rem 0 0.75rem;
+}
+
+.quick-pick {
+  padding: 0.35rem 0.65rem;
+  border: 2px solid #e8dcff;
+  border-radius: 999px;
+  background: var(--card);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blue-dark);
+  cursor: pointer;
+}
+
+.quick-pick:hover {
+  border-color: var(--pink);
+  background: #fff5f9;
+}
+
 .form-panel {
   background: linear-gradient(180deg, #fdfbff 0%, #f8f4ff 100%);
   border: 2px solid #e8dcff;

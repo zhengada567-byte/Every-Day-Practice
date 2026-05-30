@@ -1,11 +1,14 @@
 /**
- * Smoke test for Step 2 API. Requires: npm run dev (port 8888).
+ * Smoke test for API. Requires: npm run dev (port 8888), ADMIN_API_KEY in env.
  */
+import "../netlify/lib/load-env.mjs";
+
 const BASE = process.env.API_BASE || "http://localhost:8888/api/v1";
+const ADMIN_KEY = process.env.ADMIN_API_KEY || "";
 const stamp = Date.now();
 
-async function req(method, path, { token, body } = {}) {
-  const headers = { "Content-Type": "application/json" };
+async function req(method, path, { token, body, headers: extra } = {}) {
+  const headers = { "Content-Type": "application/json", ...extra };
   if (token) headers.Authorization = `Bearer ${token}`;
   const res = await fetch(`${BASE}${path}`, {
     method,
@@ -27,47 +30,41 @@ async function req(method, path, { token, body } = {}) {
 
 async function main() {
   console.log("API base:", BASE);
+  if (!ADMIN_KEY) {
+    throw new Error("Set ADMIN_API_KEY in .env or env.txt");
+  }
 
   const health = await req("GET", "/health");
   console.log("health:", health);
 
-  const parentEmail = `parent.${stamp}@example.com`;
-  const childEmail = `child.${stamp}@example.com`;
-  const password = "password123";
-
-  const reg = await req("POST", "/auth/register", {
-    body: {
-      email: parentEmail,
-      password,
-      displayName: "Test Parent",
-      role: "parent",
-    },
+  const accountName = `parent${stamp}`;
+  const parent = await req("POST", "/admin/parents", {
+    headers: { "X-Admin-Key": ADMIN_KEY },
+    body: { accountName, displayName: "Test Parent" },
   });
-  console.log("registered parent:", reg.user.email);
+  console.log("admin created parent:", parent.user.email);
+
+  const parentLogin = await req("POST", "/auth/login", {
+    body: { email: parent.user.email, password: "qwer1234" },
+  });
+  console.log("parent login ok");
 
   const child = await req("POST", "/parent/children", {
-    token: reg.token,
-    body: {
-      email: childEmail,
-      password,
-      displayName: "Test Child",
-    },
+    token: parentLogin.token,
+    body: { displayName: "Alex", password: "childpass1" },
   });
-  console.log("created child:", child.child.email);
+  console.log("created child:", child.child.displayName);
 
-  const login = await req("POST", "/auth/login", {
-    body: { email: childEmail, password },
+  const childLogin = await req("POST", "/auth/child-login", {
+    body: { parentAccount: accountName, childName: "Alex", password: "childpass1" },
   });
-  console.log("child login ok:", login.user.role);
+  console.log("child login ok:", childLogin.user.role);
 
-  const today = await req("GET", "/child/today", { token: login.token });
-  console.log("child/today:", today);
-
-  const start = await req("POST", "/child/daily-plan/start", { token: login.token });
-  console.log("daily-plan/start:", start.plan.newWordCount, "new,", start.plan.reviewWordCount, "review");
+  const today = await req("GET", "/child/today", { token: childLogin.token });
+  console.log("child/today:", today.date);
 
   const dash = await req("GET", `/parent/children/${child.child.id}/dashboard`, {
-    token: reg.token,
+    token: parentLogin.token,
   });
   console.log("parent dashboard mastery:", dash.mastery);
 

@@ -3,6 +3,7 @@ import "../lib/load-env.mjs";
 import { requireAuth, requireRole } from "../lib/auth.mjs";
 
 import * as assessmentHandlers from "../lib/handlers/assessment.mjs";
+import * as adminHandlers from "../lib/handlers/admin.mjs";
 import * as authHandlers from "../lib/handlers/auth.mjs";
 
 import * as calendarHandlers from "../lib/handlers/calendar.mjs";
@@ -69,10 +70,23 @@ export async function handler(event) {
 
     }
 
+    if (method === "POST" && path === "/admin/parents") {
+      return await adminHandlers.createParent(event, parseBody(event));
+    }
+
+    if (method === "POST" && path === "/auth/child-login") {
+      return await authHandlers.childLogin(event, parseBody(event));
+    }
+
     if (method === "POST" && path === "/auth/login") {
 
       return await authHandlers.login(event, parseBody(event));
 
+    }
+
+    if (method === "POST" && path === "/auth/change-password") {
+      const auth = requireAuth(event);
+      return await authHandlers.changePassword(event, auth, parseBody(event));
     }
 
     if (method === "POST" && path === "/auth/logout") {

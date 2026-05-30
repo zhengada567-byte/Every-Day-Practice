@@ -32,8 +32,11 @@
     setUser(null);
   }
 
-  async function request(method, path, body) {
+  async function request(method, path, body, opts) {
     const headers = { "Content-Type": "application/json" };
+    if (opts && opts.headers) {
+      Object.assign(headers, opts.headers);
+    }
     if (token) headers.Authorization = "Bearer " + token;
     const res = await fetch(API_BASE + path, {
       method: method,
@@ -92,6 +95,33 @@
       );
     },
 
+    childLogin: function (parentAccount, childName, password) {
+      return request("POST", "/auth/child-login", {
+        parentAccount: parentAccount,
+        childName: childName,
+        password: password,
+      }).then(function (data) {
+        saveAuthResponse(data);
+        return data;
+      });
+    },
+
+    changePassword: function (currentPassword, newPassword) {
+      return request("POST", "/auth/change-password", {
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      });
+    },
+
+    adminCreateParent: function (accountName, displayName, adminKey) {
+      return request(
+        "POST",
+        "/admin/parents",
+        { accountName: accountName, displayName: displayName || accountName },
+        { headers: { "X-Admin-Key": adminKey } }
+      );
+    },
+
     logout: function () {
       return request("POST", "/auth/logout").finally(clearSession);
     },
@@ -104,10 +134,9 @@
       return request("GET", "/parent/children");
     },
 
-    createChild: function (displayName, email, password) {
+    createChild: function (displayName, password) {
       return request("POST", "/parent/children", {
         displayName: displayName,
-        email: email,
         password: password,
       });
     },
