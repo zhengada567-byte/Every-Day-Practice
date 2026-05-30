@@ -10,6 +10,8 @@
   const loadStatus = document.getElementById("loadStatus");
 
   let today = null;
+  let childTab = "today";
+  let petState = null;
 
   function escapeHtml(s) {
     const d = document.createElement("div");
@@ -133,7 +135,283 @@
   }
 
   function showError(err) {
-    alert(err.message || "Something went wrong");
+    alert(err.message || "Something went wrong · 出了点问题");
+  }
+
+  /** Bilingual label: 中文 · English */
+  function bi(zh, en) {
+    return zh + " · " + en;
+  }
+
+  function formatTimeLeft(ms) {
+    if (!ms || ms <= 0) return "";
+    const h = Math.floor(ms / 3600000);
+    const m = Math.floor((ms % 3600000) / 60000);
+    if (h > 0) {
+      return bi(h + " 小时 " + m + " 分", h + " hr " + m + " min");
+    }
+    return bi(m + " 分钟", m + " min");
+  }
+
+  function coinRewardMessage(res) {
+    if (!res || !res.coinsEarned) return "";
+    return bi(
+      "🪙 获得 " +
+        res.coinsEarned +
+        " 枚金币！（每个词 " +
+        res.coinsPerWord +
+        " 枚 × " +
+        res.wordCount +
+        " 个词）",
+      "🪙 You earned " +
+        res.coinsEarned +
+        " golden coins! (" +
+        res.coinsPerWord +
+        " per word × " +
+        res.wordCount +
+        " words)"
+    );
+  }
+
+  function renderChildTabBar(active) {
+    const coins =
+      petState && petState.coins != null
+        ? '<span class="coin-pill">🪙 ' + petState.coins + "</span>"
+        : "";
+    return (
+      '<nav class="child-tabs" aria-label="Child sections">' +
+      '<button type="button" class="child-tab' +
+      (active === "today" ? " child-tab--active" : "") +
+      '" data-tab="today">' +
+      bi("今日练习", "Today") +
+      "</button>" +
+      '<button type="button" class="child-tab' +
+      (active === "pet" ? " child-tab--active" : "") +
+      '" data-tab="pet">' +
+      bi("宠物小精灵", "Pet") +
+      "</button>" +
+      coins +
+      "</nav>"
+    );
+  }
+
+  function mountChildTabs() {
+    screen.querySelectorAll(".child-tab").forEach(function (btn) {
+      btn.onclick = function () {
+        const tab = btn.dataset.tab;
+        if (tab === "today") showChildToday();
+        else if (tab === "pet") showChildPet();
+      };
+    });
+  }
+
+  function setChildScreen(activeTab, bodyHtml) {
+    childTab = activeTab;
+    screen.innerHTML =
+      renderChildTabBar(activeTab) + '<div class="child-panel">' + bodyHtml + "</div>";
+    mountChildTabs();
+  }
+
+  function refreshPetCoins() {
+    return API.getPet()
+      .then(function (state) {
+        petState = state;
+        const pill = screen.querySelector(".coin-pill");
+        if (pill) pill.textContent = "🪙 " + state.coins;
+        return state;
+      })
+      .catch(function () {
+        return null;
+      });
+  }
+
+  function handlePhaseComplete(res, onPlan) {
+    if (res.pet) petState = res.pet;
+    const msg = coinRewardMessage(res);
+    if (msg && onPlan) {
+      onPlan(res.plan, msg);
+      return;
+    }
+    if (onPlan) onPlan(res.plan, "");
+  }
+
+  function showChildPet() {
+    setStatus(bi("加载中…", "Loading…"));
+    API.getPet()
+      .then(function (state) {
+        petState = state;
+        setStatus("");
+        const hungerLabel =
+          state.hunger === "full" ? bi("饱足 😊", "Full 😊") : bi("饥饿 😢", "Hungry 😢");
+        const moodLabel =
+          state.mood === "happy" ? bi("开心 😄", "Happy 😄") : bi("无聊 😐", "Bored 😐");
+        const foodPct = Math.min(100, Math.round((state.foodProgress / state.foodNeeded) * 100));
+        const hungerHint =
+          state.hunger === "full"
+            ? bi(
+                "吃饱啦！约 " + formatTimeLeft(state.fullRemainingMs) + " 后会再饿",
+                "Full! Gets hungry again in about " + formatTimeLeft(state.fullRemainingMs)
+              )
+            : bi(
+                "再喂 " +
+                  (state.foodNeeded - state.foodProgress) +
+                  " 份食物就能吃饱（每天 10 份）",
+                "Feed " +
+                  (state.foodNeeded - state.foodProgress) +
+                  " more times to be full (10 meals per day)"
+              );
+        const moodHint =
+          state.mood === "happy"
+            ? bi(
+                "很开心！约 " + formatTimeLeft(state.happyRemainingMs) + " 后会无聊",
+                "Happy! Gets bored again in about " + formatTimeLeft(state.happyRemainingMs)
+              )
+            : bi(
+                "用 1 个玩具（3 金币）可以让它开心一整天",
+                "1 toy (3 coins) keeps your pet happy for 24 hours"
+              );
+
+        const outfit = state.outfit || "";
+        const outfitEmoji =
+          outfit === "cap"
+            ? "🧢"
+            : outfit === "scarf"
+              ? "🧣"
+              : outfit === "bow"
+                ? "🎀"
+                : "";
+
+        const shopItems = (state.shop || [])
+          .map(function (item) {
+            if (item.kind === "outfit") {
+              return (
+                '<button type="button" class="shop-item" data-buy="' +
+                escapeHtml(item.key) +
+                '">' +
+                '<span class="shop-emoji">' +
+                item.emoji +
+                "</span>" +
+                "<span>" +
+                escapeHtml(item.label) +
+                (item.labelEn ? " · " + escapeHtml(item.labelEn) : "") +
+                "</span>" +
+                '<span class="shop-price">🪙 ' +
+                item.cost +
+                "</span></button>"
+              );
+            }
+            return "";
+          })
+          .join("");
+
+        setChildScreen(
+          "pet",
+          "<h2>🏠 " + bi("宠物小精灵的家", "Pet home") + "</h2>" +
+            '<p class="lead">' +
+            bi("用练习赚来的金币照顾你的小伙伴！", "Use coins from practice to care for your pet!") +
+            "</p>" +
+            '<div class="pet-house">' +
+            '<div class="pet-scene" aria-hidden="false">' +
+            '<div class="pet-sky"></div>' +
+            '<div class="pet-sun" aria-hidden="true"></div>' +
+            '<div class="pet-cloud pet-cloud--a" aria-hidden="true"></div>' +
+            '<div class="pet-cloud pet-cloud--b" aria-hidden="true"></div>' +
+            '<div class="pet-grass" aria-hidden="true"></div>' +
+            '<span class="pet-flower pet-flower--1" aria-hidden="true">🌼</span>' +
+            '<span class="pet-flower pet-flower--2" aria-hidden="true">🌸</span>' +
+            '<span class="pet-flower pet-flower--3" aria-hidden="true">🌷</span>' +
+            '<span class="pet-flower pet-flower--4" aria-hidden="true">🌻</span>' +
+            '<span class="pet-flower pet-flower--5" aria-hidden="true">🌼</span>' +
+            '<span class="pet-flower pet-flower--6" aria-hidden="true">🌸</span>' +
+            '<div class="pet-room">' +
+            (outfitEmoji ? '<span class="pet-outfit">' + outfitEmoji + "</span>" : "") +
+            '<span class="pet-sprite" aria-hidden="true">🐥</span>' +
+            '<p class="pet-name">' + bi("小精灵", "Little buddy") + "</p>" +
+            "</div></div>" +
+            '<div class="pet-status-grid">' +
+            '<div class="pet-status-card">' +
+            "<h3>" + bi("肚子", "Tummy") + "</h3>" +
+            '<p class="pet-status-label ' +
+            (state.hunger === "full" ? "ok" : "warn") +
+            '">' +
+            hungerLabel +
+            "</p>" +
+            '<div class="pet-meter"><div class="pet-meter-fill" style="width:' +
+            foodPct +
+            '%"></div></div>' +
+            "<p class=\"pet-hint\">" +
+            escapeHtml(hungerHint) +
+            "</p>" +
+            "</div>" +
+            '<div class="pet-status-card">' +
+            "<h3>" + bi("心情", "Mood") + "</h3>" +
+            '<p class="pet-status-label ' +
+            (state.mood === "happy" ? "ok" : "warn") +
+            '">' +
+            moodLabel +
+            "</p>" +
+            "<p class=\"pet-hint\">" +
+            escapeHtml(moodHint) +
+            "</p>" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            '<section class="pet-shop">' +
+            "<h3>🛒 " + bi("商店", "Shop") + "</h3>" +
+            '<div class="shop-actions">' +
+            '<button type="button" class="btn-fun shop-feed" id="petFeed">🍎 ' +
+            bi("喂食（1 金币）", "Feed (1 coin)") +
+            "</button>" +
+            '<button type="button" class="btn-fun shop-play" id="petPlay">🧸 ' +
+            bi("玩玩具（3 金币）", "Play toy (3 coins)") +
+            "</button>" +
+            "</div>" +
+            '<p class="shop-note">' +
+            bi("衣服会穿在小精灵身上：", "Outfits appear on your pet:") +
+            "</p>" +
+            '<div class="shop-grid">' +
+            shopItems +
+            "</div>" +
+            "</section>"
+        );
+
+        document.getElementById("petFeed").onclick = function () {
+          setStatus(bi("喂食中…", "Feeding…"));
+          API.feedPet()
+            .then(function () {
+              setStatus("");
+              showChildPet();
+            })
+            .catch(function (err) {
+              setStatus(err.message, true);
+            });
+        };
+        document.getElementById("petPlay").onclick = function () {
+          setStatus(bi("玩耍中…", "Playing…"));
+          API.playPet()
+            .then(function () {
+              setStatus("");
+              showChildPet();
+            })
+            .catch(function (err) {
+              setStatus(err.message, true);
+            });
+        };
+        screen.querySelectorAll("[data-buy]").forEach(function (btn) {
+          btn.onclick = function () {
+            setStatus(bi("购买中…", "Buying…"));
+            API.buyPetOutfit(btn.dataset.buy)
+              .then(function () {
+                setStatus("");
+                showChildPet();
+              })
+              .catch(function (err) {
+                setStatus(err.message, true);
+              });
+          };
+        });
+      })
+      .catch(showError);
   }
 
   function sortAlpha(words) {
@@ -438,52 +716,323 @@
       .catch(showError);
   }
 
+  /* —— Child calendar —— */
+
+  const MONTH_NAMES = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  function pad2(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  function parseYmd(dateStr) {
+    const p = (dateStr || "").split("-");
+    return { year: Number(p[0]), month: Number(p[1]), day: Number(p[2]) };
+  }
+
+  function daysInMonth(year, month) {
+    return new Date(year, month, 0).getDate();
+  }
+
+  function weekdayMonFirst(dateStr) {
+    const d = new Date(dateStr + "T12:00:00+08:00");
+    return (d.getDay() + 6) % 7;
+  }
+
+  function shiftMonth(year, month, delta) {
+    let m = month + delta;
+    let y = year;
+    while (m < 1) {
+      m += 12;
+      y -= 1;
+    }
+    while (m > 12) {
+      m -= 12;
+      y += 1;
+    }
+    return { year: y, month: m };
+  }
+
+  function calendarDotHtml(flags) {
+    if (!flags || !flags.completed) return "";
+    const parts = [];
+    if (flags.daily) {
+      parts.push('<span class="cal-dot cal-dot--daily" title="' + bi("每日单词", "Daily words") + '"></span>');
+    }
+    if (flags.weekly) {
+      parts.push('<span class="cal-dot cal-dot--weekly" title="' + bi("每周测验", "Weekly quiz") + '"></span>');
+    }
+    if (flags.monthly) {
+      parts.push('<span class="cal-dot cal-dot--monthly" title="' + bi("每月测试", "Monthly test") + '"></span>');
+    }
+    if (!parts.length) parts.push('<span class="cal-dot cal-dot--done"></span>');
+    return '<span class="cal-dots">' + parts.join("") + "</span>";
+  }
+
+  function showChildCalendar(year, month) {
+    setStatus("Loading calendar…");
+    API.childCalendar(year, month)
+      .then(function (data) {
+        setStatus("");
+        const y = data.year;
+        const m = data.month;
+        const dim = daysInMonth(y, m);
+        const first = y + "-" + pad2(m) + "-01";
+        const pad = weekdayMonFirst(first);
+        const cells = [];
+        let d;
+        for (let i = 0; i < pad; i++) {
+          cells.push('<div class="cal-cell cal-cell--empty"></div>');
+        }
+        for (d = 1; d <= dim; d++) {
+          const key = y + "-" + pad2(m) + "-" + pad2(d);
+          const flags = data.days[key];
+          const isToday = key === data.today;
+          const clickable = flags && flags.completed;
+          const cls =
+            "cal-cell cal-day" +
+            (isToday ? " cal-day--today" : "") +
+            (clickable ? " cal-day--done" : "");
+          cells.push(
+            '<button type="button" class="' +
+              cls +
+              '" data-date="' +
+              escapeHtml(key) +
+              '"' +
+              (clickable ? "" : " disabled") +
+              ">" +
+              '<span class="cal-day-num">' +
+              d +
+              "</span>" +
+              calendarDotHtml(flags) +
+              "</button>"
+          );
+        }
+
+        const prev = shiftMonth(y, m, -1);
+        const next = shiftMonth(y, m, 1);
+
+        screen.innerHTML =
+          "<h2>📅 " + bi("练习日历", "Practice calendar") + "</h2>" +
+          '<p class="lead cal-legend">' +
+          bi(
+            "红点 = 那天完成了练习。点击有标记的日期可以再做一次。",
+            "Red dot = you finished something that day. Tap a marked day to practice again."
+          ) +
+          "</p>" +
+          '<div class="cal-nav">' +
+          '<button type="button" class="secondary cal-nav-btn" id="calPrev">←</button>' +
+          "<strong>" +
+          MONTH_NAMES[m - 1] +
+          " " +
+          y +
+          "</strong>" +
+          '<button type="button" class="secondary cal-nav-btn" id="calNext">→</button>' +
+          "</div>" +
+          '<div class="cal-weekdays">' +
+          ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+            .map(function (w) {
+              return '<span class="cal-weekday">' + w + "</span>";
+            })
+            .join("") +
+          "</div>" +
+          '<div class="cal-grid">' +
+          cells.join("") +
+          "</div>" +
+          '<p class="cal-legend-hint"><span class="cal-dot cal-dot--daily"></span> ' +
+          bi("每日", "daily") +
+          ' · <span class="cal-dot cal-dot--weekly"></span> ' +
+          bi("测验", "quiz") +
+          ' · <span class="cal-dot cal-dot--monthly"></span> ' +
+          bi("测试", "test") +
+          "</p>" +
+          btnRow(
+            '<button type="button" class="secondary" id="calBackToday">' +
+              bi("返回今天", "Back to today") +
+              "</button>"
+          );
+
+        document.getElementById("calPrev").onclick = function () {
+          showChildCalendar(prev.year, prev.month);
+        };
+        document.getElementById("calNext").onclick = function () {
+          showChildCalendar(next.year, next.month);
+        };
+        document.getElementById("calBackToday").onclick = showChildToday;
+        screen.querySelectorAll(".cal-day--done").forEach(function (btn) {
+          btn.onclick = function () {
+            showChildCalendarDay(btn.dataset.date);
+          };
+        });
+      })
+      .catch(showError);
+  }
+
+  function showChildCalendarDay(dateStr) {
+    setStatus("Loading…");
+    API.childCalendarDay(dateStr)
+      .then(function (data) {
+        setStatus("");
+        const parts = parseYmd(data.date);
+        const title =
+          MONTH_NAMES[parts.month - 1] + " " + parts.day + ", " + parts.year;
+        let list = "";
+
+        if (!data.activities || !data.activities.length) {
+          list =
+            '<p class="lead">' +
+            bi("这一天还没有完成的练习。", "No completed practice on this day.") +
+            "</p>";
+        } else {
+          list =
+            '<ul class="cal-activity-list">' +
+            data.activities
+              .map(function (act) {
+                const icon =
+                  act.kind === "daily"
+                    ? "📖"
+                    : act.kind === "monthly"
+                      ? "📆"
+                      : "📋";
+                return (
+                  '<li class="cal-activity-item">' +
+                  "<span>" +
+                  icon +
+                  " <strong>" +
+                  escapeHtml(act.label) +
+                  "</strong></span>" +
+                  '<button type="button" class="btn-fun cal-redo-btn" data-kind="' +
+                  escapeHtml(act.kind) +
+                  '" data-id="' +
+                  escapeHtml(act.id) +
+                  '">' +
+                  bi("再做一次", "Practice again") +
+                  "</button>" +
+                  "</li>"
+                );
+              })
+              .join("") +
+            "</ul>";
+        }
+
+        const ym = { year: parts.year, month: parts.month };
+
+        screen.innerHTML =
+          "<h2>📅 " +
+          escapeHtml(title) +
+          "</h2>" +
+          list +
+          btnRow(
+            '<button type="button" class="secondary" id="calBackMonth">' +
+              bi("返回日历", "Back to calendar") +
+              '</button><button type="button" class="secondary" id="calBackToday2">' +
+              bi("返回今天", "Back to today") +
+              "</button>"
+          );
+
+        document.getElementById("calBackMonth").onclick = function () {
+          showChildCalendar(ym.year, ym.month);
+        };
+        document.getElementById("calBackToday2").onclick = showChildToday;
+
+        screen.querySelectorAll(".cal-redo-btn").forEach(function (btn) {
+          btn.onclick = function () {
+            const kind = btn.dataset.kind;
+            const id = btn.dataset.id;
+            btn.disabled = true;
+            btn.textContent = "Loading…";
+            if (kind === "daily") {
+              API.replayDailyPlan(id)
+                .then(function (res) {
+                  runDailyFlow(res.plan);
+                })
+                .catch(showError);
+            } else {
+              API.replayAssessment(id)
+                .then(function (res) {
+                  runQuizItems(res.assessment);
+                })
+                .catch(showError);
+            }
+          };
+        });
+      })
+      .catch(showError);
+  }
+
   /* —— Child today —— */
 
   function phaseLabel(phase) {
     return (
       {
-        learn: "📖 Learn",
-        l1: "🎯 Level 1",
-        l2: "✏️ Level 2",
-        l3: "📝 Level 3",
-        done: "✅ Done",
+        learn: "📖 " + bi("学习", "Learn"),
+        l1: "🎯 " + bi("第 1 关", "Level 1"),
+        l2: "✏️ " + bi("第 2 关", "Level 2"),
+        l3: "📝 " + bi("第 3 关", "Level 3"),
+        done: "✅ " + bi("完成", "Done"),
       }[phase] || phase
     );
   }
 
   function assessmentLabel(type) {
-    return type === "monthly" ? "Monthly test" : "Weekly quiz";
+    return type === "monthly" ? bi("每月测试", "Monthly test") : bi("每周测验", "Weekly quiz");
   }
 
   function assessmentButtonLabel(type, action) {
     const name = assessmentLabel(type);
-    if (action === "start") return "Start " + name.toLowerCase() + " 🚀";
-    if (action === "continue") return "Continue " + name.toLowerCase() + " 📋";
-    return "Take " + name.toLowerCase() + " 📋";
+    if (action === "start") return bi("开始", "Start") + " " + name + " 🚀";
+    if (action === "continue") return bi("继续", "Continue") + " " + name + " 📋";
+    return bi("参加", "Take") + " " + name + " 📋";
   }
 
   function renderBlockingAssessmentBanner(assessment, context) {
     const label = assessmentLabel(assessment.type);
     let html = "";
     if (context === "sunday") {
-      html += '<p class="feedback bad">You still have a ' + label.toLowerCase() + " to finish (makeup).</p>";
+      html +=
+        '<p class="feedback bad">' +
+        bi(
+          "你还有 " + label + " 要完成（补做）。",
+          "You still have a " + label + " to finish (makeup)."
+        ) +
+        "</p>";
     } else if (context === "workday") {
       html +=
         '<div class="quiz-banner">' +
-        '<p class="feedback bad">Finish your <strong>' +
-        label.toLowerCase() +
-        "</strong> before today's new words.</p>" +
+        '<p class="feedback bad">' +
+        bi(
+          "请先完成<strong>" + label + "</strong>，再做今天的新单词。",
+          "Finish your <strong>" + label + "</strong> before today's new words."
+        ) +
+        "</p>" +
         "<p>" +
         assessment.wordCount +
-        " words · " +
+        " " +
+        bi("个词", "words") +
+        " · " +
         assessment.status +
         "</p></div>";
     } else {
       html +=
         "<p><strong>" +
         assessment.wordCount +
-        " words</strong> · mixed questions</p>";
+        "</strong> " +
+        bi("个词", "words") +
+        " · " +
+        bi("混合题型", "mixed questions") +
+        "</p>";
     }
     html += btnRow(
       '<button type="button" class="btn-fun" id="quizBtn">' +
@@ -495,66 +1044,122 @@
 
   function showChildToday() {
     setStatus("Loading today…");
-    API.childToday()
-      .then(function (data) {
+    Promise.all([API.childToday(), API.getPet().catch(function () { return null; })])
+      .then(function (results) {
+        const data = results[0];
+        if (results[1]) petState = results[1];
         today = data;
         setStatus("");
         let body = "";
         if (data.isSunday) {
-          body += '<p class="lead">🌴 Sunday — rest day for new words.</p>';
+          body +=
+            '<p class="lead">🌴 ' +
+            bi("星期日 — 休息日，没有新单词。", "Sunday — rest day for new words.") +
+            "</p>";
           if (data.blockingAssessment) {
             body += renderBlockingAssessmentBanner(data.blockingAssessment, "sunday");
           }
         } else if (data.isSaturday) {
-          body += '<p class="lead">📋 Saturday — quiz day!</p>';
+          body +=
+            '<p class="lead">📋 ' + bi("星期六 — 测验日！", "Saturday — quiz day!") + "</p>";
           if (data.isLastSaturday) {
             body +=
-              '<p class="lead-hint">Last Saturday of the month — weekly quiz first, then monthly test when ready.</p>';
+              '<p class="lead-hint">' +
+              bi(
+                "本月最后一个星期六 — 先做每周测验，再做每月测试。",
+                "Last Saturday of the month — weekly quiz first, then monthly test when ready."
+              ) +
+              "</p>";
           }
           if (data.blockingAssessment) {
             body += renderBlockingAssessmentBanner(data.blockingAssessment, "saturday");
           } else {
             body +=
-              '<p class="lead">No quiz yet — complete at least one workday this week first.</p>';
+              '<p class="lead">' +
+              bi(
+                "还没有测验 — 本周至少完成一个上学日再来。",
+                "No quiz yet — complete at least one workday this week first."
+              ) +
+              "</p>";
           }
         } else if (data.blockingAssessment) {
           body += renderBlockingAssessmentBanner(data.blockingAssessment, "workday");
         } else if (data.dailyPlan) {
           const p = data.dailyPlan;
           body +=
-            "<p><strong>Today's plan</strong> · " +
+            "<p><strong>" +
+            bi("今日计划", "Today's plan") +
+            "</strong> · " +
             p.newWordCount +
-            " new" +
-            (p.reviewWordCount ? " + " + p.reviewWordCount + " review" : "") +
+            " " +
+            bi("新词", "new") +
+            (p.reviewWordCount ? " + " + p.reviewWordCount + " " + bi("复习", "review") : "") +
             "</p>" +
-            "<p>Step: <strong>" +
+            "<p>" +
+            bi("步骤", "Step") +
+            ": <strong>" +
             phaseLabel(p.phase) +
             "</strong> · " +
             p.status +
             "</p>" +
             btnRow(
-              '<button type="button" class="btn-fun" id="continueBtn">Continue today\'s words</button>'
+              '<button type="button" class="btn-fun" id="continueBtn">' +
+                bi("继续今日单词", "Continue today's words") +
+                "</button>"
             );
         } else if (data.canStartDaily) {
           body +=
-            "<p>Ready for <strong>5 new words</strong>" +
-            (data.wordCount > 5 ? "" : " (review words appear after your first quiz)") +
-            ".</p>" +
+            "<p>" +
+            bi("准备好学习", "Ready for") +
+            " <strong>5 " +
+            bi("个新词", "new words") +
+            "</strong>" +
+            (data.wordCount > 5
+              ? "."
+              : " " +
+                bi("（第一次测验后会有复习词）", "(review words appear after your first quiz)") +
+                ".") +
+            "</p>" +
             btnRow(
-              '<button type="button" class="btn-fun" id="startBtn">Start today\'s words 🚀</button>'
+              '<button type="button" class="btn-fun" id="startBtn">' +
+                bi("开始今日单词", "Start today's words") +
+                " 🚀</button>"
             );
         } else if (!data.isWorkday) {
-          body += "<p class=\"lead\">No school words today (holiday or weekend).</p>";
+          body +=
+            '<p class="lead">' +
+            bi("今天不上学（假期或周末）。", "No school words today (holiday or weekend).") +
+            "</p>";
         }
 
-        screen.innerHTML =
+        const coinTip =
+          petState && petState.coins != null
+            ? '<p class="coin-tip">🪙 ' +
+              bi(
+                "你有 <strong>" + petState.coins + "</strong> 枚金币 · 完成练习关卡可以赚更多！",
+                "You have <strong>" +
+                  petState.coins +
+                  "</strong> golden coins · Finish practice levels to earn more!"
+              ) +
+              "</p>"
+            : "";
+
+        setChildScreen(
+          "today",
           "<h2>📅 Today · " +
-          escapeHtml(data.date) +
-          " (HK)</h2>" +
-          body +
-          btnRow(
-            '<button type="button" class="secondary" id="logoutBtn">Log out</button>'
-          );
+            escapeHtml(data.date) +
+            " (HK)</h2>" +
+            coinTip +
+            body +
+            btnRow(
+              '<button type="button" class="secondary" id="openCalBtn">' +
+                bi("练习日历", "Practice calendar") +
+                "</button>" +
+                '<button type="button" class="secondary" id="logoutBtn">' +
+                bi("退出", "Log out") +
+                "</button>"
+            )
+        );
 
         const startBtn = document.getElementById("startBtn");
         if (startBtn) {
@@ -580,6 +1185,13 @@
         if (quizBtn) {
           quizBtn.onclick = function () {
             runAssessment(data.blockingAssessment.id);
+          };
+        }
+        const calBtn = document.getElementById("openCalBtn");
+        if (calBtn) {
+          calBtn.onclick = function () {
+            const p = parseYmd(data.date);
+            showChildCalendar(p.year, p.month);
           };
         }
         document.getElementById("logoutBtn").onclick = function () {
@@ -683,7 +1295,25 @@
       runMatching(words, "meaning", function () {
         API.completePhase(plan.id, "l1")
           .then(function (res) {
-            runDailyFlow(res.plan);
+            handlePhaseComplete(res, function (plan, msg) {
+              if (msg) {
+                screen.innerHTML =
+                  "<h2>🪙 " + bi("Level 1 完成！", "Level 1 complete!") + "</h2>" +
+                  '<p class="lead feedback ok">' +
+                  escapeHtml(msg) +
+                  "</p>" +
+                  btnRow(
+                    '<button type="button" class="btn-fun" id="l1Next">' +
+                      bi("继续", "Continue") +
+                      " →</button>"
+                  );
+                document.getElementById("l1Next").onclick = function () {
+                  runDailyFlow(plan);
+                };
+              } else {
+                runDailyFlow(plan);
+              }
+            });
           })
           .catch(showError);
       }, plan);
@@ -817,7 +1447,25 @@
           if (index >= words.length) {
             API.completePhase(plan.id, "l2")
               .then(function (res) {
-                runDailyFlow(res.plan);
+                handlePhaseComplete(res, function (plan, msg) {
+                  if (msg) {
+                    screen.innerHTML =
+                      "<h2>🪙 " + bi("Level 2 完成！", "Level 2 complete!") + "</h2>" +
+                      '<p class="lead feedback ok">' +
+                      escapeHtml(msg) +
+                      "</p>" +
+                      btnRow(
+                        '<button type="button" class="btn-fun" id="l2Next">' +
+                          bi("继续", "Continue") +
+                          " →</button>"
+                      );
+                    document.getElementById("l2Next").onclick = function () {
+                      runDailyFlow(plan);
+                    };
+                  } else {
+                    runDailyFlow(plan);
+                  }
+                });
               })
               .catch(showError);
             return;
@@ -881,12 +1529,16 @@
         function showSentence() {
           if (index >= words.length) {
             API.completePhase(plan.id, "l3")
-              .then(function () {
-                screen.innerHTML =
-                  "<h2>🎉 All done for today!</h2>" +
-                  "<p class=\"lead\">You finished all steps. See you next workday!</p>" +
-                  btnRow('<button type="button" id="doneBtn">Back to today</button>');
-                document.getElementById("doneBtn").onclick = showChildToday;
+              .then(function (res) {
+                handlePhaseComplete(res, function (_plan, msg) {
+                  screen.innerHTML =
+                    "<h2>🎉 All done for today!</h2>" +
+                    (msg
+                      ? '<p class="lead feedback ok">' + escapeHtml(msg) + "</p>"
+                      : '<p class="lead">You finished all steps. See you next workday!</p>') +
+                    btnRow('<button type="button" id="doneBtn">Back to today</button>');
+                  document.getElementById("doneBtn").onclick = showChildToday;
+                });
               })
               .catch(showError);
             return;

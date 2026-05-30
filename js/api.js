@@ -126,6 +126,41 @@
       return request("GET", "/child/today");
     },
 
+    childCalendar: function (year, month) {
+      return request(
+        "GET",
+        "/child/calendar?year=" + encodeURIComponent(year) + "&month=" + encodeURIComponent(month)
+      );
+    },
+
+    childCalendarDay: function (date) {
+      return request("GET", "/child/calendar/day?date=" + encodeURIComponent(date));
+    },
+
+    replayDailyPlan: function (planId) {
+      return request("POST", "/child/daily-plan/" + planId + "/replay");
+    },
+
+    replayAssessment: function (assessmentId) {
+      return request("POST", "/child/assessments/" + assessmentId + "/replay");
+    },
+
+    getPet: function () {
+      return request("GET", "/child/pet");
+    },
+
+    feedPet: function () {
+      return request("POST", "/child/pet/feed");
+    },
+
+    playPet: function () {
+      return request("POST", "/child/pet/play");
+    },
+
+    buyPetOutfit: function (item) {
+      return request("POST", "/child/pet/buy", { item: item });
+    },
+
     startDailyPlan: function () {
       return request("POST", "/child/daily-plan/start");
     },

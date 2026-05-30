@@ -7,6 +7,7 @@ import {
   startDailyPlan,
 } from "../daily.mjs";
 import { buildTodayPayload } from "../daily.mjs";
+import { awardPhaseCoins } from "../pet.mjs";
 import { ok } from "../http.mjs";
 
 export async function startPlan(event, childAuth) {
@@ -58,5 +59,15 @@ export async function completePhase(event, childAuth, planId, body) {
     throw err;
   }
   const plan = await advancePhase(planId, childAuth.sub, phase, query);
-  return ok(event, { plan });
+  let reward = { coinsEarned: 0 };
+  if (phase === "l1" || phase === "l2" || phase === "l3") {
+    reward = await awardPhaseCoins(childAuth.sub, planId, phase, query);
+  }
+  return ok(event, {
+    plan,
+    coinsEarned: reward.coinsEarned || 0,
+    coinsPerWord: reward.coinsPerWord,
+    wordCount: reward.wordCount,
+    pet: reward.pet,
+  });
 }

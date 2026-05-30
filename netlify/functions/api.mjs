@@ -5,6 +5,7 @@ import { requireAuth, requireRole } from "../lib/auth.mjs";
 import * as assessmentHandlers from "../lib/handlers/assessment.mjs";
 import * as authHandlers from "../lib/handlers/auth.mjs";
 
+import * as calendarHandlers from "../lib/handlers/calendar.mjs";
 import * as childHandlers from "../lib/handlers/child.mjs";
 
 import * as dailyHandlers from "../lib/handlers/daily.mjs";
@@ -13,6 +14,7 @@ import * as grammarHandlers from "../lib/handlers/grammar.mjs";
 import * as healthHandlers from "../lib/handlers/health.mjs";
 
 import * as parentHandlers from "../lib/handlers/parent.mjs";
+import * as petHandlers from "../lib/handlers/pet.mjs";
 
 import {
 
@@ -133,7 +135,47 @@ export async function handler(event) {
 
     }
 
+    if (method === "GET" && path === "/child/pet") {
+      const child = requireRole(event, "child");
+      return await petHandlers.getState(event, child);
+    }
 
+    if (method === "POST" && path === "/child/pet/feed") {
+      const child = requireRole(event, "child");
+      return await petHandlers.feed(event, child);
+    }
+
+    if (method === "POST" && path === "/child/pet/play") {
+      const child = requireRole(event, "child");
+      return await petHandlers.play(event, child);
+    }
+
+    if (method === "POST" && path === "/child/pet/buy") {
+      const child = requireRole(event, "child");
+      return await petHandlers.buy(event, child, parseBody(event));
+    }
+
+    if (method === "GET" && path === "/child/calendar") {
+      const child = requireRole(event, "child");
+      return await calendarHandlers.getMonth(event, child);
+    }
+
+    if (method === "GET" && path === "/child/calendar/day") {
+      const child = requireRole(event, "child");
+      return await calendarHandlers.getDay(event, child);
+    }
+
+    const planReplayMatch = path.match(/^\/child\/daily-plan\/([^/]+)\/replay$/);
+    if (method === "POST" && planReplayMatch) {
+      const child = requireRole(event, "child");
+      return await calendarHandlers.replayPlan(event, child, planReplayMatch[1]);
+    }
+
+    const assessReplayMatch = path.match(/^\/child\/assessments\/([^/]+)\/replay$/);
+    if (method === "POST" && assessReplayMatch) {
+      const child = requireRole(event, "child");
+      return await calendarHandlers.replayQuiz(event, child, assessReplayMatch[1]);
+    }
 
     if (method === "POST" && path === "/child/daily-plan/start") {
 
